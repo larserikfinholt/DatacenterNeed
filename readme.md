@@ -1,5 +1,27 @@
 # Project: Measuring the Real Societal Need for Data Centres
 
+> **Important:** All current NO/SE fixture numbers are synthetic. They are not empirical national estimates. There is no web dashboard or real dataset yet; `national_total` remains `null`.
+
+## Quickstart
+
+Requires Python 3.12 or later and [uv](https://docs.astral.sh/uv/getting-started/installation/).
+
+```powershell
+uv sync --frozen
+uv run datacenter-need validate --input data/examples/synthetic.yaml
+uv run datacenter-need build --offline --input data/examples/synthetic.yaml --output build/example
+uv run pytest
+uv run ruff check .
+```
+
+The offline build writes replayable input traces and artifacts to `build/example/`: `result.json`, `occupation_breakdown.csv`, `input.schema.json`, and `manifest.json`. Schema export is optional:
+
+```powershell
+uv run datacenter-need schema --output build/input.schema.json
+```
+
+Read the [methodology](docs/methodology.md), [source register](docs/source-register.md), [contribution guidance](CONTRIBUTING.md), and [implementation status](docs/implementation-status.md) before interpreting or extending the fixtures.
+
 ## Purpose
 
 Build an open, evidence-based project for assessing how much data-centre capacity societies actually need, what that capacity is used for, and what societal value is created in return for the energy, land, grid capacity and infrastructure consumed.

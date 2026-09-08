@@ -1,0 +1,142 @@
+schema_version: "1.0"
+model_version: "1.0"
+sources:
+  - id: synthetic-workforce
+    title: Synthetic workforce fixture
+    publisher: DatacenterNeed test fixture
+    source_kind: synthetic
+    license: Not designated; synthetic project fixture
+    locator: Generated example, not observed evidence
+  - id: assumption-usage
+    title: Synthetic AI usage assumptions
+    publisher: DatacenterNeed test fixture
+    source_kind: assumption
+    license: Not designated; synthetic project fixture
+    locator: Generated example, not observed evidence
+  - id: assumption-energy
+    title: Synthetic request-level energy assumptions
+    publisher: DatacenterNeed test fixture
+    source_kind: assumption
+    license: Not designated; synthetic project fixture
+    locator: Generated example, not a measured benchmark
+  - id: synthetic-capacity
+    title: Synthetic 2 GW facility thought experiment
+    publisher: DatacenterNeed test fixture
+    source_kind: synthetic
+    license: Not designated; synthetic project fixture
+    locator: Generated example, not Norway capacity evidence
+observations:
+  - id: no-workers
+    country_code: "NO"
+    year: 2025
+    metric: workers
+    unit: people
+    value: 1000
+    source_id: synthetic-workforce
+    definition: Synthetic employed-person count for contract testing
+    boundary: employment_headcount
+    evidence_status: synthetic
+    locator: synthetic row NO workers
+  - id: no-hours
+    country_code: "NO"
+    year: 2025
+    metric: annual_hours
+    unit: hour_per_worker_year
+    value: 1600
+    source_id: synthetic-workforce
+    definition: Synthetic annual hours per employed person
+    boundary: annual_hours_per_worker
+    evidence_status: synthetic
+    locator: synthetic row NO hours
+  - id: se-workers
+    country_code: SE
+    year: 2025
+    metric: workers
+    unit: people
+    value: 800
+    source_id: synthetic-workforce
+    definition: Synthetic employed-person count for second-country testing
+    boundary: employment_headcount
+    evidence_status: synthetic
+    locator: synthetic row SE workers
+  - id: se-hours
+    country_code: SE
+    year: 2025
+    metric: annual_hours
+    unit: hour_per_worker_year
+    value: 1500
+    source_id: synthetic-workforce
+    definition: Synthetic annual hours per employed person
+    boundary: annual_hours_per_worker
+    evidence_status: synthetic
+    locator: synthetic row SE hours
+  - id: synthetic-facility-2gw
+    country_code: "NO"
+    year: 2025
+    metric: facility_capacity
+    unit: MW
+    value: 2000
+    source_id: synthetic-capacity
+    definition: Synthetic facility capacity for a full-year thought experiment
+    boundary: cloud_facility
+    evidence_status: synthetic
+    locator: synthetic 2 GW comparator
+occupations:
+  - id: no-synthetic-occupation
+    title: Synthetic Norway occupation
+    country_code: "NO"
+    year: 2025
+    workforce_basis: headcount
+    workers_observation_id: no-workers
+    annual_hours_observation_id: no-hours
+  - id: se-synthetic-occupation
+    title: Synthetic Sweden occupation
+    country_code: SE
+    year: 2025
+    workforce_basis: headcount
+    workers_observation_id: se-workers
+    annual_hours_observation_id: se-hours
+task_profiles:
+  - id: no-synthetic-task
+    occupation_id: no-synthetic-occupation
+    digital_fraction: 0.5
+    ai_fraction: 0.1
+    requests_per_ai_hour: 4
+    source_ids: [assumption-usage]
+    placements:
+      - name: synthetic cloud model
+        share: 0.7
+        benchmark_id: synthetic-cloud-it
+      - name: synthetic local model
+        share: 0.3
+        benchmark_id: synthetic-local
+  - id: se-synthetic-task
+    occupation_id: se-synthetic-occupation
+    digital_fraction: 0.4
+    ai_fraction: 0.2
+    requests_per_ai_hour: 3
+    source_ids: [assumption-usage]
+    placements:
+      - name: synthetic cloud model
+        share: 0.6
+        benchmark_id: synthetic-cloud-it
+      - name: synthetic local model
+        share: 0.4
+        benchmark_id: synthetic-local
+energy_benchmarks:
+  - id: synthetic-cloud-it
+    title: Synthetic cloud IT request benchmark
+    kwh_per_request: 0.002
+    boundary: cloud_it
+    source_id: assumption-energy
+    definition: Synthetic request-level cloud IT energy, not measured evidence
+  - id: synthetic-local
+    title: Synthetic local-device request benchmark
+    kwh_per_request: 0.0005
+    boundary: local_device
+    source_id: assumption-energy
+    definition: Synthetic request-level local-device energy, not measured evidence
+cloud_pue:
+  value: 1.2
+  source_ids: [assumption-energy]
+facility_comparator_observation_ids: [synthetic-facility-2gw]
