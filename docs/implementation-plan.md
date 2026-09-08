@@ -1,0 +1,182 @@
+# Implementation Plan and Session Handoff
+
+Updated: 2026-09-08. This file is the durable handoff for a fresh coding session.
+It supersedes the original session-only plan where implementation status differs.
+
+## Prompt for the Next Session
+
+> Read docs/implementation-plan.md, docs/implementation-status.md, and the research brief in readme.md. Continue from the verified-data milestone, preserving the implemented Python foundation and existing changes. Use GPT-5.6 Sol (copilot) for implementation subagents and GPT-5.6 Terra (copilot) for simpler tasks. Tell me if those models cannot be selected. First verify the local baseline, then implement a small, audited Norwegian source-data slice with tests and offline reproducibility. Keep assumptions separate from observations. Do not build a dashboard on invented national figures. Update the handoff and status documents when the milestone is complete. Do not commit, push, or deploy without my request.
+
+## Agreed Direction
+
+- Build an open, evidence-based research project, starting with Norway but country-neutral in its calculations.
+- First usable release: research foundation plus a deliberately simple public dashboard.
+- Python is the authoritative ingestion, validation, and calculation pipeline.
+- Publish versioned JSON/CSV artifacts to a static TypeScript dashboard.
+- Use Git-reviewed contributions for observations, assumptions, corrections, and new countries.
+- Proposed hosting is GitHub Pages. No database, accounts, backend API, or Azure resources are needed initially.
+- The project must be capable of supporting higher demand, lower demand, or no conclusion. It must actively seek counterevidence to its central hypothesis.
+
+## Completed Checkpoint
+
+The foundation is implemented, not merely planned:
+
+- Python package with Hatchling, Pydantic 2, Pint, PyYAML, pytest, Ruff, and a uv lockfile.
+- Provenance-linked input validation: source references, unique IDs, finite values, units, measurement boundaries, workforce basis, country/year compatibility, and placement shares.
+- Pure functions for annual requests, request-level inference electricity, PUE handling, annual-average load, equivalent capacity, and inverse requests per worker.
+- CLI commands: `validate`, `build`, and `schema`.
+- Deterministic offline JSON/CSV exports, a replayable `input_trace`, and a SHA-256 manifest.
+- Unknown occupation inputs stay unknown; all-unknown country subtotals are `null`, not zero. `national_total_mwh` remains `null` because coverage is incomplete.
+- Build output protection: invalid inputs preserve the previous output; unrelated files, an output directory containing the input, and unresolved backup directories are rejected.
+- Fully synthetic NO/SE fixtures. No empirical Norwegian observations or measured energy benchmarks have been loaded.
+- Methodology, source register, contribution guidance, README quickstart, and CI configuration.
+
+Last verified locally on Windows with Python 3.13.15 and uv 0.6.16:
+
+- 22 tests passed.
+- Ruff passed; editor diagnostics reported no errors.
+- Frozen dependency installation, input validation, and offline artifact build succeeded.
+- The schema export command was also run successfully in the user's terminal.
+
+CI is configured for Windows/Ubuntu and Python 3.12/3.13. Remote CI has not been verified. No deployment, frontend, remote resource creation, commit, or push was performed by the assistant. The user may check in the work after this handoff; inspect Git state rather than assuming changes remain uncommitted.
+
+## Start Here
+
+1. Read the [research brief](../readme.md), [methodology](methodology.md), [source register](source-register.md), and [contribution guidance](../CONTRIBUTING.md).
+2. Inspect current Git status and applicable repository instructions. Preserve user changes; do not scaffold over the existing project.
+3. Run the baseline below. These commands already exist, unlike the future commands mentioned later.
+4. Inspect the nearest schema, pipeline, and test before changing behavior. Choose one small source integration and validate it before expanding coverage.
+
+```powershell
+uv sync --frozen
+uv run pytest
+uv run ruff check .
+uv run datacenter-need validate --input data/examples/synthetic.yaml
+uv run datacenter-need build --offline --input data/examples/synthetic.yaml --output build/example
+uv run datacenter-need schema --output build/input.schema.json
+```
+
+Run from the repository root. The build writes `result.json`, `occupation_breakdown.csv`, `input.schema.json`, and `manifest.json` under `build/example/`. Generated output and local caches are ignored by Git; source fixtures and the lockfile are not.
+
+## Existing Implementation Map
+
+| File | Responsibility |
+| --- | --- |
+| [pyproject.toml](../pyproject.toml) | Package, dependencies, CLI entry point, test/lint configuration |
+| [schemas.py](../src/datacenter_need/schemas.py) | SourceRecord, Observation, OccupationInput, TaskProfile, EnergyBenchmarkInput, InputDataset |
+| [model.py](../src/datacenter_need/model.py) | annual_requests, inference_energy, annual_average_load_mw, facility_energy_mwh, equivalent_capacity_mw, inverse_requests_per_worker |
+| [pipeline.py](../src/datacenter_need/pipeline.py) | load_dataset, evaluate_dataset, build_dataset; tracing and deterministic artifacts |
+| [cli.py](../src/datacenter_need/cli.py) | argparse commands for validation, builds, and schema export |
+| [synthetic.yaml](../data/examples/synthetic.yaml) | Explicitly synthetic two-country fixture and 2 GW thought experiment |
+| [test_model.py](../tests/test_model.py) | Calculation, PUE, conversion, and inverse tests |
+| [test_data.py](../tests/test_data.py) | Input contracts, missing data, country neutrality, and replayable trace tests |
+| [test_build.py](../tests/test_build.py) | Repeatability, offline behavior, and output protection tests |
+| [ci.yml](../.github/workflows/ci.yml) | Frozen installation, tests, lint, validation, and offline build |
+
+## Next Milestone: Verified Norwegian Data
+
+### 1. Audit a Narrow Source Slice
+
+- Verify exact SSB employment table IDs, metadata, filters, reference periods, and population basis. Use the current PxWebApi v2 documentation, not guessed endpoints or remembered table definitions.
+- Verify STYRK-08/ISCO-08 classification and mapping through SSB Klass. Do not substitute industry categories for occupations or combine parent totals with child rows.
+- Choose one occupational group and compatible annual hours data. If group-specific hours cannot be verified, retain a missing value or a clearly documented assumption rather than presenting national-average hours as an observed group value.
+- Select a reference year based on compatible observations, not merely the current year or the synthetic fixture's 2025 date.
+- Record source URL, query, table/cell locator, publication/retrieval dates, unit, definition, geography, license, and limitations.
+
+Starting sources checked during planning on 2026-09-08:
+
+- [SSB public APIs](https://www.ssb.no/en/api): public access without registration; SSB states CC BY 4.0; separate Statbank and Klass APIs.
+- [SSB PxWebApi](https://www.ssb.no/en/api/pxwebapi): v2 supports GET/POST and metadata. Exact table IDs, query limits, and extraction requests remain unverified.
+- [Statnett connection statistics](https://www.statnett.no/nettkapasitet-til-produksjon-og-forbruk/foresporsler-og-reservasjon-i-nettet/): manually registered inquiries since 2018, acknowledged gaps, queued/reserved/connected categories. No machine-readable endpoint or numerical capacity dataset was verified.
+- NVE, SSB electricity statistics, municipal planning records, and operator filings are research candidates, not already-ingested evidence.
+
+### 2. Implement Fetch and Normalize Separately
+
+- Add an SSB adapter under `src/datacenter_need/sources/ssb.py` with tests under `tests/`. These paths are proposed, not existing modules.
+- Add `httpx` through uv when required. Do not install pandas or other planned libraries until the actual transformation warrants them.
+- Capture raw permitted snapshots plus metadata and checksums. Keep network fetching explicit and separate from offline builds; add a fetch command only once its contract is tested.
+- Use bounded requests, timeouts, and retries appropriate to the published API limits. Do not silently overwrite the last good snapshot on failure.
+- Extend existing schemas only as the real source requires: classification/version, population basis, dated observations, richer benchmark metadata, and source evidence distinctions are likely additions.
+- Keep the synthetic fixture as a regression example. Put real observations and assumption records in separate, clearly named data files.
+- Test missing/suppressed cells, changed dimensions, unit conversion, invalid responses, source attribution, and replay from pinned snapshots without network access.
+
+### 3. Complete One Research Calculation
+
+- Find a defensible request-level energy benchmark and one documented capacity or electricity observation. Capture benchmark model/version, hardware, workload, batching, context/output lengths, utilization, and measurement boundary where available.
+- Do not treat GPU-only measurements as complete IT electricity. Do not derive energy from API prices or model size alone.
+- Use reviewed manual extraction with exact locators if a source has no stable export. Do not invent a machine-readable endpoint.
+- Preserve unknown or explicitly assumed AI usage, energy coefficients, and domestic-hosting shares. Verified employment alone does not make the resulting AI-demand estimate empirical.
+- Expose the result, assumptions, missing components, and source trace in the offline artifacts. Never relabel the existing synthetic 2 GW example as a real project.
+
+Acceptance gate: at least one actual Norwegian observation is reproducible from its archived source, and an occupation calculation can be traced through explicit assumptions to its output. Relevant tests, lint, and offline build pass. If energy or capacity evidence is unavailable, publish the gap and accurately report partial completion rather than fabricate a complete milestone. Update the source register, README notice, and implementation status accordingly.
+
+## Remaining Roadmap
+
+### Milestone 2: Norway Coverage and Project Inventory
+
+- Expand to nonoverlapping broad workforce coverage, with detailed task profiles for approximately 10-15 occupational groups where evidence permits. Show the uncovered remainder explicitly.
+- Add national electricity production/consumption and a dated project inventory with visible completeness limits.
+- Give projects and phases stable IDs and aliases. Separate construction status from grid status. Deduplicate observations of the same project across announcements, queues, reservations, and filings.
+- Extend metric/boundary contracts for connection MW, installed IT MW, facility MW, actual/average load, peak demand, and annual electricity. Do not force all quantities into the current facility-capacity metric.
+- Add an evidence ledger with supporting/challenging/mixed findings, methods, applicability, funding, limitations, and links to affected assumptions.
+- Collect permanent FTE separately from construction jobs/job-years. Add land, taxes, value added, exports, and public infrastructure costs only with compatible definitions and periods.
+
+Acceptance gate: published totals show coverage and dates, have no project/occupation double-counting, and remain traceable. Unknown categories cannot become zero by aggregation.
+
+### Milestone 3: Scenarios, Hosting, and Value
+
+- Implement scenario evaluation, hosting allocation, sensitivity analysis, and value metrics in small modules adjacent to the existing engine.
+- Cross conservative/moderate/high adoption with cloud-heavy/hybrid/local-heavy placement. These independent axes cover all five scenario concepts in the brief.
+- Keep model mix, efficiency, PUE, domestic-hosted share, and autonomous/background demand explicit. Background activity is not bounded by worker hours.
+- Model rebound against a documented baseline, avoiding a second multiplier for demand already represented in a high-adoption scenario.
+- Keep non-AI, consumer AI, training, fine-tuning, retrieval/embeddings, and background inference separate. Use defensible observations or assumptions; otherwise retain unknowns.
+- Allocate national consumption between domestically hosted and imported services, and account separately for exported hosting. A residual capacity gap is unallocated, not automatically export demand or waste.
+- Expand inverse calculations to stated allocations and hosting shares, with explicit denominators and AI-only labels where appropriate.
+- Start with named ranges, one-at-a-time sensitivity, and joint stress cases. Do not label these confidence intervals or invent probability distributions.
+- Report resource/value ratios using matched boundaries and dates. Do not sum taxes, turnover, exports, and GDP value added as independent benefits or convert task speedups directly into societal productivity.
+
+Acceptance gate: all presets expose their assumptions, conservation and boundary tests pass, high-demand counterexamples are possible, and missing demand prevents a purported complete national total.
+
+### Milestone 4: Static Dashboard
+
+- Proposed stack: Vite vanilla TypeScript, Vega-Lite charts, Lucide icons, Vitest, and Playwright. No frontend currently exists; Node 22.20.0 was available in the initial session.
+- Build four simple views: capacity/electricity; demand/scenarios; project benefits/resources; sources/assumptions/evidence.
+- Default to a usable explorer, not a marketing landing page. Provide accessible tables alongside charts, visible units/as-of dates, uncertainty and coverage states, and source/calculation drill-down.
+- Add editable assumptions, preset comparison/reset, versioned URL sharing, validated custom-scenario JSON import/export, and CSV downloads.
+- Python remains the reference engine. Export schemas, coefficients, and golden test vectors; implement only the necessary calculation algebra in the browser. Require Python/TypeScript parity tests before publishing adjustable outputs.
+- No visitor-side upstream source fetching or runtime Python server. Handle missing data and incompatible artifact versions explicitly.
+
+Acceptance gate: source inspection and scenario workflows work at 375px and 1440px widths, keyboard navigation works, screenshots show readable nonoverlapping content, and parity tests pass. Start a local dev server and provide its URL when this milestone is implemented.
+
+### Milestone 5: Public Release and Contributions
+
+- Extend existing CI with artifact reproducibility, browser tests, and parity checks. Live source smoke tests belong to a separate refresh workflow, not deterministic offline tests.
+- Add reviewed manual source refresh first; scheduled refreshes may later propose changes, never silently replace published evidence or assumptions.
+- Confirm repository ownership/settings and publication authorization before deployment. Implement Pages base-path/static navigation support and publish versioned validated artifacts from a trusted branch.
+- Keep least-privilege permissions and publishing credentials away from untrusted pull requests. Preserve the last good release and provide change history.
+- Add contribution examples/templates for source corrections, alternative assumptions, benchmarks, and country adapters.
+- Resolve project code/data licensing with the owner before public release. No license has been granted by this implementation; source licenses remain independent. Do not redistribute restricted documents or personal data.
+
+Acceptance gate: clean-checkout builds work, a second reader can reproduce a result from its source, public navigation works, and licensing/coverage limitations are visible.
+
+### Later Research
+
+Add a real second country, detailed traditional-cloud/HPC/storage/video/telecom workloads, consumer demand, training and multimodal models, local capability trends, and regional grid/sovereignty/resilience constraints. Add probabilistic uncertainty only with defensible distributions and correlations. These are not prerequisites for the first honest, limited public release.
+
+## Accounting Rules to Preserve
+
+- Annual requests = employed people x annual hours/person x digital-time fraction x AI-active fraction of digital time x requests/AI-active hour. Adoption appears once. Headcount and FTE require their matching hours basis.
+- Placement shares sum to one. Local energy is separate from cloud energy and is not zero.
+- PUE applies once to cloud IT electricity, never again to facility-metered electricity and never to local devices.
+- Annual MWh divided by calendar-year hours gives annual-average MW. Modeled energy implies modeled load, not measured use. Equivalent capacity additionally requires a positive explicit load factor; reserves and peak sizing are separate.
+- The synthetic 2,000 MW full-year example equals 17.52 TWh in a 365-day year. It is a conversion test, not a Norwegian capacity claim.
+- Occupational inference is only part of demand. Neither a small estimate nor a large planned facility alone proves excess capacity, useful societal demand, or export orientation.
+- All public results retain source/assumption provenance, date, definition, unit, geography, measurement boundary, uncertainty or its absence, and coverage limitations.
+
+## Delegation and Working Preferences
+
+- User explicitly prefers cheaper subagents: `GPT-5.6 Sol (copilot)` for implementation, `GPT-5.6 Terra (copilot)` for simpler tasks such as docs and CI.
+- Both full identifiers were accepted by `runSubagent` in this session. Bare `sol` was rejected. If unavailable in the new session, tell the user rather than silently select an expensive substitute.
+- Split independent tasks by file ownership; the main assistant integrates and validates delegated output. Subagent summaries are not a substitute for running the integrated checks.
+- Keep changes incremental and run the narrowest relevant test immediately after substantive edits. Do not perform unrelated cleanup or revert user changes.
+- No need to reload the old chat or session memory: this document and the repository are the handoff. Update this file and the status document at each completed milestone.
