@@ -12,6 +12,7 @@ from pydantic import BaseModel, ConfigDict, Field, StringConstraints, model_vali
 Identifier = Annotated[str, StringConstraints(min_length=1, pattern=r"^[a-z0-9][a-z0-9._-]*$")]
 CountryCode = Annotated[str, StringConstraints(pattern=r"^[A-Z]{2}$")]
 FiniteNonnegative = Annotated[float, Field(ge=0, allow_inf_nan=False)]
+FinitePositive = Annotated[float, Field(gt=0, allow_inf_nan=False)]
 Fraction = Annotated[float, Field(ge=0, le=1, allow_inf_nan=False)]
 
 
@@ -331,6 +332,260 @@ class EvidenceEntry(StrictModel):
     affected_assumption_source_ids: list[Identifier] = Field(default_factory=list)
 
 
+class ScenarioCategory(StrEnum):
+    OCCUPATION_HUMAN_INFERENCE = "occupation_human_inference"
+    AUTONOMOUS_BACKGROUND_INFERENCE = "autonomous_background_inference"
+    CONSUMER_AI = "consumer_ai"
+    FOUNDATION_TRAINING = "foundation_training"
+    FINE_TUNING = "fine_tuning"
+    RETRIEVAL_EMBEDDINGS = "retrieval_embeddings"
+    NON_AI = "non_ai"
+
+
+class AdoptionPresetName(StrEnum):
+    CONSERVATIVE = "conservative"
+    MODERATE = "moderate"
+    HIGH = "high"
+
+
+class PlacementPresetName(StrEnum):
+    CLOUD_HEAVY = "cloud-heavy"
+    HYBRID = "hybrid"
+    LOCAL_HEAVY = "local-heavy"
+
+
+class ScenarioCategoryActivity(StrictModel):
+    category: ScenarioCategory
+    pre_rebound_activity_units: FiniteNonnegative | None
+    activity_unit: Annotated[str, StringConstraints(min_length=1)]
+    definition: Annotated[str, StringConstraints(min_length=1)]
+    source_ids: list[Identifier] = Field(min_length=1)
+    missing_reason: str | None = None
+
+    @model_validator(mode="after")
+    def validate_missing(self) -> ScenarioCategoryActivity:
+        if self.pre_rebound_activity_units is None and not self.missing_reason:
+            raise ValueError("unknown category activity requires missing_reason")
+        if self.pre_rebound_activity_units is not None and self.missing_reason is not None:
+            raise ValueError("missing_reason is only valid for unknown category activity")
+        return self
+
+
+class ScenarioEnergyIntensity(StrictModel):
+    category: ScenarioCategory
+    cloud_kwh_per_activity_unit: FiniteNonnegative | None
+    cloud_missing_reason: str | None = None
+    cloud_boundary: Literal[EnergyBoundary.CLOUD_IT, EnergyBoundary.CLOUD_FACILITY]
+    local_device_kwh_per_activity_unit: FiniteNonnegative | None
+    local_device_missing_reason: str | None = None
+    activity_unit: Annotated[str, StringConstraints(min_length=1)]
+    definition: Annotated[str, StringConstraints(min_length=1)]
+    source_ids: list[Identifier] = Field(min_length=1)
+
+    @model_validator(mode="after")
+    def validate_missing(self) -> ScenarioEnergyIntensity:
+        pairs = (
+            (self.cloud_kwh_per_activity_unit, self.cloud_missing_reason, "cloud"),
+            (
+                self.local_device_kwh_per_activity_unit,
+                self.local_device_missing_reason,
+                "local-device",
+            ),
+        )
+        for value, reason, label in pairs:
+            if value is None and not reason:
+                raise ValueError(f"unknown {label} energy intensity requires missing_reason")
+            if value is not None and reason is not None:
+                raise ValueError(
+                    f"{label} missing_reason is only valid for an unknown energy intensity"
+                )
+        return self
+
+
+class ReboundInput(StrictModel):
+    category: ScenarioCategory
+    baseline_activity_units: FiniteNonnegative
+    additional_activity_fraction: FiniteNonnegative
+    baseline_definition: Annotated[str, StringConstraints(min_length=1)]
+    source_ids: list[Identifier] = Field(min_length=1)
+
+
+class AdoptionPreset(StrictModel):
+    name: AdoptionPresetName
+    occupation_activity_multiplier: FiniteNonnegative
+    category_activities: list[ScenarioCategoryActivity]
+    rebound: ReboundInput | None = None
+    definition: Annotated[str, StringConstraints(min_length=1)]
+    source_ids: list[Identifier] = Field(min_length=1)
+
+    @model_validator(mode="after")
+    def validate_categories(self) -> AdoptionPreset:
+        categories = [item.category for item in self.category_activities]
+        expected = set(ScenarioCategory) - {ScenarioCategory.OCCUPATION_HUMAN_INFERENCE}
+        if len(categories) != len(set(categories)) or set(categories) != expected:
+            raise ValueError("adoption preset must define each non-occupation category once")
+        if self.rebound is not None and self.rebound.category not in expected:
+            raise ValueError("rebound must target one explicit non-occupation category")
+        return self
+
+
+class PlacementPreset(StrictModel):
+    name: PlacementPresetName
+    cloud_share: Fraction
+    domestic_hosting_share: Fraction
+    definition: Annotated[str, StringConstraints(min_length=1)]
+    source_ids: list[Identifier] = Field(min_length=1)
+
+
+class HostingInput(StrictModel):
+    exported_hosting_mwh: FiniteNonnegative | None
+    exported_hosting_missing_reason: str | None = None
+    available_domestic_capacity_mwh: FiniteNonnegative | None = None
+    available_domestic_capacity_missing_reason: str | None = None
+    definition: Annotated[str, StringConstraints(min_length=1)]
+    source_ids: list[Identifier] = Field(min_length=1)
+
+    @model_validator(mode="after")
+    def validate_missing(self) -> HostingInput:
+        pairs = (
+            (
+                self.exported_hosting_mwh,
+                self.exported_hosting_missing_reason,
+                "exported hosting",
+            ),
+            (
+                self.available_domestic_capacity_mwh,
+                self.available_domestic_capacity_missing_reason,
+                "available domestic capacity",
+            ),
+        )
+        for value, reason, label in pairs:
+            if value is None and not reason:
+                raise ValueError(f"unknown {label} requires missing_reason")
+            if value is not None and reason is not None:
+                raise ValueError(f"{label} missing_reason is only valid for an unknown value")
+        return self
+
+
+class SensitivityRange(StrictModel):
+    id: Identifier
+    parameter: Literal[
+        "demand_multiplier", "cloud_share", "domestic_hosting_share", "cloud_pue"
+    ]
+    low: FiniteNonnegative
+    base: FiniteNonnegative
+    high: FiniteNonnegative
+    definition: Annotated[str, StringConstraints(min_length=1)]
+    source_ids: list[Identifier] = Field(min_length=1)
+
+    @model_validator(mode="after")
+    def validate_range(self) -> SensitivityRange:
+        if not self.low <= self.base <= self.high:
+            raise ValueError("sensitivity range must satisfy low <= base <= high")
+        if self.parameter in {"cloud_share", "domestic_hosting_share"} and self.high > 1:
+            raise ValueError("sensitivity share values must be between 0 and 1")
+        if self.parameter == "cloud_pue" and self.low < 1:
+            raise ValueError("cloud_pue sensitivity values must be at least 1")
+        return self
+
+
+class JointStressCase(StrictModel):
+    id: Identifier
+    demand_multiplier: FiniteNonnegative
+    cloud_share: Fraction
+    domestic_hosting_share: Fraction
+    cloud_pue: Annotated[float, Field(ge=1, allow_inf_nan=False)]
+    definition: Annotated[str, StringConstraints(min_length=1)]
+    source_ids: list[Identifier] = Field(min_length=1)
+
+
+class SensitivityConfiguration(StrictModel):
+    adoption: AdoptionPresetName
+    placement: PlacementPresetName
+    named_ranges: list[SensitivityRange] = Field(min_length=1)
+    joint_stress_cases: list[JointStressCase] = Field(min_length=1)
+
+
+class InverseAllocationInput(StrictModel):
+    id: Identifier
+    country_code: CountryCode
+    year: int = Field(ge=1900, le=2200)
+    facility_capacity_mw: FiniteNonnegative
+    load_factor: Fraction
+    allocation_share: Fraction
+    kwh_per_activity_unit: FinitePositive
+    energy_boundary: Literal[EnergyBoundary.CLOUD_IT, EnergyBoundary.CLOUD_FACILITY]
+    denominator_value: FinitePositive
+    denominator_unit: Annotated[str, StringConstraints(min_length=1)]
+    denominator_definition: Annotated[str, StringConstraints(min_length=1)]
+    activity_unit: Annotated[str, StringConstraints(min_length=1)]
+    workload_scope: Identifier
+    source_ids: list[Identifier] = Field(min_length=1)
+
+
+class ScopedQuantity(StrictModel):
+    value: FiniteNonnegative
+    unit: Annotated[str, StringConstraints(min_length=1)]
+    country_code: CountryCode
+    year: int = Field(ge=1900, le=2200)
+    boundary: Identifier
+    definition: Annotated[str, StringConstraints(min_length=1)]
+    source_ids: list[Identifier] = Field(min_length=1)
+
+
+class ValueResourceRatioInput(StrictModel):
+    id: Identifier
+    value: ScopedQuantity
+    resource: ScopedQuantity
+
+    @model_validator(mode="after")
+    def validate_compatibility(self) -> ValueResourceRatioInput:
+        if (self.value.country_code, self.value.year) != (
+            self.resource.country_code,
+            self.resource.year,
+        ):
+            raise ValueError("value and resource country/year must match")
+        if self.value.boundary != self.resource.boundary:
+            raise ValueError("value and resource boundaries must match")
+        if self.resource.value == 0:
+            raise ValueError("resource denominator must be greater than 0")
+        return self
+
+
+class ScenarioConfiguration(StrictModel):
+    country_code: CountryCode
+    year: int = Field(ge=1900, le=2200)
+    adoption_presets: list[AdoptionPreset]
+    placement_presets: list[PlacementPreset]
+    energy_intensities: list[ScenarioEnergyIntensity]
+    hosting: HostingInput
+    sensitivity: SensitivityConfiguration
+    inverse_allocations: list[InverseAllocationInput] = Field(default_factory=list)
+    value_resource_ratios: list[ValueResourceRatioInput] = Field(default_factory=list)
+
+    @model_validator(mode="after")
+    def validate_scenario(self) -> ScenarioConfiguration:
+        adoption_names = [item.name for item in self.adoption_presets]
+        placement_names = [item.name for item in self.placement_presets]
+        categories = [item.category for item in self.energy_intensities]
+        if len(adoption_names) != 3 or set(adoption_names) != set(AdoptionPresetName):
+            raise ValueError("scenario must define conservative, moderate, and high adoption")
+        if len(placement_names) != 3 or set(placement_names) != set(PlacementPresetName):
+            raise ValueError("scenario must define cloud-heavy, hybrid, and local-heavy placement")
+        if len(categories) != len(set(categories)) or set(categories) != set(ScenarioCategory):
+            raise ValueError("scenario must define one energy intensity for every category")
+        intensity_units = {item.category: item.activity_unit for item in self.energy_intensities}
+        for preset in self.adoption_presets:
+            for activity in preset.category_activities:
+                if activity.activity_unit != intensity_units[activity.category]:
+                    raise ValueError("scenario activity and energy intensity units must match")
+        range_ids = [item.id for item in self.sensitivity.named_ranges]
+        stress_ids = [item.id for item in self.sensitivity.joint_stress_cases]
+        if len(range_ids) != len(set(range_ids)) or len(stress_ids) != len(set(stress_ids)):
+            raise ValueError("sensitivity and stress IDs must be unique")
+        return self
+
+
 class InputDataset(StrictModel):
     schema_version: Literal["1.0"]
     model_version: Literal["1.0"]
@@ -345,6 +600,7 @@ class InputDataset(StrictModel):
     national_electricity_observation_ids: list[Identifier] = Field(default_factory=list)
     projects: list[DataCenterProject] = Field(default_factory=list)
     evidence: list[EvidenceEntry] = Field(default_factory=list)
+    scenario: ScenarioConfiguration | None = None
 
     @model_validator(mode="after")
     def validate_collection(self) -> InputDataset:
@@ -498,4 +754,75 @@ class InputDataset(StrictModel):
             for source_id in entry.affected_assumption_source_ids:
                 if source_records[source_id].source_kind != SourceKind.ASSUMPTION:
                     raise ValueError("affected assumptions must reference assumption sources")
+        if self.scenario is not None:
+            scenario = self.scenario
+            assumption_source_ids = {
+                *(source_id for item in scenario.adoption_presets for source_id in item.source_ids),
+                *(
+                    source_id
+                    for item in scenario.adoption_presets
+                    for activity in item.category_activities
+                    for source_id in activity.source_ids
+                ),
+                *(
+                    source_id
+                    for item in scenario.adoption_presets
+                    if item.rebound is not None
+                    for source_id in item.rebound.source_ids
+                ),
+                *(
+                    source_id
+                    for item in scenario.placement_presets
+                    for source_id in item.source_ids
+                ),
+                *(
+                    source_id
+                    for item in scenario.sensitivity.named_ranges
+                    for source_id in item.source_ids
+                ),
+                *(
+                    source_id
+                    for item in scenario.sensitivity.joint_stress_cases
+                    for source_id in item.source_ids
+                ),
+            }
+            scenario_source_ids = {
+                *scenario.hosting.source_ids,
+                *assumption_source_ids,
+                *(
+                    source_id
+                    for item in scenario.energy_intensities
+                    for source_id in item.source_ids
+                ),
+                *(
+                    source_id
+                    for item in scenario.inverse_allocations
+                    for source_id in item.source_ids
+                ),
+                *(
+                    source_id
+                    for item in scenario.value_resource_ratios
+                    for quantity in (item.value, item.resource)
+                    for source_id in quantity.source_ids
+                ),
+            }
+            if missing := scenario_source_ids - sources:
+                raise ValueError(f"unknown scenario source references: {sorted(missing)}")
+            invalid_sources = {
+                source_id
+                for source_id in assumption_source_ids
+                if source_records[source_id].source_kind
+                not in {SourceKind.ASSUMPTION, SourceKind.SYNTHETIC}
+            }
+            if invalid_sources:
+                raise ValueError("scenario assumptions must use assumption or synthetic sources")
+            if scenario.sensitivity.adoption not in {
+                item.name for item in scenario.adoption_presets
+            } or scenario.sensitivity.placement not in {
+                item.name for item in scenario.placement_presets
+            }:
+                raise ValueError("sensitivity must reference defined presets")
+            for item in scenario.inverse_allocations:
+                if (item.country_code, item.year) != (scenario.country_code, scenario.year):
+                    raise ValueError("inverse allocation and scenario country/year must match")
         return self

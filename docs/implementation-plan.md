@@ -1,11 +1,11 @@
 # Implementation Plan and Session Handoff
 
-Updated: 2026-09-09 after completion of the bounded Milestone 2 baseline. This file is the durable handoff for a fresh coding session.
+Updated: 2026-09-09 after completion of Milestone 3 scenario modeling. This file is the durable handoff for a fresh coding session.
 It supersedes the original session-only plan where implementation status differs.
 
 ## Prompt for the Next Session
 
-> Read docs/implementation-plan.md, docs/implementation-status.md, and the research brief in readme.md. Continue from Milestone 3, preserving the implemented Python foundation and audited Norway 2025 coverage baseline. Use GPT-5.6 Sol (copilot) for implementation subagents and GPT-5.6 Terra (copilot) for simpler tasks. Tell me if those models cannot be selected. First verify the local baseline, then implement scenarios and hosting allocation without filling evidence gaps with defaults. Keep assumptions separate from observations. Do not build a dashboard on invented national figures. Update the handoff and status documents when the milestone is complete. Do not commit, push, or deploy without my request.
+> Read docs/implementation-plan.md, docs/implementation-status.md, and the research brief in readme.md. Continue from Milestone 4, preserving the implemented Python foundation, audited Norway 2025 coverage baseline, and completed scenario engine. Use GPT-5.6 Sol (copilot) for implementation subagents and GPT-5.6 Terra (copilot) for simpler tasks. Tell me if those models cannot be selected. First verify the local baseline, then build a static dashboard from versioned artifacts without filling evidence gaps with defaults. Keep assumptions separate from observations. Do not build a dashboard on invented national figures. Update the handoff and status documents when the milestone is complete. Do not commit, push, or deploy without my request.
 
 ## Agreed Direction
 
@@ -31,18 +31,17 @@ The foundation is implemented, not merely planned:
 - Synthetic NO/SE regression fixtures plus one separately named, audited Norwegian SSB employee observation and one reported facility-energy benchmark.
 - Methodology, source register, contribution guidance, README quickstart, and CI configuration.
 
-Last verified locally on Windows with Python 3.13.15 and uv 0.6.16:
+Last verified locally on Windows on 2026-09-09:
 
-- 33 tests passed.
-- Ruff passed; editor diagnostics reported no errors.
-- Frozen dependency installation, input validation, and offline artifact build succeeded.
-- The schema export command was also run successfully in the user's terminal.
+- 59 tests passed and Ruff passed.
+- Synthetic, `software-developers-2025`, and `norway-2025` inputs validated and built offline.
+- Schema export and `git diff --check` passed.
 
 CI is configured for Windows/Ubuntu and Python 3.12/3.13. Remote CI has not been verified. No deployment, frontend, remote resource creation, commit, or push was performed by the assistant. The user may check in the work after this handoff; inspect Git state rather than assuming changes remain uncommitted.
 
-Milestone 2 subsequently added an atomic SSB Norway baseline fetch, explicit occupation coverage partitions, national electricity contracts, project/phase/status schemas, unknown-preserving project aggregation, and an evidence ledger. The 2025 dataset contains nine broad modeled groups and one uncovered `0b` cell, observed production/net consumption, and a limited two-site project identity pilot without MW totals. See the status document for current verification counts.
+Milestone 2 added an atomic SSB Norway baseline fetch, explicit occupation coverage partitions, national electricity contracts, project/phase/status schemas, unknown-preserving project aggregation, and an evidence ledger. The 2025 dataset contains nine broad modeled groups and one uncovered `0b` cell, observed production/net consumption, and a limited two-site project identity pilot without MW totals.
 
-Final Milestone 2 verification on Windows with Python 3.13.15 and uv 0.6.16: 43 tests passed, Ruff passed, all three inputs validated and built offline, archived snapshots replayed with matching checksums, and schema export succeeded.
+Milestone 3 added optional scenario contracts and a separate scenario engine. It evaluates all 3 adoption by 3 placement combinations; keeps seven demand categories separate; models explicit pre-rebound activity plus additive documented-baseline rebound; conserves imports, domestic hosting, and exports while retaining unknown residuals/gaps; and supports named one-at-a-time ranges and joint stress. It also adds explicit AI-only inverse denominators, matched country/year/boundary value-resource ratios, and assumption/observed/reported/synthetic provenance. Unknown used activity, intensity, or incomplete occupation coverage blocks complete national totals and complete hosting, while known subtotals remain available. Only `synthetic.yaml` contains explicit synthetic scenario assumptions and complete synthetic coverage; Norway datasets have no scenario configuration, remain unchanged, and keep `national_total_mwh` null.
 
 ## Start Here
 
@@ -141,19 +140,16 @@ Acceptance gate: published totals show coverage and dates, have no project/occup
 
 Completed 2026-09-09 as a bounded baseline. The workforce partition reconciles to the all-occupations control total, while missing annual hours and task profiles keep every broad-group energy result and the national total null. National electricity is published as two separately bounded annual observations. Project support is deliberately limited to two operator-backed identities with stable phase IDs and independent status fields; no ambiguous MW is aggregated, and national inventory completeness remains unknown.
 
-### Milestone 3: Scenarios, Hosting, and Value
+### Completed Milestone 3: Scenarios, Hosting, and Value
 
-- Implement scenario evaluation, hosting allocation, sensitivity analysis, and value metrics in small modules adjacent to the existing engine.
-- Cross conservative/moderate/high adoption with cloud-heavy/hybrid/local-heavy placement. These independent axes cover all five scenario concepts in the brief.
-- Keep model mix, efficiency, PUE, domestic-hosted share, and autonomous/background demand explicit. Background activity is not bounded by worker hours.
-- Model rebound against a documented baseline, avoiding a second multiplier for demand already represented in a high-adoption scenario.
-- Keep non-AI, consumer AI, training, fine-tuning, retrieval/embeddings, and background inference separate. Use defensible observations or assumptions; otherwise retain unknowns.
-- Allocate national consumption between domestically hosted and imported services, and account separately for exported hosting. A residual capacity gap is unallocated, not automatically export demand or waste.
-- Expand inverse calculations to stated allocations and hosting shares, with explicit denominators and AI-only labels where appropriate.
-- Start with named ranges, one-at-a-time sensitivity, and joint stress cases. Do not label these confidence intervals or invent probability distributions.
-- Report resource/value ratios using matched boundaries and dates. Do not sum taxes, turnover, exports, and GDP value added as independent benefits or convert task speedups directly into societal productivity.
+- Optional scenario contracts and a dedicated engine separate scenario evaluation from the baseline calculation pipeline.
+- Conservative/moderate/high adoption crossed with cloud-heavy/hybrid/local-heavy placement produces nine combinations; all scenario assumptions remain explicit.
+- Seven demand categories remain separated, including explicit pre-rebound activity and additive rebound only against a documented baseline.
+- Hosting conserves imports, domestic hosting, and exports; unknown residuals and gaps are retained rather than inferred as exports or waste.
+- Named one-at-a-time ranges and joint stress cases are supported without claiming probability distributions or confidence intervals.
+- AI-only inverse denominators and matched country/year/boundary value-resource ratios are explicit; provenance distinguishes assumptions, observations, reports, and synthetic values.
 
-Acceptance gate: all presets expose their assumptions, conservation and boundary tests pass, high-demand counterexamples are possible, and missing demand prevents a purported complete national total.
+Acceptance outcome: 59 tests passed, Ruff passed, all three inputs validated and built offline, schema export succeeded, and `git diff --check` passed. The synthetic fixture exercises complete synthetic scenario coverage. Norway inputs contain no scenario configuration, remain unchanged, and do not produce a national scenario finding or a complete national total.
 
 ### Milestone 4: Static Dashboard
 

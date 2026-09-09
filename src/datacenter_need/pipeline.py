@@ -22,6 +22,7 @@ from datacenter_need.model import (
     facility_energy_mwh,
     inference_energy,
 )
+from datacenter_need.scenario import evaluate_scenario
 from datacenter_need.schemas import InputDataset
 
 UNMODELED_CATEGORIES = {
@@ -344,6 +345,7 @@ def evaluate_dataset(dataset: InputDataset) -> dict[str, Any]:
         "national_electricity": national_electricity,
         "projects": projects,
         "project_totals": project_totals,
+        "scenario": evaluate_scenario(dataset, rows),
         "evidence": [
             item.model_dump(mode="json") for item in sorted(dataset.evidence, key=lambda item: item.id)
         ],
@@ -383,7 +385,9 @@ def _model_hash() -> str:
     package = Path(__file__).parent
     content = b"".join(
         path.name.encode("utf-8") + b"\0" + path.read_bytes()
-        for path in sorted(package / name for name in ("model.py", "pipeline.py", "schemas.py"))
+        for path in sorted(
+            package / name for name in ("model.py", "pipeline.py", "scenario.py", "schemas.py")
+        )
     )
     return sha256_bytes(content)
 

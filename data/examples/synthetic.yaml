@@ -25,6 +25,18 @@ sources:
     source_kind: synthetic
     license: Not designated; synthetic project fixture
     locator: Generated example, not Norway capacity evidence
+  - id: assumption-scenario
+    title: Synthetic scenario assumptions
+    publisher: DatacenterNeed test fixture
+    source_kind: assumption
+    license: Not designated; synthetic project fixture
+    locator: Generated scenario assumptions, not observed evidence
+  - id: synthetic-value
+    title: Synthetic project value and resource quantities
+    publisher: DatacenterNeed test fixture
+    source_kind: synthetic
+    license: Not designated; synthetic project fixture
+    locator: Generated ratio inputs, not observed evidence
 observations:
   - id: no-workers
     country_code: "NO"
@@ -37,6 +49,7 @@ observations:
     boundary: employment_headcount
     evidence_status: synthetic
     locator: synthetic row NO workers
+    classification: {id: synthetic-occupation-classification, name: Synthetic occupation classification, code: synthetic-all}
   - id: no-hours
     country_code: "NO"
     year: 2025
@@ -96,6 +109,15 @@ occupations:
     workforce_basis: headcount
     workers_observation_id: se-workers
     annual_hours_observation_id: se-hours
+occupation_coverage:
+  - id: no-2025-synthetic-coverage
+    country_code: "NO"
+    year: 2025
+    classification: {id: synthetic-occupation-classification, name: Synthetic occupation classification, code: all}
+    declared_cell_ids: [synthetic-all]
+    cell_observation_ids: {synthetic-all: no-workers}
+    occupation_cell_assignments: {no-synthetic-occupation: [synthetic-all]}
+    uncovered_cell_ids: []
 task_profiles:
   - id: no-synthetic-task
     occupation_id: no-synthetic-occupation
@@ -140,3 +162,98 @@ cloud_pue:
   value: 1.2
   source_ids: [assumption-energy]
 facility_comparator_observation_ids: [synthetic-facility-2gw]
+scenario:
+  country_code: "NO"
+  year: 2025
+  adoption_presets:
+    - name: conservative
+      occupation_activity_multiplier: 0.5
+      definition: Half the synthetic occupation-linked baseline activity
+      source_ids: [assumption-scenario]
+      category_activities:
+        - {category: autonomous_background_inference, pre_rebound_activity_units: 100000, activity_unit: synthetic_background_jobs, definition: Explicit autonomous activity independent of worker hours, source_ids: [assumption-scenario]}
+        - {category: consumer_ai, pre_rebound_activity_units: 50000, activity_unit: synthetic_consumer_requests, definition: Synthetic consumer AI activity, source_ids: [assumption-scenario]}
+        - {category: foundation_training, pre_rebound_activity_units: 2, activity_unit: synthetic_training_runs, definition: Synthetic foundation training runs, source_ids: [assumption-scenario]}
+        - {category: fine_tuning, pre_rebound_activity_units: 20, activity_unit: synthetic_fine_tuning_jobs, definition: Synthetic fine-tuning jobs, source_ids: [assumption-scenario]}
+        - {category: retrieval_embeddings, pre_rebound_activity_units: 200000, activity_unit: synthetic_retrieval_jobs, definition: Synthetic retrieval and embedding activity, source_ids: [assumption-scenario]}
+        - {category: non_ai, pre_rebound_activity_units: 500000, activity_unit: synthetic_non_ai_units, definition: Synthetic traditional workload activity, source_ids: [assumption-scenario]}
+    - name: moderate
+      occupation_activity_multiplier: 1
+      definition: Synthetic occupation-linked baseline activity
+      source_ids: [assumption-scenario]
+      category_activities:
+        - {category: autonomous_background_inference, pre_rebound_activity_units: 1000000, activity_unit: synthetic_background_jobs, definition: Explicit autonomous activity independent of worker hours, source_ids: [assumption-scenario]}
+        - {category: consumer_ai, pre_rebound_activity_units: 500000, activity_unit: synthetic_consumer_requests, definition: Synthetic consumer AI activity, source_ids: [assumption-scenario]}
+        - {category: foundation_training, pre_rebound_activity_units: 10, activity_unit: synthetic_training_runs, definition: Synthetic foundation training runs, source_ids: [assumption-scenario]}
+        - {category: fine_tuning, pre_rebound_activity_units: 100, activity_unit: synthetic_fine_tuning_jobs, definition: Synthetic fine-tuning jobs, source_ids: [assumption-scenario]}
+        - {category: retrieval_embeddings, pre_rebound_activity_units: 1000000, activity_unit: synthetic_retrieval_jobs, definition: Synthetic retrieval and embedding activity, source_ids: [assumption-scenario]}
+        - {category: non_ai, pre_rebound_activity_units: 2000000, activity_unit: synthetic_non_ai_units, definition: Synthetic traditional workload activity, source_ids: [assumption-scenario]}
+    - name: high
+      occupation_activity_multiplier: 10
+      definition: High-demand counterexample with continuous synthetic activity
+      source_ids: [assumption-scenario]
+      category_activities:
+        - {category: autonomous_background_inference, pre_rebound_activity_units: 5000000, activity_unit: synthetic_background_jobs, definition: Explicit autonomous activity independent of worker hours, source_ids: [assumption-scenario]}
+        - {category: consumer_ai, pre_rebound_activity_units: 5000000, activity_unit: synthetic_consumer_requests, definition: Synthetic consumer AI activity, source_ids: [assumption-scenario]}
+        - {category: foundation_training, pre_rebound_activity_units: 100, activity_unit: synthetic_training_runs, definition: Synthetic foundation training runs, source_ids: [assumption-scenario]}
+        - {category: fine_tuning, pre_rebound_activity_units: 1000, activity_unit: synthetic_fine_tuning_jobs, definition: Synthetic fine-tuning jobs, source_ids: [assumption-scenario]}
+        - {category: retrieval_embeddings, pre_rebound_activity_units: 10000000, activity_unit: synthetic_retrieval_jobs, definition: Synthetic retrieval and embedding activity, source_ids: [assumption-scenario]}
+        - {category: non_ai, pre_rebound_activity_units: 10000000, activity_unit: synthetic_non_ai_units, definition: Synthetic traditional workload activity, source_ids: [assumption-scenario]}
+      rebound:
+        category: autonomous_background_inference
+        baseline_activity_units: 1000000
+        additional_activity_fraction: 2
+        baseline_definition: Moderate autonomous background activity before rebound
+        source_ids: [assumption-scenario]
+  placement_presets:
+    - {name: cloud-heavy, cloud_share: 0.9, domestic_hosting_share: 0.3, definition: Mostly centralized with most cloud demand imported, source_ids: [assumption-scenario]}
+    - {name: hybrid, cloud_share: 0.6, domestic_hosting_share: 0.6, definition: Mixed cloud and local placement, source_ids: [assumption-scenario]}
+    - {name: local-heavy, cloud_share: 0.2, domestic_hosting_share: 0.8, definition: Mostly local execution with domestic hosting of remaining cloud demand, source_ids: [assumption-scenario]}
+  energy_intensities:
+    - {category: occupation_human_inference, cloud_kwh_per_activity_unit: 0.002, cloud_boundary: cloud_it, local_device_kwh_per_activity_unit: 0.0005, activity_unit: request, definition: Synthetic human inference intensity, source_ids: [assumption-energy]}
+    - {category: autonomous_background_inference, cloud_kwh_per_activity_unit: 0.003, cloud_boundary: cloud_it, local_device_kwh_per_activity_unit: 0.0007, activity_unit: synthetic_background_jobs, definition: Synthetic background job intensity, source_ids: [assumption-energy]}
+    - {category: consumer_ai, cloud_kwh_per_activity_unit: 0.001, cloud_boundary: cloud_it, local_device_kwh_per_activity_unit: 0.0004, activity_unit: synthetic_consumer_requests, definition: Synthetic consumer request intensity, source_ids: [assumption-energy]}
+    - {category: foundation_training, cloud_kwh_per_activity_unit: 100000, cloud_boundary: cloud_facility, local_device_kwh_per_activity_unit: 0, activity_unit: synthetic_training_runs, definition: Synthetic facility-boundary training-run intensity, source_ids: [assumption-energy]}
+    - {category: fine_tuning, cloud_kwh_per_activity_unit: 1000, cloud_boundary: cloud_it, local_device_kwh_per_activity_unit: 100, activity_unit: synthetic_fine_tuning_jobs, definition: Synthetic fine-tuning intensity, source_ids: [assumption-energy]}
+    - {category: retrieval_embeddings, cloud_kwh_per_activity_unit: 0.0002, cloud_boundary: cloud_it, local_device_kwh_per_activity_unit: 0.0001, activity_unit: synthetic_retrieval_jobs, definition: Synthetic retrieval intensity, source_ids: [assumption-energy]}
+    - {category: non_ai, cloud_kwh_per_activity_unit: 0.0015, cloud_boundary: cloud_it, local_device_kwh_per_activity_unit: 0.0003, activity_unit: synthetic_non_ai_units, definition: Synthetic non-AI workload intensity, source_ids: [assumption-energy]}
+  hosting:
+    exported_hosting_mwh: 100
+    available_domestic_capacity_mwh: 5000
+    definition: Synthetic facility-boundary hosting allocation
+    source_ids: [assumption-scenario]
+  sensitivity:
+    adoption: moderate
+    placement: hybrid
+    named_ranges:
+      - {id: demand-range, parameter: demand_multiplier, low: 0.5, base: 1, high: 3, definition: Named demand scaling range, source_ids: [assumption-scenario]}
+      - {id: cloud-share-range, parameter: cloud_share, low: 0.3, base: 0.6, high: 0.95, definition: Named cloud placement range, source_ids: [assumption-scenario]}
+      - {id: domestic-hosting-range, parameter: domestic_hosting_share, low: 0.2, base: 0.6, high: 0.9, definition: Named domestic hosting range, source_ids: [assumption-scenario]}
+      - {id: pue-range, parameter: cloud_pue, low: 1, base: 1.2, high: 1.5, definition: Named cloud PUE range, source_ids: [assumption-scenario]}
+    joint_stress_cases:
+      - id: high-demand-stress
+        demand_multiplier: 5
+        cloud_share: 0.95
+        domestic_hosting_share: 0.9
+        cloud_pue: 1.5
+        definition: Joint high-demand, centralized, domestically hosted stress case
+        source_ids: [assumption-scenario]
+  inverse_allocations:
+    - id: synthetic-ai-allocation
+      country_code: "NO"
+      year: 2025
+      facility_capacity_mw: 1
+      load_factor: 1
+      allocation_share: 0.5
+      kwh_per_activity_unit: 0.002
+      energy_boundary: cloud_it
+      denominator_value: 1000
+      denominator_unit: synthetic_workers
+      denominator_definition: Explicit synthetic worker denominator
+      activity_unit: AI requests
+      workload_scope: ai_only
+      source_ids: [assumption-scenario, assumption-energy]
+  value_resource_ratios:
+    - id: synthetic-jobs-per-mw
+      value: {value: 100, unit: permanent_jobs, country_code: "NO", year: 2025, boundary: synthetic-project-a, definition: Synthetic permanent jobs, source_ids: [synthetic-value]}
+      resource: {value: 10, unit: facility_MW, country_code: "NO", year: 2025, boundary: synthetic-project-a, definition: Synthetic matched facility capacity, source_ids: [synthetic-value]}

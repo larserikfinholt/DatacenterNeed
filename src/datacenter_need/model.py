@@ -41,6 +41,19 @@ class InferenceEnergy:
     total_kwh: float
 
 
+@dataclass(frozen=True)
+class HostingAllocation:
+    """Cloud-facility energy allocation with imports and exports kept distinct."""
+
+    domestic_consumption_mwh: float
+    domestically_hosted_mwh: float
+    imported_mwh: float
+    exported_hosting_mwh: float | None
+    allocated_domestic_capacity_mwh: float | None
+    residual_capacity_mwh: float | None
+    capacity_gap_mwh: float | None
+
+
 def _finite_nonnegative(name: str, value: float) -> float:
     if not math.isfinite(value) or value < 0:
         raise ValueError(f"{name} must be finite and nonnegative")
@@ -161,3 +174,95 @@ def inverse_requests_per_worker(
         raise ValueError("inverse denominator must be greater than 0")
     facility_kwh = facility_energy_mwh(facility_capacity_mw, load_factor, year) * 1_000
     return facility_kwh / denominator
+
+
+def allocate_hosting(
+    domestic_consumption_mwh: float,
+    domestic_hosting_share: float,
+    exported_hosting_mwh: float | None,
+    available_domestic_capacity_mwh: float | None = None,
+) -> HostingAllocation:
+    """Allocate consumption and capacity without treating residual capacity as exports."""
+    consumption = _finite_nonnegative("domestic_consumption_mwh", domestic_consumption_mwh)
+    share = _fraction("domestic_hosting_share", domestic_hosting_share)
+    exports = (
+        None
+        if exported_hosting_mwh is None
+        else _finite_nonnegative("exported_hosting_mwh", exported_hosting_mwh)
+    )
+    domestically_hosted = consumption * share
+    imported = consumption - domestically_hosted
+    if available_domestic_capacity_mwh is None or exports is None:
+        allocated_capacity = residual = gap = None
+    else:
+        available = _finite_nonnegative(
+            "available_domestic_capacity_mwh", available_domestic_capacity_mwh
+        )
+        allocated_capacity = domestically_hosted + exports
+        residual = max(available - allocated_capacity, 0)
+        gap = max(allocated_capacity - available, 0)
+    return HostingAllocation(
+        domestic_consumption_mwh=consumption,
+        domestically_hosted_mwh=domestically_hosted,
+        imported_mwh=imported,
+        exported_hosting_mwh=exports,
+        allocated_domestic_capacity_mwh=allocated_capacity,
+        residual_capacity_mwh=residual,
+        capacity_gap_mwh=gap,
+    )
+
+
+def inverse_activity_per_denominator(
+    facility_capacity_mw: float,
+    load_factor: float,
+    allocation_share: float,
+    kwh_per_activity_unit: float,
+    denominator: float,
+    year: int,
+    *,
+    energy_boundary: Literal["cloud_it", "cloud_facility"],
+    cloud_pue: float,
+) -> float:
+    """Return allocated activity units per explicit denominator at a stated boundary."""
+    pue_multiplier = 1.0
+    if energy_boundary == "cloud_it":
+        if not math.isfinite(cloud_pue) or cloud_pue < 1:
+            raise ValueError("cloud_pue must be finite and at least 1")
+        pue_multiplier = cloud_pue
+    elif energy_boundary != "cloud_facility":
+        raise ValueError("inverse energy boundary must be cloud_it or cloud_facility")
+    divisor = (
+        _finite_nonnegative("kwh_per_activity_unit", kwh_per_activity_unit)
+        * _finite_nonnegative("denominator", denominator)
+        * pue_multiplier
+    )
+    if divisor == 0:
+        raise ValueError("inverse denominator must be greater than 0")
+    allocated_kwh = (
+        facility_energy_mwh(facility_capacity_mw, load_factor, year)
+        * 1_000
+        * _fraction("allocation_share", allocation_share)
+    )
+    return allocated_kwh / divisor
+
+
+def matched_value_resource_ratio(
+    value: float,
+    resource: float,
+    *,
+    value_country_code: str,
+    resource_country_code: str,
+    value_year: int,
+    resource_year: int,
+    value_boundary: str,
+    resource_boundary: str,
+) -> float:
+    """Return one value/resource ratio only when country, year, and boundary match."""
+    if value_country_code != resource_country_code or value_year != resource_year:
+        raise ValueError("value and resource country/year must match")
+    if value_boundary != resource_boundary:
+        raise ValueError("value and resource boundaries must match")
+    denominator = _finite_nonnegative("resource", resource)
+    if denominator == 0:
+        raise ValueError("resource denominator must be greater than 0")
+    return _finite_nonnegative("value", value) / denominator

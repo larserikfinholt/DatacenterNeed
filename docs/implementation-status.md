@@ -35,14 +35,26 @@ Verified 2026-09-09: 43 tests and Ruff pass; frozen installation, synthetic and 
 
 The test model uses synthetic fixtures only. It is not a national finding: all NO/SE fixture values are synthetic, and `national_total` is `null`.
 
+## Milestone 3: Scenarios, Hosting, and Value
+
+- [x] Optional scenario contracts and a separate scenario engine
+- [x] Nine explicit presets from 3 adoption levels by 3 placement profiles
+- [x] Seven separated demand categories, including pre-rebound activity and additive documented-baseline rebound
+- [x] Hosting conservation across imports, domestic hosting, and exports, with unknown residuals/gaps retained
+- [x] Named one-at-a-time ranges, joint stress cases, explicit AI-only inverse denominators, and matched country/year/boundary value-resource ratios
+- [x] Categorized assumption, observed, reported, and synthetic provenance
+
+Milestone 3 is complete. Unknown used activity or intensity, and incomplete occupation coverage, prevent complete national totals and complete hosting; known subtotals remain. Norway datasets have no scenario configuration, remain unchanged, and keep `national_total_mwh` null. Only `synthetic.yaml` contains explicit synthetic scenario assumptions and complete synthetic coverage.
+
+Verified 2026-09-09 on Windows: 59 tests passed and Ruff passed; synthetic, `software-developers-2025`, and `norway-2025` inputs all validated and built offline; schema export and `git diff --check` passed. This is local verification only: it does not establish real national Norway scenario findings, deployment, frontend work, or remote CI.
+
 ## Not Yet Implemented
 
-- [ ] Scenario modeling
 - [ ] Web dashboard
 - [ ] Deployment
 
 ## Next Milestone
 
-Implement Milestone 3 scenarios, hosting allocation, sensitivity analysis, and matched-boundary value metrics without converting the remaining evidence gaps into defaults.
+Implement Milestone 4 as a static dashboard from versioned artifacts. Preserve source, unit, date, boundary, provenance, uncertainty, and coverage states; do not render invented national Norway scenario figures or conceal null/incomplete results.
 
 See the [implementation plan and session handoff](implementation-plan.md) for the complete remaining roadmap, acceptance gates, model preferences, and a prompt for the next coding session.

@@ -5,12 +5,15 @@ import pytest
 from datacenter_need.model import (
     EnergyBenchmark,
     ModelPlacement,
+    allocate_hosting,
     annual_average_load_mw,
     annual_requests,
     equivalent_capacity_mw,
     facility_energy_mwh,
     inference_energy,
+    inverse_activity_per_denominator,
     inverse_requests_per_worker,
+    matched_value_resource_ratio,
 )
 
 
@@ -89,3 +92,65 @@ def test_inverse_round_trip_and_zero_denominators() -> None:
 
     with pytest.raises(ValueError, match="greater than 0"):
         equivalent_capacity_mw(100, 0, 2025)
+
+
+def test_hosting_conservation_and_residual_capacity_is_unallocated() -> None:
+    result = allocate_hosting(100, 0.7, 20, available_domestic_capacity_mwh=120)
+    assert result.domestically_hosted_mwh + result.imported_mwh == pytest.approx(100)
+    assert result.exported_hosting_mwh == 20
+    assert result.allocated_domestic_capacity_mwh == pytest.approx(90)
+    assert result.residual_capacity_mwh == pytest.approx(30)
+    assert result.capacity_gap_mwh == 0
+
+    constrained = allocate_hosting(100, 0.9, 40, available_domestic_capacity_mwh=100)
+    assert constrained.residual_capacity_mwh == 0
+    assert constrained.capacity_gap_mwh == pytest.approx(30)
+
+
+def test_inverse_allocation_applies_pue_only_to_it_boundary() -> None:
+    facility = inverse_activity_per_denominator(
+        1,
+        1,
+        0.5,
+        1,
+        100,
+        2025,
+        energy_boundary="cloud_facility",
+        cloud_pue=1.5,
+    )
+    cloud_it = inverse_activity_per_denominator(
+        1,
+        1,
+        0.5,
+        1,
+        100,
+        2025,
+        energy_boundary="cloud_it",
+        cloud_pue=1.5,
+    )
+    assert facility == pytest.approx(43_800)
+    assert cloud_it == pytest.approx(facility / 1.5)
+
+
+def test_value_resource_ratio_requires_matched_scope() -> None:
+    assert matched_value_resource_ratio(
+        50,
+        10,
+        value_country_code="NO",
+        resource_country_code="NO",
+        value_year=2025,
+        resource_year=2025,
+        value_boundary="project-a",
+        resource_boundary="project-a",
+    ) == pytest.approx(5)
+    with pytest.raises(ValueError, match="boundaries must match"):
+        matched_value_resource_ratio(
+            50,
+            10,
+            value_country_code="NO",
+            resource_country_code="NO",
+            value_year=2025,
+            resource_year=2025,
+            value_boundary="project-a",
+            resource_boundary="national",
+        )
