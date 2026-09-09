@@ -1,11 +1,11 @@
 # Implementation Plan and Session Handoff
 
-Updated: 2026-09-08. This file is the durable handoff for a fresh coding session.
+Updated: 2026-09-09. This file is the durable handoff for a fresh coding session.
 It supersedes the original session-only plan where implementation status differs.
 
 ## Prompt for the Next Session
 
-> Read docs/implementation-plan.md, docs/implementation-status.md, and the research brief in readme.md. Continue from the verified-data milestone, preserving the implemented Python foundation and existing changes. Use GPT-5.6 Sol (copilot) for implementation subagents and GPT-5.6 Terra (copilot) for simpler tasks. Tell me if those models cannot be selected. First verify the local baseline, then implement a small, audited Norwegian source-data slice with tests and offline reproducibility. Keep assumptions separate from observations. Do not build a dashboard on invented national figures. Update the handoff and status documents when the milestone is complete. Do not commit, push, or deploy without my request.
+> Read docs/implementation-plan.md, docs/implementation-status.md, and the research brief in readme.md. Continue from Milestone 2, preserving the implemented Python foundation and audited SSB slice. Use GPT-5.6 Sol (copilot) for implementation subagents and GPT-5.6 Terra (copilot) for simpler tasks. Tell me if those models cannot be selected. First verify the local baseline, then expand Norway coverage and project inventory without double counting. Keep assumptions separate from observations. Do not build a dashboard on invented national figures. Update the handoff and status documents when the milestone is complete. Do not commit, push, or deploy without my request.
 
 ## Agreed Direction
 
@@ -28,12 +28,12 @@ The foundation is implemented, not merely planned:
 - Deterministic offline JSON/CSV exports, a replayable `input_trace`, and a SHA-256 manifest.
 - Unknown occupation inputs stay unknown; all-unknown country subtotals are `null`, not zero. `national_total_mwh` remains `null` because coverage is incomplete.
 - Build output protection: invalid inputs preserve the previous output; unrelated files, an output directory containing the input, and unresolved backup directories are rejected.
-- Fully synthetic NO/SE fixtures. No empirical Norwegian observations or measured energy benchmarks have been loaded.
+- Synthetic NO/SE regression fixtures plus one separately named, audited Norwegian SSB employee observation and one reported facility-energy benchmark.
 - Methodology, source register, contribution guidance, README quickstart, and CI configuration.
 
 Last verified locally on Windows with Python 3.13.15 and uv 0.6.16:
 
-- 22 tests passed.
+- 33 tests passed.
 - Ruff passed; editor diagnostics reported no errors.
 - Frozen dependency installation, input validation, and offline artifact build succeeded.
 - The schema export command was also run successfully in the user's terminal.
@@ -73,9 +73,21 @@ Run from the repository root. The build writes `result.json`, `occupation_breakd
 | [test_build.py](../tests/test_build.py) | Repeatability, offline behavior, and output protection tests |
 | [ci.yml](../.github/workflows/ci.yml) | Frozen installation, tests, lint, validation, and offline build |
 
-## Next Milestone: Verified Norwegian Data
+## Completed Milestone: Verified Norwegian Data
 
-### 1. Audit a Narrow Source Slice
+Completed 2026-09-09 with a narrow audited slice:
+
+- SSB table 11658, 2025 Q4, both sexes, all ages, STYRK-08 2512 “Software developers,” number of employees: 8,224 persons.
+- The source is archived as deterministic JSON-stat2 with its exact query, source update time, retrieval date, and SHA-256 manifest. A strict adapter rejects changed dimensions, units, labels, boundaries, malformed responses, and invalid values; suppressed/null cells remain missing.
+- The one-cell request is below SSB's documented limits of 800,000 cells per extract and 30 queries per minute per IP.
+- `fetch-ssb` is the explicit network operation. Offline validation and builds use the committed snapshot and input.
+- `data/norway/software-developers-2025.yaml` keeps the employee count observed while annual hours and usage remain assumptions.
+- The Google-reported May 2025 median Gemini Apps prompt benchmark is 0.24 Wh at cloud-facility boundary. It includes serving infrastructure and PUE, so PUE is not reapplied. Important undisclosed conditions and lack of independent verification are recorded.
+- The resulting 1.70532864 MWh is an illustrative one-occupation calculation, not a national estimate; `national_total_mwh` remains `null`.
+
+### Implemented Work
+
+#### 1. Audit a Narrow Source Slice
 
 - Verify exact SSB employment table IDs, metadata, filters, reference periods, and population basis. Use the current PxWebApi v2 documentation, not guessed endpoints or remembered table definitions.
 - Verify STYRK-08/ISCO-08 classification and mapping through SSB Klass. Do not substitute industry categories for occupations or combine parent totals with child rows.
@@ -90,7 +102,7 @@ Starting sources checked during planning on 2026-09-08:
 - [Statnett connection statistics](https://www.statnett.no/nettkapasitet-til-produksjon-og-forbruk/foresporsler-og-reservasjon-i-nettet/): manually registered inquiries since 2018, acknowledged gaps, queued/reserved/connected categories. No machine-readable endpoint or numerical capacity dataset was verified.
 - NVE, SSB electricity statistics, municipal planning records, and operator filings are research candidates, not already-ingested evidence.
 
-### 2. Implement Fetch and Normalize Separately
+#### 2. Implement Fetch and Normalize Separately
 
 - Add an SSB adapter under `src/datacenter_need/sources/ssb.py` with tests under `tests/`. These paths are proposed, not existing modules.
 - Add `httpx` through uv when required. Do not install pandas or other planned libraries until the actual transformation warrants them.
@@ -100,7 +112,7 @@ Starting sources checked during planning on 2026-09-08:
 - Keep the synthetic fixture as a regression example. Put real observations and assumption records in separate, clearly named data files.
 - Test missing/suppressed cells, changed dimensions, unit conversion, invalid responses, source attribution, and replay from pinned snapshots without network access.
 
-### 3. Complete One Research Calculation
+#### 3. Complete One Research Calculation
 
 - Find a defensible request-level energy benchmark and one documented capacity or electricity observation. Capture benchmark model/version, hardware, workload, batching, context/output lengths, utilization, and measurement boundary where available.
 - Do not treat GPU-only measurements as complete IT electricity. Do not derive energy from API prices or model size alone.

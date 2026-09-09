@@ -71,6 +71,17 @@ class SourceRecord(StrictModel):
     publication_date: date | None = None
     retrieved_date: date | None = None
     locator: str | None = None
+    query_url: str | None = None
+    snapshot_path: str | None = None
+    snapshot_sha256: Annotated[str, StringConstraints(pattern=r"^[0-9a-f]{64}$")] | None = None
+
+
+class ClassificationReference(StrictModel):
+    id: Annotated[str, StringConstraints(min_length=1)]
+    name: Annotated[str, StringConstraints(min_length=1)]
+    code: Annotated[str, StringConstraints(min_length=1)]
+    valid_from: date | None = None
+    based_on: str | None = None
 
 
 class Observation(StrictModel):
@@ -86,6 +97,10 @@ class Observation(StrictModel):
     boundary: Boundary
     evidence_status: EvidenceStatus
     locator: Annotated[str, StringConstraints(min_length=1)]
+    period: str | None = None
+    reference_period: str | None = None
+    population_basis: str | None = None
+    classification: ClassificationReference | None = None
     uncertainty_low: FiniteNonnegative | None = None
     uncertainty_high: FiniteNonnegative | None = None
 
@@ -159,6 +174,14 @@ class EnergyBenchmarkInput(StrictModel):
     boundary: EnergyBoundary
     source_id: Identifier
     definition: Annotated[str, StringConstraints(min_length=1)]
+    measured_period: str | None = None
+    model: str | None = None
+    hardware: str | None = None
+    workload: str | None = None
+    batching: str | None = None
+    context_and_output: str | None = None
+    utilization: str | None = None
+    limitations: str | None = None
 
 
 class AssumptionValue(StrictModel):

@@ -9,6 +9,7 @@ from datacenter_need.pipeline import evaluate_dataset, load_dataset
 from datacenter_need.schemas import InputDataset
 
 EXAMPLE = Path("data/examples/synthetic.yaml")
+NORWAY_SLICE = Path("data/norway/software-developers-2025.yaml")
 
 
 def example_data() -> dict:
@@ -70,3 +71,18 @@ def test_result_contains_replayable_input_trace() -> None:
     result = evaluate_dataset(dataset)
     reconstructed = InputDataset.model_validate(result["input_trace"])
     assert evaluate_dataset(reconstructed) == result
+
+
+def test_verified_norway_slice_separates_observation_from_assumptions() -> None:
+    dataset, _ = load_dataset(NORWAY_SLICE)
+    result = evaluate_dataset(dataset)
+    row = result["occupations"][0]
+    worker_observation = next(item for item in dataset.observations if item.metric == "workers")
+
+    assert worker_observation.value == 8224
+    assert worker_observation.evidence_status == "observed"
+    assert worker_observation.classification.code == "2512"
+    assert row["annual_requests"] == pytest.approx(7_105_536)
+    assert row["cloud_facility_mwh"] == pytest.approx(1.70532864)
+    assert "assumption-pue-unused" not in row["source_ids"]
+    assert result["countries"][0]["national_total_mwh"] is None

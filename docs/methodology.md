@@ -4,7 +4,7 @@
 
 This project tests, rather than assumes, claims about data-centre need and societal value. It can support higher demand, lower demand, or no conclusion. Occupational inference is not a measure of full national data-centre demand.
 
-The first foundation milestone demonstrates the accounting model with fully synthetic data only. It makes no claim about Norway or any other country. Real evidence acquisition, source review, and a compatible reference year are the next steps.
+The synthetic fixture demonstrates the accounting model and makes no claim about Norway or any other country. A separate audited slice uses one observed Norwegian employee count; all downstream hours and usage assumptions remain labeled, and the result is not a national estimate.
 
 Choose a reference year only when the underlying observations are sufficiently compatible. Record each observation date and warn when its age or reference year differs. Unknown is `null` with a reason; a known subtotal is never labelled a national total.
 

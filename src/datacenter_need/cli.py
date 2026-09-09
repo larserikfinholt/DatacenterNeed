@@ -7,10 +7,12 @@ from pathlib import Path
 
 from datacenter_need.pipeline import build_dataset, canonical_json, load_dataset
 from datacenter_need.schemas import InputDataset
+from datacenter_need.sources.ssb import fetch_employee_snapshot
 
 DEFAULT_INPUT = Path("data/examples/synthetic.yaml")
 DEFAULT_OUTPUT = Path("build/example")
 DEFAULT_SCHEMA = Path("build/input.schema.json")
+DEFAULT_SSB_SNAPSHOT = Path("data/sources/ssb/11658-2512-2025K4")
 
 
 def create_parser() -> argparse.ArgumentParser:
@@ -27,6 +29,9 @@ def create_parser() -> argparse.ArgumentParser:
 
     schema = commands.add_parser("schema")
     schema.add_argument("--output", type=Path, default=DEFAULT_SCHEMA)
+
+    fetch_ssb = commands.add_parser("fetch-ssb")
+    fetch_ssb.add_argument("--output", type=Path, default=DEFAULT_SSB_SNAPSHOT)
     return parser
 
 
@@ -38,9 +43,12 @@ def main(argv: list[str] | None = None) -> int:
     elif args.command == "build":
         build_dataset(args.input, args.output, offline=True)
         print(args.output)
-    else:
+    elif args.command == "schema":
         args.output.parent.mkdir(parents=True, exist_ok=True)
         args.output.write_text(canonical_json(InputDataset.model_json_schema()), encoding="utf-8")
+        print(args.output)
+    else:
+        fetch_employee_snapshot(args.output)
         print(args.output)
     return 0
 

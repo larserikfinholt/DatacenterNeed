@@ -1,6 +1,6 @@
 # Project: Measuring the Real Societal Need for Data Centres
 
-> **Important:** All current NO/SE fixture numbers are synthetic. They are not empirical national estimates. There is no web dashboard or real dataset yet; `national_total` remains `null`.
+> **Important:** The audited Norway slice contains one empirical observation: 8,224 employees in STYRK-08 occupation 2512 in SSB table 11658 for 2025 Q4. Its annual hours, AI usage, and resulting energy are illustrative assumptions, not empirical national estimates. There is no web dashboard yet; `national_total_mwh` remains `null`.
 
 ## Quickstart
 
@@ -10,6 +10,8 @@ Requires Python 3.12 or later and [uv](https://docs.astral.sh/uv/getting-started
 uv sync --frozen
 uv run datacenter-need validate --input data/examples/synthetic.yaml
 uv run datacenter-need build --offline --input data/examples/synthetic.yaml --output build/example
+uv run datacenter-need validate --input data/norway/software-developers-2025.yaml
+uv run datacenter-need build --offline --input data/norway/software-developers-2025.yaml --output build/norway
 uv run pytest
 uv run ruff check .
 ```
@@ -18,6 +20,12 @@ The offline build writes replayable input traces and artifacts to `build/example
 
 ```powershell
 uv run datacenter-need schema --output build/input.schema.json
+```
+
+Refreshing the pinned SSB snapshot is an explicit network operation. It validates the exact table dimensions before atomically replacing the archived evidence:
+
+```powershell
+uv run datacenter-need fetch-ssb
 ```
 
 Read the [methodology](docs/methodology.md), [source register](docs/source-register.md), [contribution guidance](CONTRIBUTING.md), and [implementation status](docs/implementation-status.md) before interpreting or extending the fixtures.

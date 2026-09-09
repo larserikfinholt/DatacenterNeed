@@ -34,4 +34,7 @@ The main integration work will provide these checks. This document does not clai
 uv sync --frozen
 uv run pytest
 uv run ruff check .
+uv run datacenter-need fetch-ssb
 ```
+
+`fetch-ssb` is the only live-source check. Review its changed snapshot and manifest before submission; deterministic tests and builds replay the committed snapshot without network access.

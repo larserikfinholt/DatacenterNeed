@@ -66,7 +66,14 @@ def evaluate_dataset(dataset: InputDataset) -> dict[str, Any]:
                 hours.source_id,
                 *profile.source_ids,
                 *(benchmarks[item.benchmark_id].source_id for item in profile.placements),
-                *dataset.cloud_pue.source_ids,
+                *(
+                    dataset.cloud_pue.source_ids
+                    if any(
+                        benchmarks[item.benchmark_id].boundary.value == "cloud_it"
+                        for item in profile.placements
+                    )
+                    else []
+                ),
             }
         )
         missing = [

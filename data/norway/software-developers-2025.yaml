@@ -1,0 +1,115 @@
+schema_version: "1.0"
+model_version: "1.0"
+sources:
+  - id: ssb-11658-2025k4-2512
+    title: "Table 11658: Employees, jobs, and earnings, occupation 2512"
+    publisher: Statistics Norway
+    source_kind: observed
+    license: CC BY 4.0
+    url: https://www.ssb.no/en/statbank/table/11658
+    publication_date: 2026-08-13
+    retrieved_date: 2026-09-09
+    locator: "Kjonn=0; Alder=999D; Yrke=2512; ContentsCode=Lonsstakere; Tid=2025K4"
+    query_url: "https://data.ssb.no/api/pxwebapi/v2/tables/11658/data?lang=en&valueCodes%5BKjonn%5D=0&valueCodes%5BAlder%5D=999D&valueCodes%5BYrke%5D=2512&valueCodes%5BContentsCode%5D=Lonsstakere&valueCodes%5BTid%5D=2025K4&outputFormat=json-stat2"
+    snapshot_path: data/sources/ssb/11658-2512-2025K4/table-11658-cell.json
+    snapshot_sha256: 3201751ac6420b0b9dd1171a3e8669190d32a0294be39481352b148cec6a909b
+  - id: assumption-software-developer-hours
+    title: Illustrative annual hours for the software-developer calculation
+    publisher: DatacenterNeed project assumption
+    source_kind: assumption
+    license: Project assumption; no external source
+    retrieved_date: 2026-09-09
+    locator: 1,600 hours per employee-year; not an observed SSB value
+  - id: assumption-software-developer-use
+    title: Illustrative software-developer AI usage profile
+    publisher: DatacenterNeed project assumption
+    source_kind: assumption
+    license: Project assumption; no external source
+    retrieved_date: 2026-09-09
+    locator: "digital_fraction=0.9; ai_fraction=0.1; requests_per_ai_hour=6; cloud share=1"
+  - id: google-gemini-energy-2025
+    title: Measuring the environmental impact of delivering AI at Google Scale
+    publisher: Google
+    source_kind: reported
+    license: CC BY 4.0 (arXiv version)
+    url: https://arxiv.org/abs/2508.15734
+    publication_date: 2025-08-21
+    retrieved_date: 2026-09-09
+    locator: Abstract and Google methodology; median Gemini Apps text prompt, May 2025
+  - id: assumption-pue-unused
+    title: PUE placeholder for a facility-energy benchmark
+    publisher: DatacenterNeed project assumption
+    source_kind: assumption
+    license: Project assumption; no external source
+    retrieved_date: 2026-09-09
+    locator: Value 1.0 is unused because the selected benchmark already includes facility overhead
+observations:
+  - id: no-software-developers-2025k4
+    country_code: "NO"
+    year: 2025
+    metric: workers
+    unit: people
+    value: 8224
+    source_id: ssb-11658-2025k4-2512
+    definition: Employees whose main job is classified as software developer; residents and non-residents, both sexes and all ages
+    boundary: employment_headcount
+    evidence_status: observed
+    locator: Table 11658 cell for 2025K4, both sexes, all ages, STYRK-08 2512, number of employees
+    period: 2025K4
+    reference_period: Mid-month of the quarter
+    population_basis: Employees in Norway, including residents and non-residents; main job per person
+    classification:
+      id: "7"
+      name: Classification of Occupations 08 (STYRK-08)
+      code: "2512"
+      valid_from: 2011-01-01
+      based_on: ISCO-08 (COM)
+  - id: no-software-developer-hours-assumption
+    country_code: "NO"
+    year: 2025
+    metric: annual_hours
+    unit: hour_per_worker_year
+    value: 1600
+    source_id: assumption-software-developer-hours
+    definition: Illustrative annual hours per employee for this scenario; not measured or inferred from SSB contractual weekly hours
+    boundary: annual_hours_per_worker
+    evidence_status: assumed
+    locator: Explicit project assumption
+occupations:
+  - id: no-styrk08-2512-software-developers
+    title: Software developers (STYRK-08 2512)
+    country_code: "NO"
+    year: 2025
+    workforce_basis: headcount
+    workers_observation_id: no-software-developers-2025k4
+    annual_hours_observation_id: no-software-developer-hours-assumption
+task_profiles:
+  - id: no-software-developer-illustrative-use
+    occupation_id: no-styrk08-2512-software-developers
+    digital_fraction: 0.9
+    ai_fraction: 0.1
+    requests_per_ai_hour: 6
+    source_ids: [assumption-software-developer-use]
+    placements:
+      - name: Gemini Apps median text prompt proxy
+        share: 1.0
+        benchmark_id: google-gemini-median-prompt-2025
+energy_benchmarks:
+  - id: google-gemini-median-prompt-2025
+    title: Google-reported median Gemini Apps text prompt energy
+    kwh_per_request: 0.00024
+    boundary: cloud_facility
+    source_id: google-gemini-energy-2025
+    definition: Point-in-time median Gemini Apps text-generation prompt energy including the full serving stack and data-centre overhead
+    measured_period: May 2025
+    model: Gemini Apps model mix; exact model versions not disclosed
+    hardware: Google production infrastructure; exact accelerator models not disclosed
+    workload: Median Gemini Apps text-generation prompt
+    batching: Production serving; batching details not disclosed
+    context_and_output: Prompt and response token lengths not disclosed
+    utilization: Actual production utilization and idle capacity included; values not disclosed
+    limitations: Google-reported and not independently verified; one median prompt is not representative of every model, task, or future performance
+cloud_pue:
+  value: 1.0
+  source_ids: [assumption-pue-unused]
+facility_comparator_observation_ids: []

@@ -1,0 +1,9 @@
+{
+  "license": "CC BY 4.0",
+  "normalized_value": 8224,
+  "query_url": "https://data.ssb.no/api/pxwebapi/v2/tables/11658/data?lang=en&valueCodes%5BKjonn%5D=0&valueCodes%5BAlder%5D=999D&valueCodes%5BYrke%5D=2512&valueCodes%5BContentsCode%5D=Lonsstakere&valueCodes%5BTid%5D=2025K4&outputFormat=json-stat2",
+  "retrieved_date": "2026-09-09",
+  "sha256": "3201751ac6420b0b9dd1171a3e8669190d32a0294be39481352b148cec6a909b",
+  "source_updated": "2026-08-13T06:00:00Z",
+  "table_id": "11658"
+}
