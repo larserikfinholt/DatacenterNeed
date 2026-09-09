@@ -1,0 +1,138 @@
+{
+  "class": "dataset",
+  "dimension": {
+    "ContentsCode": {
+      "category": {
+        "index": {
+          "Nettoforbruk": 1,
+          "ProdTotal": 0
+        },
+        "label": {
+          "Nettoforbruk": "Net consumption",
+          "ProdTotal": "Production, total"
+        },
+        "unit": {
+          "Nettoforbruk": {
+            "base": "GWh",
+            "decimals": 0
+          },
+          "ProdTotal": {
+            "base": "GWh",
+            "decimals": 0
+          }
+        }
+      },
+      "extension": {
+        "adjustment": {
+          "Nettoforbruk": "None",
+          "ProdTotal": "None"
+        },
+        "alternativeText": {
+          "Nettoforbruk": "Net consumption",
+          "ProdTotal": "Production, total"
+        },
+        "elimination": false,
+        "measuringType": {
+          "Nettoforbruk": "Flow",
+          "ProdTotal": "Flow"
+        },
+        "priceType": {
+          "Nettoforbruk": "NotApplicable",
+          "ProdTotal": "NotApplicable"
+        },
+        "refperiod": {
+          "Nettoforbruk": "The entire year",
+          "ProdTotal": "The entire year"
+        },
+        "show": "value"
+      },
+      "label": "contents",
+      "link": {
+        "describedby": [
+          {
+            "extension": {
+              "ProdTotal": "urn:ssb:conceptvariable:vardok:2931"
+            }
+          }
+        ]
+      }
+    },
+    "Tid": {
+      "category": {
+        "index": {
+          "2025": 0
+        },
+        "label": {
+          "2025": "2025"
+        }
+      },
+      "extension": {
+        "elimination": false,
+        "show": "code"
+      },
+      "label": "year"
+    }
+  },
+  "extension": {
+    "contact": [
+      {
+        "mail": "gnh@ssb.no",
+        "name": "Magne Holstad",
+        "organization": "Statistics Norway",
+        "phone": "40 90 23 42",
+        "raw": "Magne Holstad, Statistics Norway# +47 40 90 23 42#gnh@ssb.no"
+      },
+      {
+        "mail": "tre@ssb.no",
+        "name": "Thomas Aanensen",
+        "organization": "Statistics Norway",
+        "phone": "40 90 23 48",
+        "raw": "Thomas Aanensen, Statistics Norway# +47 40 90 23 48#tre@ssb.no"
+      }
+    ],
+    "discontinued": null,
+    "px": {
+      "aggregallowed": false,
+      "contents": "08307: Production, imports, exports and consumption of electric energy (GWh),",
+      "copyright": false,
+      "decimals": 0,
+      "descriptiondefault": false,
+      "heading": [
+        "ContentsCode",
+        "Tid"
+      ],
+      "infofile": "None",
+      "language": "en",
+      "matrix": "08307",
+      "official-statistics": true,
+      "stub": [],
+      "subject-area": "Energy and manufacturing",
+      "subject-code": "ei",
+      "tableid": "08307"
+    }
+  },
+  "id": [
+    "ContentsCode",
+    "Tid"
+  ],
+  "label": "08307: Production, imports, exports and consumption of electric energy (GWh), by year",
+  "role": {
+    "metric": [
+      "ContentsCode"
+    ],
+    "time": [
+      "Tid"
+    ]
+  },
+  "size": [
+    2,
+    1
+  ],
+  "source": "Statistics Norway",
+  "updated": "2026-05-08T06:00:00Z",
+  "value": [
+    161793,
+    130125
+  ],
+  "version": "2.0"
+}

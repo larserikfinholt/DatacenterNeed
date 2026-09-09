@@ -1,0 +1,34 @@
+{
+  "license": "CC BY 4.0",
+  "normalized": {
+    "electricity_gwh": {
+      "Nettoforbruk": 130125,
+      "ProdTotal": 161793
+    },
+    "occupation_employees": {
+      "0b": 8530,
+      "1": 244602,
+      "2": 755885,
+      "3_01-03": 437008,
+      "4": 168016,
+      "5": 611726,
+      "6": 27006,
+      "7": 255152,
+      "8": 184471,
+      "9": 146640
+    }
+  },
+  "retrieved_date": "2026-09-09",
+  "sources": {
+    "table-08307-electricity.json": {
+      "query_url": "https://data.ssb.no/api/pxwebapi/v2/tables/08307/data?lang=en&valueCodes%5BContentsCode%5D=ProdTotal%2CNettoforbruk&valueCodes%5BTid%5D=2025&outputFormat=json-stat2",
+      "sha256": "8ba43b7a90c70d4ad9384a7cca43dba84c63f7e9eacf32817b536a11ea47ec63",
+      "source_updated": "2026-05-08T06:00:00Z"
+    },
+    "table-11658-broad.json": {
+      "query_url": "https://data.ssb.no/api/pxwebapi/v2/tables/11658/data?lang=en&valueCodes%5BKjonn%5D=0&valueCodes%5BAlder%5D=999D&valueCodes%5BYrke%5D=1%2C2%2C3_01-03%2C4%2C5%2C6%2C7%2C8%2C9%2C0b&valueCodes%5BContentsCode%5D=Lonsstakere&valueCodes%5BTid%5D=2025K4&outputFormat=json-stat2",
+      "sha256": "fd7aa0a46cc6c9a811d1c1475acb4ae7de1f3a61fa7d500de6893996399dcfb5",
+      "source_updated": "2026-08-13T06:00:00Z"
+    }
+  }
+}

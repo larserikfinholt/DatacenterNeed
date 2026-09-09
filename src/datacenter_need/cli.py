@@ -8,11 +8,13 @@ from pathlib import Path
 from datacenter_need.pipeline import build_dataset, canonical_json, load_dataset
 from datacenter_need.schemas import InputDataset
 from datacenter_need.sources.ssb import fetch_employee_snapshot
+from datacenter_need.sources.ssb_norway import fetch_norway_baseline_snapshot
 
 DEFAULT_INPUT = Path("data/examples/synthetic.yaml")
 DEFAULT_OUTPUT = Path("build/example")
 DEFAULT_SCHEMA = Path("build/input.schema.json")
 DEFAULT_SSB_SNAPSHOT = Path("data/sources/ssb/11658-2512-2025K4")
+DEFAULT_NORWAY_BASELINE_SNAPSHOT = Path("data/sources/ssb/norway-2025-baseline")
 
 
 def create_parser() -> argparse.ArgumentParser:
@@ -32,6 +34,8 @@ def create_parser() -> argparse.ArgumentParser:
 
     fetch_ssb = commands.add_parser("fetch-ssb")
     fetch_ssb.add_argument("--output", type=Path, default=DEFAULT_SSB_SNAPSHOT)
+    fetch_norway = commands.add_parser("fetch-norway-baseline")
+    fetch_norway.add_argument("--output", type=Path, default=DEFAULT_NORWAY_BASELINE_SNAPSHOT)
     return parser
 
 
@@ -47,8 +51,11 @@ def main(argv: list[str] | None = None) -> int:
         args.output.parent.mkdir(parents=True, exist_ok=True)
         args.output.write_text(canonical_json(InputDataset.model_json_schema()), encoding="utf-8")
         print(args.output)
-    else:
+    elif args.command == "fetch-ssb":
         fetch_employee_snapshot(args.output)
+        print(args.output)
+    else:
+        fetch_norway_baseline_snapshot(args.output)
         print(args.output)
     return 0
 

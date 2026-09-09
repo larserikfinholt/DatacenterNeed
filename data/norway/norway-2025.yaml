@@ -1,0 +1,172 @@
+schema_version: "1.0"
+model_version: "1.0"
+sources:
+  - id: ssb-11658-2025k4-broad
+    title: "Table 11658: Employees by broad occupation"
+    publisher: Statistics Norway
+    source_kind: observed
+    license: CC BY 4.0
+    url: https://www.ssb.no/en/statbank/table/11658
+    publication_date: 2026-08-13
+    retrieved_date: 2026-09-09
+    locator: "Both sexes; all ages; STYRK-08 one-digit groups and 0b; employees; 2025K4"
+    query_url: "https://data.ssb.no/api/pxwebapi/v2/tables/11658/data?lang=en&valueCodes%5BKjonn%5D=0&valueCodes%5BAlder%5D=999D&valueCodes%5BYrke%5D=1%2C2%2C3_01-03%2C4%2C5%2C6%2C7%2C8%2C9%2C0b&valueCodes%5BContentsCode%5D=Lonsstakere&valueCodes%5BTid%5D=2025K4&outputFormat=json-stat2"
+    snapshot_path: data/sources/ssb/norway-2025-baseline/table-11658-broad.json
+    snapshot_sha256: fd7aa0a46cc6c9a811d1c1475acb4ae7de1f3a61fa7d500de6893996399dcfb5
+  - id: ssb-08307-2025-electricity
+    title: "Table 08307: Production and net consumption of electric energy"
+    publisher: Statistics Norway
+    source_kind: observed
+    license: CC BY 4.0
+    url: https://www.ssb.no/en/statbank/table/08307
+    publication_date: 2026-05-08
+    retrieved_date: 2026-09-09
+    locator: "Production, total and net consumption; 2025; entire-year flows"
+    query_url: "https://data.ssb.no/api/pxwebapi/v2/tables/08307/data?lang=en&valueCodes%5BContentsCode%5D=ProdTotal%2CNettoforbruk&valueCodes%5BTid%5D=2025&outputFormat=json-stat2"
+    snapshot_path: data/sources/ssb/norway-2025-baseline/table-08307-electricity.json
+    snapshot_sha256: 8ba43b7a90c70d4ad9384a7cca43dba84c63f7e9eacf32817b536a11ea47ec63
+  - id: assumption-broad-occupation-gaps
+    title: Broad occupation task-profile and annual-hours gaps
+    publisher: DatacenterNeed project
+    source_kind: assumption
+    license: Project research record; no external source
+    retrieved_date: 2026-09-09
+    locator: No broad-group annual-hours or AI-use assumptions selected for the observed national frame
+  - id: assumption-pue-unused
+    title: PUE placeholder unused by missing task profiles
+    publisher: DatacenterNeed project assumption
+    source_kind: assumption
+    license: Project assumption; no external source
+    retrieved_date: 2026-09-09
+    locator: Value 1.0 is unused because all broad-group task profiles remain unknown
+  - id: google-gemini-energy-2025
+    title: Measuring the environmental impact of delivering AI at Google Scale
+    publisher: Google
+    source_kind: reported
+    license: CC BY 4.0 (arXiv version)
+    url: https://arxiv.org/abs/2508.15734
+    publication_date: 2025-08-21
+    retrieved_date: 2026-09-09
+    locator: Retained benchmark contract; not applied to missing broad-group task profiles
+  - id: green-mountain-svg-rennesoy
+    title: SVG-Rennesøy data centre page
+    publisher: Green Mountain
+    source_kind: reported
+    license: Public webpage; redistribution terms not verified
+    url: https://greenmountain.no/data-center/svg-rennesoy/
+    retrieved_date: 2026-09-09
+    locator: Current operator facility page describing the former NATO facility and available server rooms
+  - id: lefdal-mine-facility
+    title: Lefdal Mine Data Centers facility page
+    publisher: Lefdal Mine Data Centers
+    source_kind: reported
+    license: Public webpage; redistribution terms not verified
+    url: https://www.lefdalmine.com/
+    retrieved_date: 2026-09-09
+    locator: Current operator page describing the facility and expansion potential
+  - id: statnett-connection-statistics-limitations
+    title: Statistics on grid connection cases
+    publisher: Statnett
+    source_kind: reported
+    license: Public webpage; data reuse terms not verified
+    url: https://www.statnett.no/nettkapasitet-til-produksjon-og-forbruk/foresporsler-og-reservasjon-i-nettet/
+    retrieved_date: 2026-09-09
+    locator: Overview text states manual registration since 2018, possible gaps, and currently displayed statuses
+observations:
+  - {id: no-workers-styrk1, country_code: "NO", year: 2025, metric: workers, unit: people, value: 244602, source_id: ssb-11658-2025k4-broad, definition: Employees in STYRK-08 major group 1 Managers, boundary: employment_headcount, evidence_status: observed, locator: "Yrke=1; Lonsstakere; 2025K4", period: 2025K4, reference_period: Mid-month of the quarter, population_basis: "Employees in Norway; residents and non-residents; main job per person", classification: {id: "7", name: Classification of Occupations 08 (STYRK-08), code: "1", valid_from: 2011-01-01, based_on: ISCO-08 (COM)}}
+  - {id: no-workers-styrk2, country_code: "NO", year: 2025, metric: workers, unit: people, value: 755885, source_id: ssb-11658-2025k4-broad, definition: Employees in STYRK-08 major group 2 Professionals, boundary: employment_headcount, evidence_status: observed, locator: "Yrke=2; Lonsstakere; 2025K4", period: 2025K4, reference_period: Mid-month of the quarter, population_basis: "Employees in Norway; residents and non-residents; main job per person", classification: {id: "7", name: Classification of Occupations 08 (STYRK-08), code: "2", valid_from: 2011-01-01, based_on: ISCO-08 (COM)}}
+  - {id: no-workers-styrk3-armed, country_code: "NO", year: 2025, metric: workers, unit: people, value: 437008, source_id: ssb-11658-2025k4-broad, definition: Employees in combined SSB group for technicians and associate professionals and armed forces, boundary: employment_headcount, evidence_status: observed, locator: "Yrke=3_01-03; Lonsstakere; 2025K4", period: 2025K4, reference_period: Mid-month of the quarter, population_basis: "Employees in Norway; residents and non-residents; main job per person", classification: {id: "7", name: Classification of Occupations 08 (STYRK-08), code: "3_01-03", valid_from: 2011-01-01, based_on: ISCO-08 (COM)}}
+  - {id: no-workers-styrk4, country_code: "NO", year: 2025, metric: workers, unit: people, value: 168016, source_id: ssb-11658-2025k4-broad, definition: Employees in STYRK-08 major group 4 Clerical support workers, boundary: employment_headcount, evidence_status: observed, locator: "Yrke=4; Lonsstakere; 2025K4", period: 2025K4, reference_period: Mid-month of the quarter, population_basis: "Employees in Norway; residents and non-residents; main job per person", classification: {id: "7", name: Classification of Occupations 08 (STYRK-08), code: "4", valid_from: 2011-01-01, based_on: ISCO-08 (COM)}}
+  - {id: no-workers-styrk5, country_code: "NO", year: 2025, metric: workers, unit: people, value: 611726, source_id: ssb-11658-2025k4-broad, definition: Employees in STYRK-08 major group 5 Service and sales workers, boundary: employment_headcount, evidence_status: observed, locator: "Yrke=5; Lonsstakere; 2025K4", period: 2025K4, reference_period: Mid-month of the quarter, population_basis: "Employees in Norway; residents and non-residents; main job per person", classification: {id: "7", name: Classification of Occupations 08 (STYRK-08), code: "5", valid_from: 2011-01-01, based_on: ISCO-08 (COM)}}
+  - {id: no-workers-styrk6, country_code: "NO", year: 2025, metric: workers, unit: people, value: 27006, source_id: ssb-11658-2025k4-broad, definition: Employees in STYRK-08 major group 6 Skilled agricultural forestry and fishery workers, boundary: employment_headcount, evidence_status: observed, locator: "Yrke=6; Lonsstakere; 2025K4", period: 2025K4, reference_period: Mid-month of the quarter, population_basis: "Employees in Norway; residents and non-residents; main job per person", classification: {id: "7", name: Classification of Occupations 08 (STYRK-08), code: "6", valid_from: 2011-01-01, based_on: ISCO-08 (COM)}}
+  - {id: no-workers-styrk7, country_code: "NO", year: 2025, metric: workers, unit: people, value: 255152, source_id: ssb-11658-2025k4-broad, definition: Employees in STYRK-08 major group 7 Craft and related trades workers, boundary: employment_headcount, evidence_status: observed, locator: "Yrke=7; Lonsstakere; 2025K4", period: 2025K4, reference_period: Mid-month of the quarter, population_basis: "Employees in Norway; residents and non-residents; main job per person", classification: {id: "7", name: Classification of Occupations 08 (STYRK-08), code: "7", valid_from: 2011-01-01, based_on: ISCO-08 (COM)}}
+  - {id: no-workers-styrk8, country_code: "NO", year: 2025, metric: workers, unit: people, value: 184471, source_id: ssb-11658-2025k4-broad, definition: Employees in STYRK-08 major group 8 Plant and machine operators and assemblers, boundary: employment_headcount, evidence_status: observed, locator: "Yrke=8; Lonsstakere; 2025K4", period: 2025K4, reference_period: Mid-month of the quarter, population_basis: "Employees in Norway; residents and non-residents; main job per person", classification: {id: "7", name: Classification of Occupations 08 (STYRK-08), code: "8", valid_from: 2011-01-01, based_on: ISCO-08 (COM)}}
+  - {id: no-workers-styrk9, country_code: "NO", year: 2025, metric: workers, unit: people, value: 146640, source_id: ssb-11658-2025k4-broad, definition: Employees in STYRK-08 major group 9 Elementary occupations, boundary: employment_headcount, evidence_status: observed, locator: "Yrke=9; Lonsstakere; 2025K4", period: 2025K4, reference_period: Mid-month of the quarter, population_basis: "Employees in Norway; residents and non-residents; main job per person", classification: {id: "7", name: Classification of Occupations 08 (STYRK-08), code: "9", valid_from: 2011-01-01, based_on: ISCO-08 (COM)}}
+  - {id: no-workers-styrk0b, country_code: "NO", year: 2025, metric: workers, unit: people, value: 8530, source_id: ssb-11658-2025k4-broad, definition: Employees with unspecified or unidentifiable occupations, boundary: employment_headcount, evidence_status: observed, locator: "Yrke=0b; Lonsstakere; 2025K4", period: 2025K4, reference_period: Mid-month of the quarter, population_basis: "Employees in Norway; residents and non-residents; main job per person", classification: {id: "7", name: Classification of Occupations 08 (STYRK-08), code: "0b", valid_from: 2011-01-01, based_on: ISCO-08 (COM)}}
+  - {id: no-electricity-production-2025, country_code: "NO", year: 2025, metric: electricity_production, unit: GWh, value: 161793, source_id: ssb-08307-2025-electricity, definition: Total net electricity production in Norway, boundary: national_electricity_production, evidence_status: observed, locator: "ContentsCode=ProdTotal; Tid=2025", period: "2025", reference_period: The entire year}
+  - {id: no-electricity-net-consumption-2025, country_code: "NO", year: 2025, metric: electricity_consumption, unit: GWh, value: 130125, source_id: ssb-08307-2025-electricity, definition: Sum of measured electricity consumption across primary and secondary industries tertiary industries and households, boundary: national_net_electricity_consumption, evidence_status: observed, locator: "ContentsCode=Nettoforbruk; Tid=2025", period: "2025", reference_period: The entire year}
+  - {id: no-hours-styrk1, country_code: "NO", year: 2025, metric: annual_hours, unit: hour_per_worker_year, value: null, missing_reason: No compatible broad-group annual-hours observation selected, source_id: assumption-broad-occupation-gaps, definition: Annual hours per employee in STYRK-08 group 1, boundary: annual_hours_per_worker, evidence_status: assumed, locator: Research gap}
+  - {id: no-hours-styrk2, country_code: "NO", year: 2025, metric: annual_hours, unit: hour_per_worker_year, value: null, missing_reason: No compatible broad-group annual-hours observation selected, source_id: assumption-broad-occupation-gaps, definition: Annual hours per employee in STYRK-08 group 2, boundary: annual_hours_per_worker, evidence_status: assumed, locator: Research gap}
+  - {id: no-hours-styrk3-armed, country_code: "NO", year: 2025, metric: annual_hours, unit: hour_per_worker_year, value: null, missing_reason: No compatible broad-group annual-hours observation selected, source_id: assumption-broad-occupation-gaps, definition: Annual hours per employee in combined SSB group 3 and armed forces, boundary: annual_hours_per_worker, evidence_status: assumed, locator: Research gap}
+  - {id: no-hours-styrk4, country_code: "NO", year: 2025, metric: annual_hours, unit: hour_per_worker_year, value: null, missing_reason: No compatible broad-group annual-hours observation selected, source_id: assumption-broad-occupation-gaps, definition: Annual hours per employee in STYRK-08 group 4, boundary: annual_hours_per_worker, evidence_status: assumed, locator: Research gap}
+  - {id: no-hours-styrk5, country_code: "NO", year: 2025, metric: annual_hours, unit: hour_per_worker_year, value: null, missing_reason: No compatible broad-group annual-hours observation selected, source_id: assumption-broad-occupation-gaps, definition: Annual hours per employee in STYRK-08 group 5, boundary: annual_hours_per_worker, evidence_status: assumed, locator: Research gap}
+  - {id: no-hours-styrk6, country_code: "NO", year: 2025, metric: annual_hours, unit: hour_per_worker_year, value: null, missing_reason: No compatible broad-group annual-hours observation selected, source_id: assumption-broad-occupation-gaps, definition: Annual hours per employee in STYRK-08 group 6, boundary: annual_hours_per_worker, evidence_status: assumed, locator: Research gap}
+  - {id: no-hours-styrk7, country_code: "NO", year: 2025, metric: annual_hours, unit: hour_per_worker_year, value: null, missing_reason: No compatible broad-group annual-hours observation selected, source_id: assumption-broad-occupation-gaps, definition: Annual hours per employee in STYRK-08 group 7, boundary: annual_hours_per_worker, evidence_status: assumed, locator: Research gap}
+  - {id: no-hours-styrk8, country_code: "NO", year: 2025, metric: annual_hours, unit: hour_per_worker_year, value: null, missing_reason: No compatible broad-group annual-hours observation selected, source_id: assumption-broad-occupation-gaps, definition: Annual hours per employee in STYRK-08 group 8, boundary: annual_hours_per_worker, evidence_status: assumed, locator: Research gap}
+  - {id: no-hours-styrk9, country_code: "NO", year: 2025, metric: annual_hours, unit: hour_per_worker_year, value: null, missing_reason: No compatible broad-group annual-hours observation selected, source_id: assumption-broad-occupation-gaps, definition: Annual hours per employee in STYRK-08 group 9, boundary: annual_hours_per_worker, evidence_status: assumed, locator: Research gap}
+occupations:
+  - {id: no-styrk1-managers, title: Managers (STYRK-08 1), country_code: "NO", year: 2025, workforce_basis: headcount, workers_observation_id: no-workers-styrk1, annual_hours_observation_id: no-hours-styrk1}
+  - {id: no-styrk2-professionals, title: Professionals (STYRK-08 2), country_code: "NO", year: 2025, workforce_basis: headcount, workers_observation_id: no-workers-styrk2, annual_hours_observation_id: no-hours-styrk2}
+  - {id: no-styrk3-armed, title: Technicians associate professionals and armed forces (SSB combined group), country_code: "NO", year: 2025, workforce_basis: headcount, workers_observation_id: no-workers-styrk3-armed, annual_hours_observation_id: no-hours-styrk3-armed}
+  - {id: no-styrk4-clerical, title: Clerical support workers (STYRK-08 4), country_code: "NO", year: 2025, workforce_basis: headcount, workers_observation_id: no-workers-styrk4, annual_hours_observation_id: no-hours-styrk4}
+  - {id: no-styrk5-service-sales, title: Service and sales workers (STYRK-08 5), country_code: "NO", year: 2025, workforce_basis: headcount, workers_observation_id: no-workers-styrk5, annual_hours_observation_id: no-hours-styrk5}
+  - {id: no-styrk6-agriculture, title: Skilled agricultural forestry and fishery workers (STYRK-08 6), country_code: "NO", year: 2025, workforce_basis: headcount, workers_observation_id: no-workers-styrk6, annual_hours_observation_id: no-hours-styrk6}
+  - {id: no-styrk7-craft, title: Craft and related trades workers (STYRK-08 7), country_code: "NO", year: 2025, workforce_basis: headcount, workers_observation_id: no-workers-styrk7, annual_hours_observation_id: no-hours-styrk7}
+  - {id: no-styrk8-operators, title: Plant and machine operators and assemblers (STYRK-08 8), country_code: "NO", year: 2025, workforce_basis: headcount, workers_observation_id: no-workers-styrk8, annual_hours_observation_id: no-hours-styrk8}
+  - {id: no-styrk9-elementary, title: Elementary occupations (STYRK-08 9), country_code: "NO", year: 2025, workforce_basis: headcount, workers_observation_id: no-workers-styrk9, annual_hours_observation_id: no-hours-styrk9}
+occupation_coverage:
+  - id: no-styrk08-major-groups-2025k4
+    country_code: "NO"
+    year: 2025
+    classification: {id: "7", name: Classification of Occupations 08 (STYRK-08), code: "0-9", valid_from: 2011-01-01, based_on: ISCO-08 (COM)}
+    declared_cell_ids: ["1", "2", "3_01-03", "4", "5", "6", "7", "8", "9", "0b"]
+    cell_observation_ids: {"1": no-workers-styrk1, "2": no-workers-styrk2, "3_01-03": no-workers-styrk3-armed, "4": no-workers-styrk4, "5": no-workers-styrk5, "6": no-workers-styrk6, "7": no-workers-styrk7, "8": no-workers-styrk8, "9": no-workers-styrk9, "0b": no-workers-styrk0b}
+    occupation_cell_assignments: {no-styrk1-managers: ["1"], no-styrk2-professionals: ["2"], no-styrk3-armed: ["3_01-03"], no-styrk4-clerical: ["4"], no-styrk5-service-sales: ["5"], no-styrk6-agriculture: ["6"], no-styrk7-craft: ["7"], no-styrk8-operators: ["8"], no-styrk9-elementary: ["9"]}
+    uncovered_cell_ids: ["0b"]
+task_profiles:
+  - {id: no-task-styrk1-gap, occupation_id: no-styrk1-managers, source_ids: [assumption-broad-occupation-gaps], missing_reason: No reviewed task profile selected}
+  - {id: no-task-styrk2-gap, occupation_id: no-styrk2-professionals, source_ids: [assumption-broad-occupation-gaps], missing_reason: No reviewed task profile selected}
+  - {id: no-task-styrk3-gap, occupation_id: no-styrk3-armed, source_ids: [assumption-broad-occupation-gaps], missing_reason: No reviewed task profile selected}
+  - {id: no-task-styrk4-gap, occupation_id: no-styrk4-clerical, source_ids: [assumption-broad-occupation-gaps], missing_reason: No reviewed task profile selected}
+  - {id: no-task-styrk5-gap, occupation_id: no-styrk5-service-sales, source_ids: [assumption-broad-occupation-gaps], missing_reason: No reviewed task profile selected}
+  - {id: no-task-styrk6-gap, occupation_id: no-styrk6-agriculture, source_ids: [assumption-broad-occupation-gaps], missing_reason: No reviewed task profile selected}
+  - {id: no-task-styrk7-gap, occupation_id: no-styrk7-craft, source_ids: [assumption-broad-occupation-gaps], missing_reason: No reviewed task profile selected}
+  - {id: no-task-styrk8-gap, occupation_id: no-styrk8-operators, source_ids: [assumption-broad-occupation-gaps], missing_reason: No reviewed task profile selected}
+  - {id: no-task-styrk9-gap, occupation_id: no-styrk9-elementary, source_ids: [assumption-broad-occupation-gaps], missing_reason: No reviewed task profile selected}
+energy_benchmarks:
+  - id: google-gemini-median-prompt-2025
+    title: Google-reported median Gemini Apps text prompt energy
+    kwh_per_request: 0.00024
+    boundary: cloud_facility
+    source_id: google-gemini-energy-2025
+    definition: Retained request-level benchmark contract; not applied to missing broad-group task profiles
+    measured_period: May 2025
+    limitations: Not applied in this dataset and not independently verified
+cloud_pue: {value: 1.0, source_ids: [assumption-pue-unused]}
+facility_comparator_observation_ids: []
+national_electricity_observation_ids: [no-electricity-production-2025, no-electricity-net-consumption-2025]
+projects:
+  - id: no-svg-rennesoy
+    title: SVG-Rennesøy
+    country_code: "NO"
+    aliases: [DC1-Stavanger, SVG1-Rennesøy]
+    completeness_limitations: Operator-reported identity and current operation only; no municipal or grid record audited and no boundary-clear MW observation included.
+    phases:
+      - id: no-svg-rennesoy-existing
+        title: Existing facility
+        aliases: [Former NATO ammunition storage facility]
+        observation_ids: []
+        construction_status: [{status: operating, as_of_date: 2026-09-09, source_id: green-mountain-svg-rennesoy, locator: Current operator page offers available server rooms in the converted facility}]
+        grid_status: [{status: unknown, as_of_date: 2026-09-09, source_id: green-mountain-svg-rennesoy, locator: No audited grid-case status in this source}]
+  - id: no-lefdal-mine
+    title: Lefdal Mine Data Centers
+    country_code: "NO"
+    aliases: [LMD]
+    completeness_limitations: Operator-reported identity and current operation only; expansion capacity has an unclear quantity boundary and is not included as MW.
+    phases:
+      - id: no-lefdal-mine-existing
+        title: Existing facility
+        aliases: [Lefdal Mine]
+        observation_ids: []
+        construction_status: [{status: operating, as_of_date: 2026-09-09, source_id: lefdal-mine-facility, locator: Current operator page offers data-centre services at the Måløy facility}]
+        grid_status: [{status: unknown, as_of_date: 2026-09-09, source_id: lefdal-mine-facility, locator: No audited grid-case status in this source}]
+evidence:
+  - id: statnett-inventory-completeness-2026
+    stance: mixed
+    finding: Statnett publishes queued reserved and connected cases but states that records have been manually registered since 2018 and may contain gaps.
+    method: Review of Statnett connection-statistics scope note
+    applicability: Limits completeness claims for any Norway data-centre project inventory assembled from current public grid statuses.
+    funding_and_conflicts: Statnett is the Norwegian transmission system operator and publisher of the status data.
+    limitations: No project-level machine-readable export or alias mapping was verified for this dataset.
+    source_ids: [statnett-connection-statistics-limitations]
+    affected_assumption_source_ids: []

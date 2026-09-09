@@ -1,0 +1,242 @@
+{
+  "class": "dataset",
+  "dimension": {
+    "Alder": {
+      "category": {
+        "index": {
+          "999D": 0
+        },
+        "label": {
+          "999D": "All ages"
+        }
+      },
+      "extension": {
+        "elimination": true,
+        "eliminationValueCode": "999D",
+        "show": "value"
+      },
+      "label": "age"
+    },
+    "ContentsCode": {
+      "category": {
+        "index": {
+          "Lonsstakere": 0
+        },
+        "label": {
+          "Lonsstakere": "Number of employees"
+        },
+        "unit": {
+          "Lonsstakere": {
+            "base": "persons",
+            "decimals": 0
+          }
+        }
+      },
+      "extension": {
+        "adjustment": {
+          "Lonsstakere": "None"
+        },
+        "alternativeText": {
+          "Lonsstakere": "Number of employees"
+        },
+        "elimination": false,
+        "measuringType": {
+          "Lonsstakere": "Stock"
+        },
+        "priceType": {
+          "Lonsstakere": "NotApplicable"
+        },
+        "refperiod": {
+          "Lonsstakere": "Mid-month of the quarter"
+        },
+        "show": "value"
+      },
+      "label": "contents",
+      "link": {
+        "describedby": [
+          {
+            "extension": {
+              "Lonsstakere": "urn:ssb:conceptvariable:vardok:2498"
+            }
+          }
+        ]
+      }
+    },
+    "Kjonn": {
+      "category": {
+        "index": {
+          "0": 0
+        },
+        "label": {
+          "0": "Both sexes"
+        }
+      },
+      "extension": {
+        "elimination": true,
+        "eliminationValueCode": "0",
+        "show": "value"
+      },
+      "label": "sex",
+      "link": {
+        "describedby": [
+          {
+            "extension": {
+              "Kjonn": "urn:ssb:classification:klass:2"
+            }
+          }
+        ]
+      }
+    },
+    "Tid": {
+      "category": {
+        "index": {
+          "2025K4": 0
+        },
+        "label": {
+          "2025K4": "2025K4"
+        }
+      },
+      "extension": {
+        "elimination": false,
+        "show": "code"
+      },
+      "label": "quarter"
+    },
+    "Yrke": {
+      "category": {
+        "index": {
+          "0b": 9,
+          "1": 0,
+          "2": 1,
+          "3_01-03": 2,
+          "4": 3,
+          "5": 4,
+          "6": 5,
+          "7": 6,
+          "8": 7,
+          "9": 8
+        },
+        "label": {
+          "0b": "Unspecified or unidentifiable occupations",
+          "1": "Managers",
+          "2": "Professionals",
+          "3_01-03": "Technicians and associate professionals, armed forces",
+          "4": "Clerical support workers",
+          "5": "Service and sales workers",
+          "6": "Skilled agricultural, forestry and fishery workers",
+          "7": "Craft and related trades workers",
+          "8": "Plant and machine operators and assemblers",
+          "9": "Elementary occupations"
+        }
+      },
+      "extension": {
+        "elimination": false,
+        "show": "code_value"
+      },
+      "label": "occupation",
+      "link": {
+        "describedby": [
+          {
+            "extension": {
+              "Yrke": "urn:ssb:classification:klass:7 urn:ssb:conceptvariable:vardok:1118"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "extension": {
+    "contact": [
+      {
+        "mail": "arbeidsmarked@ssb.no",
+        "name": "Arbeidsmarked",
+        "organization": "Statistics Norway",
+        "phone": "62 88 50 00",
+        "raw": " Arbeidsmarked, Statistics Norway# +47 62 88 50 00#arbeidsmarked@ssb.no"
+      },
+      {
+        "mail": "ksb@ssb.no",
+        "name": "Knut Snellingen Bye",
+        "organization": "Statistics Norway",
+        "phone": "40 81 13 26",
+        "raw": "Knut Snellingen Bye, Statistics Norway# +47 40 81 13 26#ksb@ssb.no"
+      },
+      {
+        "mail": "mjo@ssb.no",
+        "name": "Magnus Berglund Johnsen",
+        "organization": "Statistics Norway",
+        "phone": "40 90 23 75",
+        "raw": "Magnus Berglund Johnsen, Statistics Norway# +47 40 90 23 75#mjo@ssb.no"
+      }
+    ],
+    "discontinued": null,
+    "px": {
+      "aggregallowed": true,
+      "contents": "11658: Employees, jobs, and earnings,",
+      "copyright": false,
+      "decimals": 0,
+      "descriptiondefault": false,
+      "heading": [
+        "ContentsCode",
+        "Tid"
+      ],
+      "infofile": "None",
+      "language": "en",
+      "matrix": "11658",
+      "official-statistics": true,
+      "stub": [
+        "Kjonn",
+        "Alder",
+        "Yrke"
+      ],
+      "subject-area": "Labour market and earnings",
+      "subject-code": "al",
+      "tableid": "11658"
+    }
+  },
+  "id": [
+    "Kjonn",
+    "Alder",
+    "Yrke",
+    "ContentsCode",
+    "Tid"
+  ],
+  "label": "11658: Employees, jobs, and earnings, by sex, age, occupation and quarter",
+  "note": [
+    "Average basic monthly earnings and average monthly earnings are published in Norwegian NOK and rounded off to the nearest ten. Earnings are published both in the number of employments and earnings statistics and the yearly earnings statistics.",
+    "All 1s and 2s have been replaced by 0 or 3 in order to meet privacy requirement. When the figures are aggregated to a higher regional level, the sum may differ slightly from the actual figure.",
+    "Changes in reporting in the first quarter of 2020 have led to improved quality in the information on wages. The changes have resulted in an increased wage level. The most noticeable change has been in the industry division 05-09 Mining and quarrying where the average monthly basic earnings have increased by 0,8 percent, and monthly earnings have increased by 0,6 percent. Within this industry division the changes are most noticeable in 06 Extraction of oil and natural gas, with an increase in monthly basic earnings by 1,6 percent, and monthly earnings by 1,2 percent. The changes in reporting will also affect other classifications (occupation, place of work etc.) to a varying degree.",
+    "The wage-term average monthly earnings contained errors and was updated with the correct numbers for all quarters on November 30th 2021. Average basic monthly earnings was not affected by the error.  \nThis update resulted in a consequential error in the index of average monthly earnings in table 11654 and table 12314. Several quarterly figures were not estimated with the updated figures for average monthly earnings for the relevant base periods, but the old figures. Table 11654 was corrected on 9 June 2022 and table 12314 was corrected on 14 September 2022.",
+    "From the fourth quarter of 2024 to the first quarter of 2025, quality improvements in reporting have led to significant changes in the tables containing occupation. Statistics Norway (SSB) has assessed that the changes in occupational reporting are largely accurate. However, following feedback from SSB, some adjustments may occur in the reporting for the second quarter. Major changes between these periods should be interpreted with caution."
+  ],
+  "role": {
+    "metric": [
+      "ContentsCode"
+    ],
+    "time": [
+      "Tid"
+    ]
+  },
+  "size": [
+    1,
+    1,
+    10,
+    1,
+    1
+  ],
+  "source": "Statistics Norway",
+  "updated": "2026-08-13T06:00:00Z",
+  "value": [
+    244602,
+    755885,
+    437008,
+    168016,
+    611726,
+    27006,
+    255152,
+    184471,
+    146640,
+    8530
+  ],
+  "version": "2.0"
+}

@@ -1,6 +1,6 @@
 # Project: Measuring the Real Societal Need for Data Centres
 
-> **Important:** The audited Norway slice contains one empirical observation: 8,224 employees in STYRK-08 occupation 2512 in SSB table 11658 for 2025 Q4. Its annual hours, AI usage, and resulting energy are illustrative assumptions, not empirical national estimates. There is no web dashboard yet; `national_total_mwh` remains `null`.
+> **Important:** The Norway 2025 dataset now covers nine nonoverlapping broad SSB occupation groups (2,830,506 employees) and separately exposes 8,530 employees with unspecified or unidentifiable occupations. Annual hours and task profiles remain unknown, so it produces no national AI-energy estimate. It also records 2025 electricity production and net consumption plus a deliberately incomplete two-site project inventory with no aggregable MW. There is no web dashboard; `national_total_mwh` remains `null`.
 
 ## Quickstart
 
@@ -12,6 +12,8 @@ uv run datacenter-need validate --input data/examples/synthetic.yaml
 uv run datacenter-need build --offline --input data/examples/synthetic.yaml --output build/example
 uv run datacenter-need validate --input data/norway/software-developers-2025.yaml
 uv run datacenter-need build --offline --input data/norway/software-developers-2025.yaml --output build/norway
+uv run datacenter-need validate --input data/norway/norway-2025.yaml
+uv run datacenter-need build --offline --input data/norway/norway-2025.yaml --output build/norway-2025
 uv run pytest
 uv run ruff check .
 ```
@@ -26,7 +28,10 @@ Refreshing the pinned SSB snapshot is an explicit network operation. It validate
 
 ```powershell
 uv run datacenter-need fetch-ssb
+uv run datacenter-need fetch-norway-baseline
 ```
+
+The second fetch validates and atomically archives the broad 2025 Q4 occupation extract and 2025 annual electricity extract together. Network refreshes are reviewed operations; offline builds never fetch upstream data.
 
 Read the [methodology](docs/methodology.md), [source register](docs/source-register.md), [contribution guidance](CONTRIBUTING.md), and [implementation status](docs/implementation-status.md) before interpreting or extending the fixtures.
 

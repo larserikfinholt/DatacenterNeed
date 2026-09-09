@@ -66,6 +66,87 @@ def test_null_is_unknown_not_zero() -> None:
     assert country["unknown_occupation_count"] == 1
 
 
+def test_occupation_coverage_rejects_overlapping_cells() -> None:
+    data = example_data()
+    occupation_id = data["occupations"][0]["id"]
+    duplicate = deepcopy(data["occupations"][0])
+    duplicate["id"] = "no-second-occupation"
+    data["occupations"].append(duplicate)
+    profile = deepcopy(data["task_profiles"][0])
+    profile["id"] = "no-second-profile"
+    profile["occupation_id"] = duplicate["id"]
+    data["task_profiles"].append(profile)
+    data["occupation_coverage"] = [
+        {
+            "id": "no-2025-coverage",
+            "country_code": "NO",
+            "year": 2025,
+            "classification": {"id": "7", "name": "STYRK-08", "code": "all"},
+            "declared_cell_ids": ["cell-a", "cell-b"],
+            "cell_observation_ids": {"cell-a": "no-workers", "cell-b": "no-workers"},
+            "occupation_cell_assignments": {
+                occupation_id: ["cell-a"],
+                duplicate["id"]: ["cell-a"],
+            },
+            "uncovered_cell_ids": ["cell-b"],
+        }
+    ]
+
+    with pytest.raises(ValidationError, match="must not overlap"):
+        InputDataset.model_validate(data)
+
+
+def test_occupation_coverage_reports_explicit_uncovered_cells() -> None:
+    data = example_data()
+    occupation_id = data["occupations"][0]["id"]
+    data["observations"][0]["classification"] = {
+        "id": "7",
+        "name": "STYRK-08",
+        "code": "cell-a",
+    }
+    uncovered = deepcopy(data["observations"][0])
+    uncovered["id"] = "no-uncovered-workers"
+    uncovered["value"] = 25
+    uncovered["classification"]["code"] = "cell-b"
+    data["observations"].append(uncovered)
+    data["occupation_coverage"] = [
+        {
+            "id": "no-2025-coverage",
+            "country_code": "NO",
+            "year": 2025,
+            "classification": {"id": "7", "name": "STYRK-08", "code": "all"},
+            "declared_cell_ids": ["cell-a", "cell-b"],
+            "cell_observation_ids": {
+                "cell-a": "no-workers",
+                "cell-b": "no-uncovered-workers",
+            },
+            "occupation_cell_assignments": {occupation_id: ["cell-a"]},
+            "uncovered_cell_ids": ["cell-b"],
+        }
+    ]
+
+    result = evaluate_dataset(InputDataset.model_validate(data))
+    country = next(item for item in result["countries"] if item["country_code"] == "NO")
+    assert country["occupation_coverage"] == {
+        "frame_id": "no-2025-coverage",
+        "classification": {
+            "id": "7",
+            "name": "STYRK-08",
+            "code": "all",
+            "valid_from": None,
+            "based_on": None,
+        },
+        "declared_cell_count": 2,
+        "modeled_cell_count": 1,
+        "uncovered_cell_count": 1,
+        "uncovered_cell_ids": ["cell-b"],
+        "known_modeled_workers": 1000.0,
+        "known_declared_workers": 1025.0,
+        "complete_declared_workers": 1025.0,
+        "scope_status": "incomplete",
+    }
+
+
 def test_result_contains_replayable_input_trace() -> None:
     dataset, _ = load_dataset(EXAMPLE)
     result = evaluate_dataset(dataset)

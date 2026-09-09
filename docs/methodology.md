@@ -20,6 +20,8 @@ where $H$ is employed headcount, $A$ is annual hours per employed person, $D$ is
 
 The fractions must include adoption exactly once. Do not double-count workers through overlapping occupational groups or add a separate adoption multiplier to a fraction that already includes non-adopters. Occupational classification is not industry classification; validate STYRK08/ISCO08 mappings before use.
 
+Broad workforce coverage uses an explicit partition of source-defined atomic cells. Each cell links to one worker observation and belongs either to one modeled occupation group or to the uncovered set. Parent totals are reconciliation controls, not additional cells. A complete worker frame does not imply complete energy modeling when annual hours or task profiles are unknown.
+
 Worker task productivity is not societal productivity. Autonomous agents and background workloads are separately sourced activities or agent-hours: worker hours do not bound them. Non-AI workloads, consumer use, agents, training, fine-tuning, and retrieval stay unknown until studied, rather than becoming zero.
 
 ## Workload and energy accounting
@@ -55,6 +57,8 @@ Results report coverage, material gaps, and sensitivity. They do not make a nati
 Scenarios name every changed assumption and preserve a calculation trace. Adoption, task mix, model mix, placement, energy coefficient, domestic-hosting share, background activity, and PUE are separate axes unless evidence establishes a non-overlapping combined measure.
 
 Compare a modeled flow with observed or proposed capacity only after declaring whether each is IT, facility, connection, average, peak, or annual energy. Connection requests, queued projects, reservations, operating facilities, and announced projects are statuses, not interchangeable totals.
+
+Projects and physical phases have stable IDs; names used by operators, municipalities, and grid records are aliases only. Construction and grid status are separate dated histories. A quantity observation belongs to at most one phase, and project totals group only identical country, year, metric, unit, and boundary combinations. Aliases and status transitions never add capacity.
 
 An inverse calculation begins with an explicitly hypothetical capacity and allocation. It may answer what request intensity would be implied under those assumptions; it cannot validate the assumptions or establish observed use.
 

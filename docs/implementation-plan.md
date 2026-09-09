@@ -1,11 +1,11 @@
 # Implementation Plan and Session Handoff
 
-Updated: 2026-09-09. This file is the durable handoff for a fresh coding session.
+Updated: 2026-09-09 after completion of the bounded Milestone 2 baseline. This file is the durable handoff for a fresh coding session.
 It supersedes the original session-only plan where implementation status differs.
 
 ## Prompt for the Next Session
 
-> Read docs/implementation-plan.md, docs/implementation-status.md, and the research brief in readme.md. Continue from Milestone 2, preserving the implemented Python foundation and audited SSB slice. Use GPT-5.6 Sol (copilot) for implementation subagents and GPT-5.6 Terra (copilot) for simpler tasks. Tell me if those models cannot be selected. First verify the local baseline, then expand Norway coverage and project inventory without double counting. Keep assumptions separate from observations. Do not build a dashboard on invented national figures. Update the handoff and status documents when the milestone is complete. Do not commit, push, or deploy without my request.
+> Read docs/implementation-plan.md, docs/implementation-status.md, and the research brief in readme.md. Continue from Milestone 3, preserving the implemented Python foundation and audited Norway 2025 coverage baseline. Use GPT-5.6 Sol (copilot) for implementation subagents and GPT-5.6 Terra (copilot) for simpler tasks. Tell me if those models cannot be selected. First verify the local baseline, then implement scenarios and hosting allocation without filling evidence gaps with defaults. Keep assumptions separate from observations. Do not build a dashboard on invented national figures. Update the handoff and status documents when the milestone is complete. Do not commit, push, or deploy without my request.
 
 ## Agreed Direction
 
@@ -39,6 +39,10 @@ Last verified locally on Windows with Python 3.13.15 and uv 0.6.16:
 - The schema export command was also run successfully in the user's terminal.
 
 CI is configured for Windows/Ubuntu and Python 3.12/3.13. Remote CI has not been verified. No deployment, frontend, remote resource creation, commit, or push was performed by the assistant. The user may check in the work after this handoff; inspect Git state rather than assuming changes remain uncommitted.
+
+Milestone 2 subsequently added an atomic SSB Norway baseline fetch, explicit occupation coverage partitions, national electricity contracts, project/phase/status schemas, unknown-preserving project aggregation, and an evidence ledger. The 2025 dataset contains nine broad modeled groups and one uncovered `0b` cell, observed production/net consumption, and a limited two-site project identity pilot without MW totals. See the status document for current verification counts.
+
+Final Milestone 2 verification on Windows with Python 3.13.15 and uv 0.6.16: 43 tests passed, Ruff passed, all three inputs validated and built offline, archived snapshots replayed with matching checksums, and schema export succeeded.
 
 ## Start Here
 
@@ -124,7 +128,7 @@ Acceptance gate: at least one actual Norwegian observation is reproducible from 
 
 ## Remaining Roadmap
 
-### Milestone 2: Norway Coverage and Project Inventory
+### Completed Milestone 2: Norway Coverage and Project Inventory
 
 - Expand to nonoverlapping broad workforce coverage, with detailed task profiles for approximately 10-15 occupational groups where evidence permits. Show the uncovered remainder explicitly.
 - Add national electricity production/consumption and a dated project inventory with visible completeness limits.
@@ -134,6 +138,8 @@ Acceptance gate: at least one actual Norwegian observation is reproducible from 
 - Collect permanent FTE separately from construction jobs/job-years. Add land, taxes, value added, exports, and public infrastructure costs only with compatible definitions and periods.
 
 Acceptance gate: published totals show coverage and dates, have no project/occupation double-counting, and remain traceable. Unknown categories cannot become zero by aggregation.
+
+Completed 2026-09-09 as a bounded baseline. The workforce partition reconciles to the all-occupations control total, while missing annual hours and task profiles keep every broad-group energy result and the national total null. National electricity is published as two separately bounded annual observations. Project support is deliberately limited to two operator-backed identities with stable phase IDs and independent status fields; no ambiguous MW is aggregated, and national inventory completeness remains unknown.
 
 ### Milestone 3: Scenarios, Hosting, and Value
 
