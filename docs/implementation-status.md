@@ -63,6 +63,17 @@ Verified locally on Windows 2026-09-09: 24 frontend unit/parity tests, 4 Playwri
 
 ## Not Yet Implemented
 
+## Developer AI Power Reference
+
+- [x] Stage 1 standalone contracts and pure calculations
+- [x] Stage 1 focused regression tests for power, energy allocation, capacity,
+  unknowns, overload, topology, memory, PUE, and token-rate semantics
+
+Verified 2026-09-10 on Windows: 12 focused tests, 71 full Python tests, and
+Ruff passed. This remains a conditional reference model; no real GLM/H100
+capacity or power measurement is claimed. Stage 2 offline artifacts and Stage
+3 dashboard work remain.
+
 - [ ] Deployment
 - [ ] Pages configuration, dashboard CI integration, remote CI verification, and licensing resolution
 

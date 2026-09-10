@@ -1,11 +1,17 @@
 # Implementation Plan and Session Handoff
 
-Updated: 2026-09-09 after completion of Milestone 4 static dashboard. This file is the durable handoff for a fresh coding session.
+Updated: 2026-09-10 with the developer AI power reference as the next planned priority. The completed implementation checkpoint remains Milestone 4. This file is the durable handoff for a fresh coding session.
 It supersedes the original session-only plan where implementation status differs.
 
 ## Prompt for the Next Session
 
-> Read docs/implementation-plan.md, docs/implementation-status.md, and the research brief in readme.md. Continue from Milestone 5, preserving the implemented Python foundation, audited Norway 2025 coverage baseline, scenario engine, and static dashboard. Use GPT-5.6 Sol (copilot) for implementation subagents and GPT-5.6 Terra (copilot) for simpler tasks. Tell me if those models cannot be selected. First verify the local baseline and inspect the versioned dashboard artifacts. Keep assumptions separate from observations and do not convert Norway's incomplete evidence into national figures. Prepare public-release work only when authorized; do not commit, push, deploy, configure Pages, or change CI without my request. Update the handoff and status documents when the milestone is complete.
+> Implement docs/developer-reference-plan.md, starting with Stage 1 and its start prompt. Use GPT-5.6 Sol (copilot) for implementation subagents and GPT-5.6 Terra (copilot) for simpler tasks and review; delegation is authorized. The main session coordinates and validates. If these models cannot be selected, tell me and stop delegation rather than silently substituting more expensive models. Preserve the Python foundation, audited Norway observations, request-based model, scenario engine and static dashboard. Keep national totals null where evidence is incomplete. Complete the standalone reference before occupational integration, which is deferred. Do not commit, push, deploy, rent GPUs, create cloud resources, configure Pages, or change CI. Update the handoff with actual validation results and remaining work.
+
+The [developer-reference implementation plan](developer-reference-plan.md) contains
+the full calculation contract, evidence findings, illustrative scenarios, agent
+ownership, staged acceptance gates and a self-contained prompt. It is planned,
+not implemented. Public-release Milestone 5 remains pending and is not the next
+task unless the user redirects the work.
 
 ## Agreed Direction
 
