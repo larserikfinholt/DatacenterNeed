@@ -1,0 +1,31 @@
+{
+  "source_id": "ssb-11658-occupation-workforce-2025",
+  "publisher": "Statistics Norway",
+  "source_kind": "source data",
+  "license": "CC BY 4.0",
+  "retrieved_date": "2026-09-10",
+  "publication_date": "2026-08-13",
+  "snapshots": {
+    "metadata.json": "acd05ee0fc82b507c201c23b7ea640ee890f29f576d11b272444cc6fdd2effe8",
+    "workforce.json": "39242312540d8be39b5cf0a3ac07e7246990461e6caf88c76f0d1b8b7393b073"
+  },
+  "table_url": "https://www.ssb.no/statbank/table/11658",
+  "metadata_url": "https://data.ssb.no/api/pxwebapi/v2/tables/11658/metadata?lang=no",
+  "query_url": "https://data.ssb.no/api/pxwebapi/v2/tables/11658/data?lang=no&valueCodes%5BKjonn%5D=0&valueCodes%5BAlder%5D=999D&valueCodes%5BYrke%5D=*&valueCodes%5BContentsCode%5D=Lonsstakere,HeltidsEkvMnd&valueCodes%5BTid%5D=2025K1,2025K2,2025K3,2025K4&outputFormat=json-stat2",
+  "classification": "STYRK-08; SSB classification 7; valid from 2011-01-01",
+  "geography": "Norway; resident and non-resident employees; all ages; both sexes",
+  "reference_period": "Middle month of each quarter of 2025",
+  "metrics": {
+    "Lonsstakere": "Employees in people; occupation of main job",
+    "HeltidsEkvMnd": "Full-time equivalents (monthly work units); not actual annual hours worked"
+  },
+  "limitations": [
+    "Self-employed workers are not included.",
+    "Four quarterly snapshots do not constitute an observed annual FTE measure.",
+    "Use only four-digit occupation rows for aggregation; parents and control totals overlap.",
+    "Unspecified occupations must remain visible and must not be assigned zero demand.",
+    "Cells of one and two are replaced by zero or three for privacy; aggregation can differ from control totals.",
+    "Occupation reporting changed materially between 2024 Q4 and 2025 Q1.",
+    "Missing values must remain unknown rather than zero."
+  ]
+}

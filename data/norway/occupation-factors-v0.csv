@@ -1,0 +1,23 @@
+styrk08_code,occupation_label,occupation_factor_low,occupation_factor_base,occupation_factor_high,factor_status,factor_source_id,potential_basis,rationale
+2512,Software developers,1.00,1.00,1.00,assumption,occupation-factor-assumptions-v0,reference,Heavy AI-using developer defines the reference rather than average current developer adoption
+2611,Lawyers,0.30,0.60,0.80,assumption,occupation-factor-assumptions-v0,document_intensive,Research and drafting support substantial use but client work and accountable judgement remain human
+4110,General office clerks,0.25,0.45,0.65,assumption,occupation-factor-assumptions-v0,document_intensive,Frequent structured document tasks but assumed less compute-intensive use than developer agents
+5321,Health care assistants,0.02,0.05,0.12,assumption,occupation-factor-assumptions-v0,physical_and_personal_care,Hands-on care dominates with limited documentation and planning assistance
+6113,Gardeners and horticultural growers,0.01,0.03,0.08,assumption,occupation-factor-assumptions-v0,physical,Outdoor and cultivation work dominates with occasional planning and administration
+7115,Carpenters and joiners,0.02,0.05,0.12,assumption,occupation-factor-assumptions-v0,physical,On-site work dominates with some estimates planning and documentation
+9112,Office and establishment cleaners,0.00,0.01,0.04,assumption,occupation-factor-assumptions-v0,physical,Physical cleaning dominates with limited scheduling and reporting
+2511,Systems analysts and architects,0.50,0.75,1.00,assumption,occupation-factor-assumptions-v0,digital,Digital design and analysis with less continuous code execution than the reference
+2513,Web and multimedia developers,0.60,0.85,1.00,assumption,occupation-factor-assumptions-v0,digital,Software and content generation with potentially intensive multimodal use
+2514,Applications programmers,0.70,0.90,1.00,assumption,occupation-factor-assumptions-v0,digital,Code generation and testing close to the developer reference
+2411,Auditors and accounting advisers,0.30,0.55,0.80,assumption,occupation-factor-assumptions-v0,document_intensive,Analysis and reporting with human verification and accountability
+2413,Financial analysts,0.40,0.65,0.90,assumption,occupation-factor-assumptions-v0,document_intensive,Substantial digital research modelling and report production
+2422,Policy administration professionals,0.25,0.45,0.70,assumption,occupation-factor-assumptions-v0,document_intensive,Case preparation and document review alongside accountable decisions
+4311,Accounting clerks,0.25,0.45,0.65,assumption,occupation-factor-assumptions-v0,document_intensive,Structured records and reconciliation with high automation potential but uncertain inference intensity
+2142,Civil engineers,0.20,0.40,0.65,assumption,occupation-factor-assumptions-v0,mixed_digital_and_physical,Digital design and documentation combined with site work and specialist tools
+2341,Primary school teachers,0.10,0.25,0.45,assumption,occupation-factor-assumptions-v0,interpersonal,Preparation and assessment support while classroom teaching remains interpersonal
+2342,Early childhood educators,0.02,0.08,0.18,assumption,occupation-factor-assumptions-v0,interpersonal,Care and interaction dominate with some planning and documentation
+2223,Nurses,0.05,0.12,0.25,assumption,occupation-factor-assumptions-v0,physical_and_personal_care,Patient care dominates but documentation and information retrieval allow more use than direct care assistance
+2211,Generalist medical practitioners,0.10,0.25,0.45,assumption,occupation-factor-assumptions-v0,clinical_and_documentation,Clinical work remains human with documentation and decision-support assistance
+5223,Shop sales assistants,0.03,0.10,0.25,assumption,occupation-factor-assumptions-v0,interpersonal,Physical sales and stocking with some product lookup and customer support
+7411,Electricians,0.02,0.07,0.15,assumption,occupation-factor-assumptions-v0,physical,Installation work dominates with diagnostic planning and documentation assistance
+8332,Heavy truck drivers,0.01,0.04,0.10,assumption,occupation-factor-assumptions-v0,physical,Driving dominates with limited administration; autonomous driving is outside the GenAI scope

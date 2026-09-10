@@ -48,6 +48,14 @@ This two-site list is a schema-backed pilot, not a census. Statnett states that 
 
 ## Research backlog
 
+The [occupation-factor starter](occupation-factor-starter.md) adds a separate
+Developer Reference scaling path: an archived SSB 11658 extract for all four
+quarters of 2025, 407 detailed occupation rows, and 22 explicitly assumed factor
+profiles. SSB provides FTE directly as `HeltidsEkvMnd`; averaging quarterly stocks
+is only an annual proxy. ILO Working Paper 140 supplies task-exposure evidence,
+not energy coefficients. Missing factors, missing FTE and self-employed coverage
+remain unresolved; this table is not yet connected to the calculation engine.
+
 | Topic | Needed audit |
 | --- | --- |
 | Electricity | Add compatible sector detail only when it does not duplicate the audited national production and net-consumption totals. |
