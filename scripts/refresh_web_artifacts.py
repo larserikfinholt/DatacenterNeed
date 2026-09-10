@@ -25,6 +25,7 @@ DATASETS = (
     },
 )
 FILES = ("result.json", "manifest.json", "occupation_breakdown.csv")
+REFERENCE_FILES = ("result.json", "manifest.json", "scenarios.csv", "trace.json", "input.schema.json")
 
 
 def load_json(path: Path) -> dict[str, Any]:
@@ -91,6 +92,22 @@ def refresh() -> None:
                 },
             }
         )
+
+    reference_source = REPOSITORY_ROOT / "build" / "developer-reference" / "v1"
+    reference_manifest = load_json(reference_source / "manifest.json")
+    reference_outputs = reference_manifest.get("outputs")
+    if not isinstance(reference_outputs, dict):
+        raise TypeError(f"{reference_source / 'manifest.json'} has no outputs hashes")
+    reference_destination = ARTIFACT_ROOT / "developer-reference"
+    reference_destination.mkdir(parents=True, exist_ok=True)
+    for filename in REFERENCE_FILES:
+        if filename == "manifest.json":
+            shutil.copyfile(reference_source / filename, reference_destination / filename)
+            continue
+        expected = reference_outputs.get(filename)
+        if not isinstance(expected, str) or sha256(reference_source / filename) != expected:
+            raise ValueError(f"reference artifact hash mismatch for {filename}")
+        shutil.copyfile(reference_source / filename, reference_destination / filename)
 
     ARTIFACT_ROOT.mkdir(parents=True, exist_ok=True)
     (ARTIFACT_ROOT / "index.json").write_text(

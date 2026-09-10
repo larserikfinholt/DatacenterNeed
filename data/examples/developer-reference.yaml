@@ -1,0 +1,105 @@
+schema_version: "1.0"
+model_version: "1.0"
+reference_id: glm-5.3-flash-h100-8
+sources:
+  - id: model-card
+    title: GLM-5.3-Flash model card
+    url: https://huggingface.co/zai-org/GLM-5.3-Flash
+    kind: reported
+  - id: h100-spec
+    title: NVIDIA H100 SXM 80 GB specifications
+    url: https://www.nvidia.com/en-us/data-center/h100/
+    kind: reported
+  - id: synthetic-power
+    title: Synthetic node power fixture
+    kind: assumption
+evidence:
+  - id: model-memory-gap
+    source_id: model-card
+    boundary: model-capability
+    status: unknown
+    unknown_reason: No matching production capacity benchmark was verified.
+  - id: node-power-assumption
+    source_id: synthetic-power
+    boundary: node-it
+    status: assumed
+model:
+  model_id: GLM-5.3-Flash
+  revision: native-fp8
+  weight_precision: FP8
+  weight_memory_gib: null
+  capability_evidence: conditional assumption; no matching capacity benchmark
+  source_ids: [model-card]
+accelerator:
+  gpu_sku: NVIDIA H100
+  form_factor: SXM
+  gpu_count: 8
+  memory_gib_per_gpu: 80
+  interconnect: NVLink
+  gpus_per_replica: 8
+  replica_count: 1
+  serving_engine: vLLM or equivalent; unverified for this model
+  source_ids: [h100-spec]
+power:
+  gpu_idle_w: 100
+  gpu_busy_w: 600
+  other_node_w: 1000
+  configured_power_limit_w: 700
+  curve_evidence: synthetic linear fallback assumption
+  other_boundary: node_it
+  source_ids: [synthetic-power, h100-spec]
+serving:
+  aggregate_output_tokens_per_second: 800
+  per_stream_output_tokens_per_second: 40
+  practical_concurrency: 20
+  runtime_memory_gib: null
+  kv_memory_gib: null
+  prefill_supported: false
+  hardware_precision_compatibility: null
+  source_ids: [model-card]
+operations:
+  actual_occupancy: 1.0
+  burst_margin: 1.25
+  off_hours: 16
+  pue: 1.2
+  source_ids: [synthetic-power]
+scenarios:
+  - id: baseline
+    title: Baseline
+    gpu_utilization: 0.65
+    workload:
+      concurrent_developers: 20
+      jobs_per_developer: 1
+      inference_duty_cycle: 0.8
+      workday_hours: 8
+      tool_wait_fraction: 0.2
+      input_tokens: 2048
+      output_tokens: 1024
+      reasoning_tokens: 0
+    source_ids: [synthetic-power]
+  - id: heavy
+    title: Heavy two-job stress
+    gpu_utilization: 0.9
+    workload:
+      concurrent_developers: 20
+      jobs_per_developer: 2
+      inference_duty_cycle: 0.8
+      workday_hours: 8
+      tool_wait_fraction: 0.2
+      input_tokens: 4096
+      output_tokens: 2048
+      reasoning_tokens: 0
+    source_ids: [synthetic-power]
+  - id: low-load
+    title: Low load
+    gpu_utilization: 0.25
+    workload:
+      concurrent_developers: 20
+      jobs_per_developer: 1
+      inference_duty_cycle: 0.4
+      workday_hours: 8
+      tool_wait_fraction: 0.5
+      input_tokens: 1024
+      output_tokens: 512
+      reasoning_tokens: 0
+    source_ids: [synthetic-power]

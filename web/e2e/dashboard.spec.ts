@@ -49,3 +49,20 @@ test('computed synthetic resource outputs are visible', async ({ page }) => {
   await expect(page.getByText('1,825,000 AI requests / synthetic_workers')).toBeVisible()
   await expect(page.getByText('10 permanent_jobs/facility_MW')).toBeVisible()
 })
+
+for (const viewport of viewports) {
+  test(`${viewport.name} developer reference shows charts and unknown capacity`, async ({ page }) => {
+    await page.setViewportSize(viewport)
+    await page.goto('/?view=reference')
+
+    await expect(page.getByRole('heading', { name: 'Developer AI power reference' })).toBeVisible()
+    await expect(page.locator('#reference-developer-chart svg')).toBeVisible()
+    await expect(page.locator('#reference-jobs-chart svg')).toBeVisible()
+    await expect(page.getByText('hardware and precision compatibility is unverified')).toBeVisible()
+    await page.locator('#reference-scenario').selectOption('heavy')
+    await expect(page.getByRole('rowheader', { name: 'Heavy two-job stress' })).toBeVisible()
+    expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(
+      await page.evaluate(() => document.documentElement.clientWidth),
+    )
+  })
+}

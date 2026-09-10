@@ -7,7 +7,7 @@ import {
 } from './scenario'
 
 export const DASHBOARD_URL_VERSION = '1.0' as const
-export const DASHBOARD_VIEWS = ['electricity', 'demand', 'projects', 'sources'] as const
+export const DASHBOARD_VIEWS = ['electricity', 'demand', 'reference', 'projects', 'sources'] as const
 export type DashboardView = (typeof DASHBOARD_VIEWS)[number]
 
 export interface DashboardUrlState {

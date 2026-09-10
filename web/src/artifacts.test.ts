@@ -3,10 +3,12 @@ import { describe, expect, it } from 'vitest'
 import indexFixture from '../public/artifacts/v1/index.json'
 import norwayFixture from '../public/artifacts/v1/norway-2025/result.json'
 import syntheticFixture from '../public/artifacts/v1/synthetic/result.json'
+import referenceFixture from '../public/artifacts/v1/developer-reference/result.json'
 import {
   ArtifactValidationError,
   parseArtifactIndex,
   parseCalculationResult,
+  parseDeveloperReferenceResult,
 } from './artifacts'
 
 describe('artifact fixtures', () => {
@@ -28,6 +30,13 @@ describe('artifact fixtures', () => {
 
     expect(index.datasets.find(({ id }) => id === 'synthetic')?.kind).toBe('synthetic')
     expect(synthetic.scenario).not.toBeNull()
+  })
+
+  it('loads the standalone developer reference and preserves evidence gaps', () => {
+    const reference = parseDeveloperReferenceResult(referenceFixture)
+    expect(reference.reference_id).toBe('glm-5.3-flash-h100-8')
+    expect(reference.scenarios).toHaveLength(3)
+    expect(reference.evidence_gaps.length).toBeGreaterThan(0)
   })
 })
 

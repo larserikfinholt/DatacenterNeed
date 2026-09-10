@@ -1,0 +1,4 @@
+id,title,gpu_utilization,concurrent_developers,jobs_per_developer,duty_cycle,node_it_kw,watts_per_active_developer,workday_kwh_per_active_developer,capacity_status,supported_developers,supported_streams,limiting_constraint,trace_id,source_ids
+baseline,Baseline,0.65,20,1,0.8,4.4,220.0,1.7600000000000002,unknown,,,profile compatibility,scenario-baseline,synthetic-power
+heavy,Heavy two-job stress,0.9,20,2,0.8,5.4,270.0,2.16,unknown,,,profile compatibility,scenario-heavy,synthetic-power
+low-load,Low load,0.25,20,1,0.4,2.8,140.0,1.1199999999999999,unknown,,,profile compatibility,scenario-low-load,synthetic-power

@@ -4,8 +4,9 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 import indexFixture from '../public/artifacts/v1/index.json'
 import norwayFixture from '../public/artifacts/v1/norway-2025/result.json'
 import syntheticFixture from '../public/artifacts/v1/synthetic/result.json'
+import referenceFixture from '../public/artifacts/v1/developer-reference/result.json'
 import { mountDashboard } from './app'
-import { parseArtifactIndex, parseCalculationResult } from './artifacts'
+import { parseArtifactIndex, parseCalculationResult, parseDeveloperReferenceResult } from './artifacts'
 import {
   buildDashboardUrl,
   DEFAULT_SYNTHETIC_SELECTION,
@@ -20,11 +21,12 @@ const results = new Map([
   ['norway-2025', parseCalculationResult(norwayFixture)],
   ['synthetic', parseCalculationResult(syntheticFixture)],
 ])
+const reference = parseDeveloperReferenceResult(referenceFixture)
 
 function mount(url = 'https://example.test/'): HTMLElement {
   const root = document.createElement('div')
   document.body.replaceChildren(root)
-  mountDashboard(root, { index, results, initialUrl: url, embedCharts: false })
+  mountDashboard(root, { index, results, reference, initialUrl: url, embedCharts: false })
   return root
 }
 
@@ -64,6 +66,16 @@ describe('dashboard DOM', () => {
     expect(root.textContent).toContain('Synthetic value-resource ratio')
     expect(root.textContent).toContain('10 permanent_jobs/facility_MW')
     expect(root.textContent).not.toContain('Unavailable Not reported')
+  })
+
+  it('renders the standalone developer reference view', () => {
+    const root = mount('https://example.test/?view=reference')
+    expect(root.textContent).toContain('Developer AI power reference')
+    expect(root.textContent).toContain('Heavy two-job stress')
+    expect(root.textContent).toContain('Capacity is not presented as a measured')
+    root.querySelector<HTMLSelectElement>('#reference-scenario')!.value = 'heavy'
+    root.querySelector<HTMLSelectElement>('#reference-scenario')!.dispatchEvent(new Event('change', { bubbles: true }))
+    expect(root.textContent).toContain('unknown')
   })
 
   it('rejects an incompatible imported selection in the editor', async () => {

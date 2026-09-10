@@ -1,6 +1,6 @@
 # Source Register
 
-Checked: 2026-09-09. This register includes audited Norway workforce and electricity extracts plus a deliberately incomplete project identity sample. It is not a complete national project inventory or AI-demand estimate.
+Checked: 2026-09-10. This register includes audited Norway workforce and electricity extracts plus a deliberately incomplete project identity sample. It is not a complete national project inventory or AI-demand estimate.
 
 ## Verified access and terms
 
@@ -20,6 +20,18 @@ Do not infer table IDs, observations, licenses beyond the verified SSB statement
 | `google-gemini-median-prompt-2025` | 0.24 Wh per median Gemini Apps text prompt in May 2025; cloud-facility boundary including accelerator, host CPU/RAM, idle capacity, and data-centre overhead | Google-authored [technical paper](https://arxiv.org/abs/2508.15734), published 2025-08-21 under CC BY 4.0. Exact model mix, hardware, batching, utilization values, and prompt/output lengths were not disclosed. Google states the point-in-time result is not representative of every prompt or future performance and was not independently verified. |
 | `ssb-11658-2025k4-broad` | 2,839,036 employees: 2,830,506 in nine modeled broad groups and 8,530 in `0b`, unspecified or unidentifiable occupations | SSB table 11658, both sexes, all ages, number of employees, 2025 Q4. The ten disjoint cells reconcile exactly to the separately queried `0-9` control total, which is not added to them. Snapshot SHA-256: `fd7aa0a46cc6c9a811d1c1475acb4ae7de1f3a61fa7d500de6893996399dcfb5`. Annual hours and task profiles remain unknown. |
 | `ssb-08307-2025-electricity` | 161,793 GWh total production and 130,125 GWh net consumption; annual flows for 2025 | SSB table 08307, `ProdTotal` and `Nettoforbruk`, entire year. SSB defines production as net production and net consumption as measured consumption across primary and secondary industries, tertiary industries, and households. Snapshot SHA-256: `8ba43b7a90c70d4ad9384a7cca43dba84c63f7e9eacf32817b536a11ea47ec63`. These are separate observations, not quantities to add. |
+
+## Developer reference sources and assumptions
+
+| ID | Use and boundary | Limitation and status |
+| --- | --- | --- |
+| `developer-glm-5.3-flash-model-card` | [GLM-5.3-Flash model card](https://huggingface.co/zai-org/GLM-5.3-Flash); model identity, native FP8 label, and hybrid-attention context | Vendor/model-card material is reported evidence, not an independent serving or power measurement. Matching 8-H100, 20-developer capacity remains unknown. |
+| `developer-h100-sxm-specification` | [NVIDIA H100 specification](https://www.nvidia.com/en-us/data-center/h100/); H100 SXM 80 GB profile and configurable power-limit metadata | Configured TDP/power limit is not continuous inference power. SKU, form factor, engine and model precision must remain explicit. |
+| `developer-synthetic-power-fixture` | Synthetic node fixture: 100 W idle/GPU, 600 W busy/GPU, 1,000 W other node IT, linear utilization fallback | Assumption only; not a measurement, confidence interval, or universal coefficient. The Stage 2 artifact applies it once at the node IT boundary and applies PUE only for the optional facility value. |
+
+The standalone artifact at `build/developer-reference/v1/` is therefore a
+conditional calculation reference. Its null memory, compatibility, and
+capacity evidence are intentional unknowns, not zeros or verified performance.
 
 The occupation classification is [STYRK-08](https://www.ssb.no/en/klass/klassifikasjoner/7), classification 7, valid from January 2011 and based on ISCO-08. Code 2512 is “Software developers.” The real input is `data/norway/software-developers-2025.yaml`; annual hours and AI usage in that file are explicit project assumptions.
 

@@ -1,5 +1,5 @@
 import './style.css'
-import { loadArtifactIndex, loadCalculationResult } from './artifacts'
+import { loadArtifactIndex, loadCalculationResult, loadDeveloperReferenceResult } from './artifacts'
 import { mountDashboard } from './app'
 
 const app = document.querySelector<HTMLDivElement>('#app')!
@@ -13,9 +13,11 @@ async function render(): Promise<void> {
       async (dataset) => [dataset.id, await loadCalculationResult(dataset)] as const,
     ),
   )
+  const reference = await loadDeveloperReferenceResult()
   mountDashboard(app, {
     index,
     results: new Map(loaded),
+    reference,
     clipboard: navigator.clipboard,
   })
 }

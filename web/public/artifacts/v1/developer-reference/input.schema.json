@@ -1,0 +1,597 @@
+{
+  "$defs": {
+    "ReferenceAccelerator": {
+      "additionalProperties": false,
+      "properties": {
+        "form_factor": {
+          "minLength": 1,
+          "title": "Form Factor",
+          "type": "string"
+        },
+        "gpu_count": {
+          "minimum": 1,
+          "title": "Gpu Count",
+          "type": "integer"
+        },
+        "gpu_sku": {
+          "minLength": 1,
+          "title": "Gpu Sku",
+          "type": "string"
+        },
+        "gpus_per_replica": {
+          "minimum": 1,
+          "title": "Gpus Per Replica",
+          "type": "integer"
+        },
+        "interconnect": {
+          "minLength": 1,
+          "title": "Interconnect",
+          "type": "string"
+        },
+        "memory_gib_per_gpu": {
+          "minimum": 0,
+          "title": "Memory Gib Per Gpu",
+          "type": "number"
+        },
+        "replica_count": {
+          "minimum": 1,
+          "title": "Replica Count",
+          "type": "integer"
+        },
+        "serving_engine": {
+          "minLength": 1,
+          "title": "Serving Engine",
+          "type": "string"
+        },
+        "source_ids": {
+          "items": {
+            "minLength": 1,
+            "pattern": "^[a-z0-9][a-z0-9._-]*$",
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Source Ids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "gpu_sku",
+        "form_factor",
+        "gpu_count",
+        "memory_gib_per_gpu",
+        "interconnect",
+        "gpus_per_replica",
+        "replica_count",
+        "serving_engine"
+      ],
+      "title": "ReferenceAccelerator",
+      "type": "object"
+    },
+    "ReferenceEvidence": {
+      "additionalProperties": false,
+      "properties": {
+        "boundary": {
+          "minLength": 1,
+          "title": "Boundary",
+          "type": "string"
+        },
+        "id": {
+          "minLength": 1,
+          "pattern": "^[a-z0-9][a-z0-9._-]*$",
+          "title": "Id",
+          "type": "string"
+        },
+        "source_id": {
+          "minLength": 1,
+          "pattern": "^[a-z0-9][a-z0-9._-]*$",
+          "title": "Source Id",
+          "type": "string"
+        },
+        "status": {
+          "minLength": 1,
+          "title": "Status",
+          "type": "string"
+        },
+        "unknown_reason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Unknown Reason"
+        }
+      },
+      "required": [
+        "id",
+        "source_id",
+        "boundary",
+        "status"
+      ],
+      "title": "ReferenceEvidence",
+      "type": "object"
+    },
+    "ReferenceModel": {
+      "additionalProperties": false,
+      "properties": {
+        "capability_evidence": {
+          "minLength": 1,
+          "title": "Capability Evidence",
+          "type": "string"
+        },
+        "model_id": {
+          "minLength": 1,
+          "title": "Model Id",
+          "type": "string"
+        },
+        "revision": {
+          "minLength": 1,
+          "title": "Revision",
+          "type": "string"
+        },
+        "source_ids": {
+          "items": {
+            "minLength": 1,
+            "pattern": "^[a-z0-9][a-z0-9._-]*$",
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Source Ids",
+          "type": "array"
+        },
+        "weight_memory_gib": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Weight Memory Gib"
+        },
+        "weight_precision": {
+          "minLength": 1,
+          "title": "Weight Precision",
+          "type": "string"
+        }
+      },
+      "required": [
+        "model_id",
+        "revision",
+        "weight_precision",
+        "capability_evidence"
+      ],
+      "title": "ReferenceModel",
+      "type": "object"
+    },
+    "ReferenceOperations": {
+      "additionalProperties": false,
+      "properties": {
+        "actual_occupancy": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Actual Occupancy",
+          "type": "number"
+        },
+        "burst_margin": {
+          "minimum": 1,
+          "title": "Burst Margin",
+          "type": "number"
+        },
+        "off_hours": {
+          "minimum": 0,
+          "title": "Off Hours",
+          "type": "number"
+        },
+        "pue": {
+          "anyOf": [
+            {
+              "minimum": 1,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Pue"
+        },
+        "source_ids": {
+          "items": {
+            "minLength": 1,
+            "pattern": "^[a-z0-9][a-z0-9._-]*$",
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Source Ids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "actual_occupancy",
+        "burst_margin",
+        "off_hours"
+      ],
+      "title": "ReferenceOperations",
+      "type": "object"
+    },
+    "ReferencePower": {
+      "additionalProperties": false,
+      "properties": {
+        "configured_power_limit_w": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Configured Power Limit W"
+        },
+        "curve_evidence": {
+          "minLength": 1,
+          "title": "Curve Evidence",
+          "type": "string"
+        },
+        "gpu_busy_w": {
+          "minimum": 0,
+          "title": "Gpu Busy W",
+          "type": "number"
+        },
+        "gpu_idle_w": {
+          "minimum": 0,
+          "title": "Gpu Idle W",
+          "type": "number"
+        },
+        "other_boundary": {
+          "default": "node_it",
+          "title": "Other Boundary",
+          "type": "string"
+        },
+        "other_node_w": {
+          "minimum": 0,
+          "title": "Other Node W",
+          "type": "number"
+        },
+        "source_ids": {
+          "items": {
+            "minLength": 1,
+            "pattern": "^[a-z0-9][a-z0-9._-]*$",
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Source Ids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "gpu_idle_w",
+        "gpu_busy_w",
+        "other_node_w",
+        "curve_evidence"
+      ],
+      "title": "ReferencePower",
+      "type": "object"
+    },
+    "ReferenceScenario": {
+      "additionalProperties": false,
+      "properties": {
+        "gpu_utilization": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Gpu Utilization",
+          "type": "number"
+        },
+        "id": {
+          "minLength": 1,
+          "pattern": "^[a-z0-9][a-z0-9._-]*$",
+          "title": "Id",
+          "type": "string"
+        },
+        "source_ids": {
+          "items": {
+            "minLength": 1,
+            "pattern": "^[a-z0-9][a-z0-9._-]*$",
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Source Ids",
+          "type": "array"
+        },
+        "title": {
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        },
+        "workload": {
+          "$ref": "#/$defs/ReferenceWorkload"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "gpu_utilization",
+        "workload"
+      ],
+      "title": "ReferenceScenario",
+      "type": "object"
+    },
+    "ReferenceServing": {
+      "additionalProperties": false,
+      "properties": {
+        "aggregate_output_tokens_per_second": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Aggregate Output Tokens Per Second"
+        },
+        "hardware_precision_compatibility": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Hardware Precision Compatibility"
+        },
+        "kv_memory_gib": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Kv Memory Gib"
+        },
+        "per_stream_output_tokens_per_second": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Per Stream Output Tokens Per Second"
+        },
+        "practical_concurrency": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Practical Concurrency"
+        },
+        "prefill_supported": {
+          "title": "Prefill Supported",
+          "type": "boolean"
+        },
+        "runtime_memory_gib": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Runtime Memory Gib"
+        },
+        "source_ids": {
+          "items": {
+            "minLength": 1,
+            "pattern": "^[a-z0-9][a-z0-9._-]*$",
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Source Ids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "prefill_supported"
+      ],
+      "title": "ReferenceServing",
+      "type": "object"
+    },
+    "ReferenceSource": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "minLength": 1,
+          "pattern": "^[a-z0-9][a-z0-9._-]*$",
+          "title": "Id",
+          "type": "string"
+        },
+        "kind": {
+          "minLength": 1,
+          "title": "Kind",
+          "type": "string"
+        },
+        "title": {
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        },
+        "url": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Url"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "kind"
+      ],
+      "title": "ReferenceSource",
+      "type": "object"
+    },
+    "ReferenceWorkload": {
+      "additionalProperties": false,
+      "properties": {
+        "concurrent_developers": {
+          "minimum": 0,
+          "title": "Concurrent Developers",
+          "type": "integer"
+        },
+        "inference_duty_cycle": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Inference Duty Cycle",
+          "type": "number"
+        },
+        "input_tokens": {
+          "minimum": 0,
+          "title": "Input Tokens",
+          "type": "number"
+        },
+        "jobs_per_developer": {
+          "minimum": 0,
+          "title": "Jobs Per Developer",
+          "type": "integer"
+        },
+        "output_tokens": {
+          "minimum": 0,
+          "title": "Output Tokens",
+          "type": "number"
+        },
+        "reasoning_tokens": {
+          "minimum": 0,
+          "title": "Reasoning Tokens",
+          "type": "number"
+        },
+        "tool_wait_fraction": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Tool Wait Fraction",
+          "type": "number"
+        },
+        "workday_hours": {
+          "minimum": 0,
+          "title": "Workday Hours",
+          "type": "number"
+        }
+      },
+      "required": [
+        "concurrent_developers",
+        "jobs_per_developer",
+        "inference_duty_cycle",
+        "workday_hours",
+        "tool_wait_fraction",
+        "input_tokens",
+        "output_tokens",
+        "reasoning_tokens"
+      ],
+      "title": "ReferenceWorkload",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "accelerator": {
+      "$ref": "#/$defs/ReferenceAccelerator"
+    },
+    "evidence": {
+      "items": {
+        "$ref": "#/$defs/ReferenceEvidence"
+      },
+      "title": "Evidence",
+      "type": "array"
+    },
+    "model": {
+      "$ref": "#/$defs/ReferenceModel"
+    },
+    "model_version": {
+      "title": "Model Version",
+      "type": "string"
+    },
+    "operations": {
+      "$ref": "#/$defs/ReferenceOperations"
+    },
+    "power": {
+      "$ref": "#/$defs/ReferencePower"
+    },
+    "reference_id": {
+      "minLength": 1,
+      "pattern": "^[a-z0-9][a-z0-9._-]*$",
+      "title": "Reference Id",
+      "type": "string"
+    },
+    "scenarios": {
+      "items": {
+        "$ref": "#/$defs/ReferenceScenario"
+      },
+      "title": "Scenarios",
+      "type": "array"
+    },
+    "schema_version": {
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "serving": {
+      "$ref": "#/$defs/ReferenceServing"
+    },
+    "sources": {
+      "items": {
+        "$ref": "#/$defs/ReferenceSource"
+      },
+      "title": "Sources",
+      "type": "array"
+    }
+  },
+  "required": [
+    "schema_version",
+    "model_version",
+    "reference_id",
+    "sources",
+    "evidence",
+    "model",
+    "accelerator",
+    "power",
+    "serving",
+    "operations",
+    "scenarios"
+  ],
+  "title": "DeveloperReferenceInput",
+  "type": "object"
+}

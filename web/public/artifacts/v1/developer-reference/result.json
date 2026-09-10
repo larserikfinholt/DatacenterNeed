@@ -1,0 +1,214 @@
+{
+  "contract_version": "1.0",
+  "evidence_gaps": [
+    "No matching production capacity benchmark was verified."
+  ],
+  "model_version": "1.0",
+  "profiles": {
+    "accelerator": {
+      "form_factor": "SXM",
+      "gpu_count": 8,
+      "gpu_sku": "NVIDIA H100",
+      "gpus_per_replica": 8,
+      "interconnect": "NVLink",
+      "memory_gib_per_gpu": 80.0,
+      "replica_count": 1,
+      "serving_engine": "vLLM or equivalent; unverified for this model",
+      "source_ids": [
+        "h100-spec"
+      ]
+    },
+    "model": {
+      "capability_evidence": "conditional assumption; no matching capacity benchmark",
+      "model_id": "GLM-5.3-Flash",
+      "revision": "native-fp8",
+      "source_ids": [
+        "model-card"
+      ],
+      "weight_memory_gib": null,
+      "weight_precision": "FP8"
+    },
+    "operations": {
+      "actual_occupancy": 1.0,
+      "burst_margin": 1.25,
+      "off_hours": 16.0,
+      "pue": 1.2,
+      "source_ids": [
+        "synthetic-power"
+      ]
+    },
+    "power": {
+      "configured_power_limit_w": 700.0,
+      "curve_evidence": "synthetic linear fallback assumption",
+      "gpu_busy_w": 600.0,
+      "gpu_idle_w": 100.0,
+      "other_boundary": "node_it",
+      "other_node_w": 1000.0,
+      "source_ids": [
+        "synthetic-power",
+        "h100-spec"
+      ]
+    },
+    "serving": {
+      "aggregate_output_tokens_per_second": 800.0,
+      "hardware_precision_compatibility": null,
+      "kv_memory_gib": null,
+      "per_stream_output_tokens_per_second": 40.0,
+      "practical_concurrency": 20,
+      "prefill_supported": false,
+      "runtime_memory_gib": null,
+      "source_ids": [
+        "model-card"
+      ]
+    }
+  },
+  "reference_id": "glm-5.3-flash-h100-8",
+  "scenarios": [
+    {
+      "capacity": {
+        "limiting_constraint": "profile compatibility",
+        "requested_developers": 20,
+        "requested_streams": 20,
+        "required_output_tokens_per_second": 800.0,
+        "status": "unknown",
+        "supported_developers": null,
+        "supported_streams": null,
+        "unknown_reason": "hardware and precision compatibility is unverified"
+      },
+      "facility_node_w": 5280.0,
+      "gpu_utilization": 0.65,
+      "id": "baseline",
+      "node_it_kw": 4.4,
+      "node_it_w": 4400.0,
+      "off_hours_kwh": 70.4,
+      "source_ids": [
+        "synthetic-power"
+      ],
+      "title": "Baseline",
+      "trace_id": "scenario-baseline",
+      "watts_per_active_developer": 220.0,
+      "workday_kwh_per_active_developer": 1.7600000000000002,
+      "workload": {
+        "concurrent_developers": 20,
+        "inference_duty_cycle": 0.8,
+        "input_tokens": 2048.0,
+        "jobs_per_developer": 1,
+        "output_tokens": 1024.0,
+        "reasoning_tokens": 0.0,
+        "tool_wait_fraction": 0.2,
+        "workday_hours": 8.0
+      }
+    },
+    {
+      "capacity": {
+        "limiting_constraint": "profile compatibility",
+        "requested_developers": 20,
+        "requested_streams": 40,
+        "required_output_tokens_per_second": 1600.0,
+        "status": "unknown",
+        "supported_developers": null,
+        "supported_streams": null,
+        "unknown_reason": "hardware and precision compatibility is unverified"
+      },
+      "facility_node_w": 6480.0,
+      "gpu_utilization": 0.9,
+      "id": "heavy",
+      "node_it_kw": 5.4,
+      "node_it_w": 5400.0,
+      "off_hours_kwh": 86.4,
+      "source_ids": [
+        "synthetic-power"
+      ],
+      "title": "Heavy two-job stress",
+      "trace_id": "scenario-heavy",
+      "watts_per_active_developer": 270.0,
+      "workday_kwh_per_active_developer": 2.16,
+      "workload": {
+        "concurrent_developers": 20,
+        "inference_duty_cycle": 0.8,
+        "input_tokens": 4096.0,
+        "jobs_per_developer": 2,
+        "output_tokens": 2048.0,
+        "reasoning_tokens": 0.0,
+        "tool_wait_fraction": 0.2,
+        "workday_hours": 8.0
+      }
+    },
+    {
+      "capacity": {
+        "limiting_constraint": "profile compatibility",
+        "requested_developers": 20,
+        "requested_streams": 20,
+        "required_output_tokens_per_second": 800.0,
+        "status": "unknown",
+        "supported_developers": null,
+        "supported_streams": null,
+        "unknown_reason": "hardware and precision compatibility is unverified"
+      },
+      "facility_node_w": 3360.0,
+      "gpu_utilization": 0.25,
+      "id": "low-load",
+      "node_it_kw": 2.8,
+      "node_it_w": 2800.0,
+      "off_hours_kwh": 44.8,
+      "source_ids": [
+        "synthetic-power"
+      ],
+      "title": "Low load",
+      "trace_id": "scenario-low-load",
+      "watts_per_active_developer": 140.0,
+      "workday_kwh_per_active_developer": 1.1199999999999999,
+      "workload": {
+        "concurrent_developers": 20,
+        "inference_duty_cycle": 0.4,
+        "input_tokens": 1024.0,
+        "jobs_per_developer": 1,
+        "output_tokens": 512.0,
+        "reasoning_tokens": 0.0,
+        "tool_wait_fraction": 0.5,
+        "workday_hours": 8.0
+      }
+    }
+  ],
+  "sweeps": {
+    "developers": [
+      {
+        "concurrent_developers": 5,
+        "node_it_kw": 4.4,
+        "trace_id": "sweep-developers-fixed-power",
+        "watts_per_active_developer": 880.0
+      },
+      {
+        "concurrent_developers": 10,
+        "node_it_kw": 4.4,
+        "trace_id": "sweep-developers-fixed-power",
+        "watts_per_active_developer": 440.0
+      },
+      {
+        "concurrent_developers": 20,
+        "node_it_kw": 4.4,
+        "trace_id": "sweep-developers-fixed-power",
+        "watts_per_active_developer": 220.0
+      },
+      {
+        "concurrent_developers": 40,
+        "node_it_kw": 4.4,
+        "trace_id": "sweep-developers-fixed-power",
+        "watts_per_active_developer": 110.0
+      }
+    ],
+    "jobs": [
+      {
+        "jobs_per_developer": 1,
+        "trace_id": "sweep-jobs-fixed-power",
+        "watts_per_active_developer": 220.0
+      },
+      {
+        "jobs_per_developer": 2,
+        "trace_id": "sweep-jobs-fixed-power",
+        "watts_per_active_developer": 220.0
+      }
+    ],
+    "mode": "fixed_power_allocation"
+  }
+}

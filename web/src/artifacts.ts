@@ -190,3 +190,55 @@ export async function loadCalculationResult(
 ): Promise<CalculationResult> {
   return parseCalculationResult(await fetchJson(dataset.paths.result, fetcher))
 }
+
+export interface DeveloperReferenceResult extends Record<string, unknown> {
+  contract_version: string
+  model_version: string
+  reference_id: string
+  profiles: Record<string, unknown>
+  evidence_gaps: string[]
+  sweeps: Record<string, unknown>
+  scenarios: Array<Record<string, unknown>>
+}
+
+export function parseDeveloperReferenceResult(value: unknown): DeveloperReferenceResult {
+  const result = requireRecord(value, 'developer reference result')
+  requireSupportedVersion(result, 'contract_version', SUPPORTED_SCHEMA_VERSION, 'developer reference result')
+  requireSupportedVersion(result, 'model_version', SUPPORTED_MODEL_VERSION, 'developer reference result')
+  requireString(result, 'reference_id', 'developer reference result')
+  requireRecord(result.profiles, 'developer reference result.profiles')
+  requireRecord(result.sweeps, 'developer reference result.sweeps')
+  if (!Array.isArray(result.evidence_gaps) || !result.evidence_gaps.every((item) => typeof item === 'string')) {
+    throw new ArtifactValidationError('developer reference result.evidence_gaps must be string[]')
+  }
+  if (!Array.isArray(result.scenarios) || result.scenarios.length === 0) {
+    throw new ArtifactValidationError('developer reference result.scenarios must be non-empty')
+  }
+  result.scenarios.forEach((item, position) => {
+    const path = `developer reference result.scenarios[${position}]`
+    const scenario = requireRecord(item, path)
+    requireString(scenario, 'id', path)
+    requireString(scenario, 'title', path)
+    requireNumber(scenario, 'gpu_utilization', path)
+    const workload = requireRecord(scenario.workload, `${path}.workload`)
+    for (const key of ['concurrent_developers', 'jobs_per_developer', 'inference_duty_cycle', 'workday_hours']) {
+      requireNumber(workload, key, `${path}.workload`)
+    }
+    requireNumber(scenario, 'node_it_w', path)
+    requireNumber(scenario, 'node_it_kw', path)
+    const capacity = requireRecord(scenario.capacity, `${path}.capacity`)
+    const status = requireString(capacity, 'status', `${path}.capacity`)
+    if (!['conditional_pass', 'overload', 'unknown'].includes(status)) {
+      throw new ArtifactValidationError(`${path}.capacity.status is invalid`)
+    }
+    requireString(scenario, 'trace_id', path)
+  })
+  return result as DeveloperReferenceResult
+}
+
+export async function loadDeveloperReferenceResult(
+  url = '/artifacts/v1/developer-reference/result.json',
+  fetcher: typeof fetch = fetch,
+): Promise<DeveloperReferenceResult> {
+  return parseDeveloperReferenceResult(await fetchJson(url, fetcher))
+}

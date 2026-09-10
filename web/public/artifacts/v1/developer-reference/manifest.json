@@ -1,0 +1,23 @@
+{
+  "hash_algorithm": "sha256",
+  "input": {
+    "path": "data/examples/developer-reference.yaml",
+    "sha256": "39ca253a33e8a071a5adc23dc10e7c127cf160ff5b444492a0ad316272bcd75f"
+  },
+  "model": {
+    "sha256": "c4d622f0f84e01dc93eef8523e813650c828b6b8756a876c481f91c189b34284",
+    "version": "1.0"
+  },
+  "namespace": "developer-reference/v1",
+  "offline": true,
+  "outputs": {
+    "input.schema.json": "13859b078a8a71fe08e9ac89b38eb0ecd93a3805100f5f92cd708243fddd19bc",
+    "result.json": "6cc485805ecaefdfed8989235e7f2ea9ac8c4d06ad5d1feb0062cedc71e51282",
+    "scenarios.csv": "d67d3276c41206a1aad7db3da1816ed08a9e6619bf3b29792d5383dfa93d8097",
+    "trace.json": "88c8bd93f9ed2012d52c9949bb049628b54874fea9d5cf922923f3caa8d956b9"
+  },
+  "schema": {
+    "sha256": "13859b078a8a71fe08e9ac89b38eb0ecd93a3805100f5f92cd708243fddd19bc",
+    "version": "1.0"
+  }
+}

@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 
+from datacenter_need.developer_reference_pipeline import build_developer_reference
 from datacenter_need.pipeline import build_dataset, canonical_json, load_dataset
 from datacenter_need.schemas import InputDataset
 from datacenter_need.sources.ssb import fetch_employee_snapshot
@@ -15,6 +16,8 @@ DEFAULT_OUTPUT = Path("build/example")
 DEFAULT_SCHEMA = Path("build/input.schema.json")
 DEFAULT_SSB_SNAPSHOT = Path("data/sources/ssb/11658-2512-2025K4")
 DEFAULT_NORWAY_BASELINE_SNAPSHOT = Path("data/sources/ssb/norway-2025-baseline")
+DEFAULT_DEVELOPER_REFERENCE_INPUT = Path("data/examples/developer-reference.yaml")
+DEFAULT_DEVELOPER_REFERENCE_OUTPUT = Path("build/developer-reference/v1")
 
 
 def create_parser() -> argparse.ArgumentParser:
@@ -28,6 +31,11 @@ def create_parser() -> argparse.ArgumentParser:
     build.add_argument("--offline", action="store_true")
     build.add_argument("--input", type=Path, default=DEFAULT_INPUT)
     build.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
+
+    reference = commands.add_parser("build-developer-reference")
+    reference.add_argument("--offline", action="store_true")
+    reference.add_argument("--input", type=Path, default=DEFAULT_DEVELOPER_REFERENCE_INPUT)
+    reference.add_argument("--output", type=Path, default=DEFAULT_DEVELOPER_REFERENCE_OUTPUT)
 
     schema = commands.add_parser("schema")
     schema.add_argument("--output", type=Path, default=DEFAULT_SCHEMA)
@@ -46,6 +54,9 @@ def main(argv: list[str] | None = None) -> int:
         print(f"valid: {len(dataset.occupations)} occupations")
     elif args.command == "build":
         build_dataset(args.input, args.output, offline=True)
+        print(args.output)
+    elif args.command == "build-developer-reference":
+        build_developer_reference(args.input, args.output, offline=True)
         print(args.output)
     elif args.command == "schema":
         args.output.parent.mkdir(parents=True, exist_ok=True)

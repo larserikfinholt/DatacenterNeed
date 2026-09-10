@@ -365,13 +365,20 @@ physical assumptions in the final report.
   suite: 71 passed, Ruff passed. The model keeps power allocation separate
   from service feasibility, returns explicit unknown/overload states, applies
   PUE once, and preserves null per-user results for zero active developers.
-- [ ] Stage 2: traceable profiles and deterministic offline artifacts validated.
-- [ ] Stage 3: dashboard, charts and Python/browser parity validated.
-- [ ] Stage 4: integrated review, regression gates and handoff complete.
+- [x] Stage 2: traceable profiles and deterministic offline artifacts validated.
+  Added the standalone `build-developer-reference` command, versioned result,
+  scenarios CSV, trace, schema and manifest under
+  `build/developer-reference/v1/`; focused builder tests pass.
+- [x] Stage 3: dashboard, charts and Python/browser parity validated. Added a
+  separate static Developer reference view with scenario control, accessible
+  table, two charts, unknown-state labeling, and copied artifacts under
+  `web/public/artifacts/v1/developer-reference/`.
+- [x] Stage 4: integrated review, regression gates and handoff complete.
+  Python and frontend unit/e2e checks pass; remaining physical evidence gaps
+  are documented and no occupation integration was added.
 - [ ] Deferred occupation integration: requires a later authorized task.
 
-Stage 1 verification completed on 2026-09-10 on Windows. No real hardware
-measurements or GLM/H100 production-capacity claims were added. The next start
-point is Stage 2: freeze profile/evidence contracts, add versioned offline
-artifacts and deterministic trace/hash output without changing the national
-dataset or existing artifact interpretation.
+Stages 1-4 were verified on 2026-09-10 on Windows. No real hardware
+measurements or GLM/H100 production-capacity claims were added. The next
+authorized work is the deferred occupational integration stage; it must remain
+separate from this reference model and preserve unknown national totals.

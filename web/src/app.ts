@@ -8,7 +8,12 @@ import {
   Upload,
 } from 'lucide'
 
-import type { ArtifactIndex, CalculationResult, DatasetIndexEntry } from './artifacts'
+import type {
+  ArtifactIndex,
+  CalculationResult,
+  DatasetIndexEntry,
+  DeveloperReferenceResult,
+} from './artifacts'
 import {
   buildDashboardUrl,
   DASHBOARD_VIEWS,
@@ -36,11 +41,13 @@ export interface DashboardOptions {
   initialUrl?: string
   embedCharts?: boolean
   clipboard?: Pick<Clipboard, 'writeText'>
+  reference?: DeveloperReferenceResult
 }
 
 const VIEW_LABELS: Record<DashboardView, string> = {
   electricity: 'Electricity & capacity',
   demand: 'Demand & scenarios',
+  reference: 'Developer reference',
   projects: 'Projects & resources',
   sources: 'Sources, assumptions & evidence',
 }
@@ -371,6 +378,7 @@ export function mountDashboard(root: HTMLElement, options: DashboardOptions): vo
   let selection = parsed.selection
   let compare = false
   let notice = parsed.warning
+  let referenceScenarioId = text(options.reference?.scenarios[0]?.id, '')
 
   const currentDataset = (): DatasetIndexEntry =>
     options.index.datasets.find((item) => item.id === datasetId) ?? options.index.datasets[0]
@@ -392,6 +400,35 @@ export function mountDashboard(root: HTMLElement, options: DashboardOptions): vo
   const renderCharts = (): void => {
     if (options.embedCharts === false) return
     void import('vega-embed').then(({ default: embed }) => {
+    if (view === 'reference' && options.reference) {
+      const sweeps = record(options.reference.sweeps)
+      const developerSweep = records(sweeps?.developers)
+      const jobsSweep = records(sweeps?.jobs)
+      const developerContainer = root.querySelector<HTMLElement>('#reference-developer-chart')
+      const jobsContainer = root.querySelector<HTMLElement>('#reference-jobs-chart')
+      const developerValues = developerSweep.map((item) => ({
+        scenario: 'fixed-power allocation',
+        developers: number(item.concurrent_developers),
+        watts: number(item.watts_per_active_developer),
+      }))
+      const jobsValues = jobsSweep.map((item) => ({
+        scenario: 'fixed-power allocation',
+        jobs: number(item.jobs_per_developer),
+        watts: number(item.watts_per_active_developer),
+      }))
+      const config = { font: 'Verdana', view: { stroke: null } }
+      if (developerContainer) void embed(developerContainer, {
+        $schema: 'https://vega.github.io/schema/vega-lite/v6.json', width: 'container', height: 220,
+        data: { values: developerValues }, mark: { type: 'line', point: true },
+        encoding: { x: { field: 'developers', type: 'quantitative', title: 'Concurrent developers' }, y: { field: 'watts', type: 'quantitative', title: 'W / active developer' }, color: { field: 'scenario', type: 'nominal' }, tooltip: [{ field: 'scenario', type: 'nominal' }, { field: 'watts', type: 'quantitative', title: 'W' }] }, config,
+      }, { actions: false, renderer: 'svg' })
+      if (jobsContainer) void embed(jobsContainer, {
+        $schema: 'https://vega.github.io/schema/vega-lite/v6.json', width: 'container', height: 220,
+        data: { values: jobsValues }, mark: 'bar',
+        encoding: { x: { field: 'scenario', type: 'nominal', axis: { labelAngle: 0 } }, y: { field: 'watts', type: 'quantitative', title: 'W / active developer' }, color: { field: 'jobs', type: 'ordinal' }, tooltip: [{ field: 'scenario', type: 'nominal' }, { field: 'jobs', type: 'quantitative', title: 'Jobs / developer' }, { field: 'watts', type: 'quantitative', title: 'W' }] }, config,
+      }, { actions: false, renderer: 'svg' })
+      return
+    }
       const result = currentResult()
     const electricity = records(result.national_electricity).filter(
       (item) => number(item.value) !== null,
@@ -498,6 +535,8 @@ export function mountDashboard(root: HTMLElement, options: DashboardOptions): vo
         ? electricityView(result)
         : view === 'demand'
           ? demandView(result, selection, compare)
+          : view === 'reference' && options.reference
+            ? referenceView(options.reference, referenceScenarioId)
           : view === 'projects'
             ? projectsView(result)
             : sourcesView(result)
@@ -520,6 +559,10 @@ export function mountDashboard(root: HTMLElement, options: DashboardOptions): vo
         rerender()
       }),
     )
+    root.querySelector<HTMLSelectElement>('#reference-scenario')?.addEventListener('change', (event) => {
+      referenceScenarioId = (event.currentTarget as HTMLSelectElement).value
+      rerender()
+    })
     root.querySelectorAll<HTMLButtonElement>('[data-source]').forEach((button) =>
       button.addEventListener('click', () => {
         const sourceId = button.dataset.source
@@ -634,4 +677,31 @@ export function mountDashboard(root: HTMLElement, options: DashboardOptions): vo
 
   updateUrl()
   rerender()
+}
+
+function referenceView(reference: DeveloperReferenceResult, scenarioId: string): string {
+  const profiles = record(reference.profiles)
+  const model = record(profiles?.model)
+  const accelerator = record(profiles?.accelerator)
+  const power = record(profiles?.power)
+  const serving = record(profiles?.serving)
+  const scenarios = records(reference.scenarios)
+  const selected = scenarios.find((item) => item.id === scenarioId) ?? scenarios[0]
+  const capacity = record(selected?.capacity)
+  const scenarioOptions = scenarios
+    .map((item) => `<option value="${escapeHtml(item.id)}" ${item.id === selected?.id ? 'selected' : ''}>${escapeHtml(text(item.title))}</option>`)
+    .join('')
+  const powerRows = scenarios
+    .map((item) => `<tr><th>${escapeHtml(text(item.title))}</th><td>${formatNumber(item.node_it_kw)} kW</td><td>${formatNumber(item.watts_per_active_developer)} W</td><td>${statusBadge(record(item.capacity)?.status)}</td></tr>`)
+    .join('')
+  return `<section class="view-section" aria-labelledby="reference-title">
+    <div class="section-heading"><div><p class="eyebrow">Standalone conditional model</p><h2 id="reference-title">Developer AI power reference</h2></div><p>One H100 node is allocated across a named developer workload. Power allocation and successful service remain separate outputs.</p></div>
+    <div class="notice"><strong>Assumption boundary:</strong> ${escapeHtml(text(model?.capability_evidence))} Capacity is not presented as a measured GLM/H100 result.</div>
+    <section class="scenario-editor reference-editor"><div class="editor-heading"><div><p class="eyebrow">Scenario control</p><h3>Inspect a workload fixture</h3></div><span class="badge badge--assumption">conditional</span></div><label for="reference-scenario">Scenario</label><select id="reference-scenario">${scenarioOptions}</select><div class="coverage-strip"><div><span>Node IT</span><strong>${formatNumber(selected?.node_it_kw)} kW</strong></div><div><span>Per active developer</span><strong>${formatNumber(selected?.watts_per_active_developer)} W</strong></div><div><span>Service status</span><strong>${statusBadge(capacity?.status)}</strong></div><div><span>Supported developers</span><strong>${formatNumber(capacity?.supported_developers, 0)}</strong></div></div><dl class="reference-metrics"><div><dt>Workday energy / active developer</dt><dd>${formatNumber(selected?.workday_kwh_per_active_developer)} kWh</dd></div><div><dt>Facility node power</dt><dd>${formatNumber(selected?.facility_node_w)} W</dd></div><div><dt>Practical streams</dt><dd>${formatNumber(capacity?.supported_streams, 0)}</dd></div><div><dt>PUE</dt><dd>${formatNumber(record(profiles?.operations)?.pue, 2)}</dd></div></dl><p class="muted">${escapeHtml(text(capacity?.limiting_constraint, 'No limiting constraint reported.'))} ${escapeHtml(text(capacity?.unknown_reason, ''))}</p></section>
+    <div class="reference-profile-strip"><div><span>Model</span><strong>${escapeHtml(text(model?.model_id))} · ${escapeHtml(text(model?.weight_precision))}</strong></div><div><span>Accelerator</span><strong>${escapeHtml(text(accelerator?.gpu_sku))} × ${formatNumber(accelerator?.gpu_count, 0)}</strong></div><div><span>Power fixture</span><strong>${formatNumber(power?.gpu_idle_w)}–${formatNumber(power?.gpu_busy_w)} W/GPU</strong></div><div><span>Serving</span><strong>${formatNumber(serving?.aggregate_output_tokens_per_second)} output tok/s</strong></div></div>
+    <figure><figcaption>Allocation per developer across concurrent developers · fixed-power allocation mode</figcaption><div id="reference-developer-chart" class="chart" aria-label="Line chart of watts per active developer across concurrent developers"></div></figure>
+    <figure><figcaption>Allocation per developer across jobs per developer · fixed-power allocation mode</figcaption><div id="reference-jobs-chart" class="chart" aria-label="Bar chart of watts per active developer by jobs per developer"></div></figure>
+    <div class="table-wrap"><table><caption>Reference scenario values and service state</caption><thead><tr><th>Scenario</th><th>Node IT</th><th>W / active developer</th><th>Capacity status</th></tr></thead><tbody>${powerRows}</tbody></table></div>
+    <p class="muted">Input tokens, output tokens, reasoning tokens, duty cycle, occupancy, burst margin and PUE remain separate traceable inputs. Evidence gaps: ${escapeHtml(reference.evidence_gaps.join(' '))}</p>
+  </section>`
 }
