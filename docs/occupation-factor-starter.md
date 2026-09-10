@@ -1,7 +1,16 @@
 # Occupation factors: Developer Reference scaling
 
 Checked: 2026-09-10. Status: research and an unreviewed scenario starter, not a
-national demand estimate. No changes to the existing calculation engine or dashboard.
+national demand estimate. The frontend now implements this scaling chain as a
+partial conditional scenario; the Python calculation engine is unchanged.
+
+The frontend defaults to 50% adoption, base occupation factors, baseline Developer
+Reference power (220 W IT per active developer) and an editable assumption of
+1,725 active hours per FTE-year. This annual-hours assumption is not measured by
+SSB. The same time basis applies to reference and occupation FTE. PUE and idle
+energy outside active hours are excluded, explicitly, rather than silently
+allocated. Alternative factor profiles, reference scenarios and annual hours are
+separate sensitivity controls. No national extrapolation is performed.
 
 ## Recommended model
 

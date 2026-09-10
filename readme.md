@@ -35,7 +35,30 @@ The second fetch validates and atomically archives the broad 2025 Q4 occupation 
 
 ## Dashboard
 
-The static Vite vanilla TypeScript dashboard in `web/` reads committed versioned artifacts only; it has no backend, runtime Python, or visitor-side upstream fetching. Norway 2025 is the default observed baseline and retains missing occupation calculations, no MW project totals, a non-exhaustive two-site inventory, observed 2025 electricity only, and absent benefits. The prominently labeled synthetic dataset is the only dataset with adjustable scenarios.
+The static Vite vanilla TypeScript frontend in `web/` opens with an AI-adoption
+analysis for Norwegian working life. It uses the committed workforce and factor
+CSVs directly, plus Developer Reference `result.json` and `trace.json`; no backend,
+runtime Python or upstream requests are required. The older research dashboard
+remains available at `/?legacy=1`, and existing dataset/view URLs still work.
+
+The calculation is `sum(annual_fte_proxy * occupation_factor * adoption)` multiplied
+by annual IT kWh per developer-equivalent FTE. Adoption presets are 20/50/80%; base
+occupation factors stay fixed unless selected separately. The initial calibration
+uses baseline 220 W per active developer and an explicit, editable assumption of
+1,725 active hours per FTE-year, yielding 379.5 kWh per reference FTE-year. The same
+hours basis applies to every occupation. Annual average MW is GWh * 1,000 / 8,760
+(2025), not peak power. PUE and off-hours idle energy are excluded, as are end-user
+devices, training and other AI demand. This is not a model of hosting location.
+
+Only 22 of 407 codes have proposed factors, covering 752,935 of 2,465,032.25 known
+annual FTE proxies (30.5%). Fourteen codes lack a complete quarterly basis and
+self-employed workers are absent. Unknown factors are never zero or extrapolated
+to the rest of the workforce. Factors are unreviewed scenario assumptions, and the
+reference power is synthetic with unresolved capacity, not empirical calibration.
+Results are therefore explicitly partial conditional estimates, not total AI
+demand for Norway or a forecast. The underlying Python Norway result remains
+unchanged with `national_total_mwh = null`. CSV exports include all 407 rows,
+selected assumptions, units, reference/trace IDs and the calculation boundary.
 
 ```powershell
 npm ci --prefix web

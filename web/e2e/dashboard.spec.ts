@@ -8,7 +8,7 @@ const viewports = [
 for (const viewport of viewports) {
   test(`${viewport.name} Norway baseline preserves missing evidence`, async ({ page }) => {
     await page.setViewportSize(viewport)
-    await page.goto('/')
+    await page.goto('/?legacy=1')
 
     await expect(page.locator('#dataset')).toHaveValue('norway-2025')
     await expect(page.getByRole('heading', { name: 'Capacity unavailable' })).toBeVisible()
@@ -28,7 +28,7 @@ for (const viewport of viewports) {
 
 test('synthetic scenario is keyboard operable and renders nonblank chart marks', async ({ page }) => {
   await page.setViewportSize({ width: 375, height: 812 })
-  await page.goto('/')
+  await page.goto('/?legacy=1')
   await page.locator('#dataset').selectOption('synthetic')
   await page.getByRole('button', { name: /Demand & scenarios/ }).focus()
   await page.keyboard.press('Enter')
