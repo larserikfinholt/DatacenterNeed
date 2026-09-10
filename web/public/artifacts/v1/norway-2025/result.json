@@ -1,0 +1,1455 @@
+{
+  "countries": [
+    {
+      "calculated_occupation_count": 0,
+      "country_code": "NO",
+      "known_occupational_ai_subtotal_mwh": null,
+      "national_total_mwh": null,
+      "occupation_coverage": {
+        "classification": {
+          "based_on": "ISCO-08 (COM)",
+          "code": "0-9",
+          "id": "7",
+          "name": "Classification of Occupations 08 (STYRK-08)",
+          "valid_from": "2011-01-01"
+        },
+        "complete_declared_workers": 2839036.0,
+        "declared_cell_count": 10,
+        "frame_id": "no-styrk08-major-groups-2025k4",
+        "known_declared_workers": 2839036.0,
+        "known_modeled_workers": 2830506.0,
+        "modeled_cell_count": 9,
+        "scope_status": "incomplete",
+        "uncovered_cell_count": 1,
+        "uncovered_cell_ids": [
+          "0b"
+        ]
+      },
+      "scope_status": "incomplete",
+      "unknown_occupation_count": 9,
+      "year": 2025
+    }
+  ],
+  "evidence": [
+    {
+      "affected_assumption_source_ids": [],
+      "applicability": "Limits completeness claims for any Norway data-centre project inventory assembled from current public grid statuses.",
+      "finding": "Statnett publishes queued reserved and connected cases but states that records have been manually registered since 2018 and may contain gaps.",
+      "funding_and_conflicts": "Statnett is the Norwegian transmission system operator and publisher of the status data.",
+      "id": "statnett-inventory-completeness-2026",
+      "limitations": "No project-level machine-readable export or alias mapping was verified for this dataset.",
+      "method": "Review of Statnett connection-statistics scope note",
+      "source_ids": [
+        "statnett-connection-statistics-limitations"
+      ],
+      "stance": "mixed"
+    }
+  ],
+  "facility_comparators": [],
+  "input_trace": {
+    "cloud_pue": {
+      "source_ids": [
+        "assumption-pue-unused"
+      ],
+      "value": 1.0
+    },
+    "energy_benchmarks": [
+      {
+        "batching": null,
+        "boundary": "cloud_facility",
+        "context_and_output": null,
+        "definition": "Retained request-level benchmark contract; not applied to missing broad-group task profiles",
+        "hardware": null,
+        "id": "google-gemini-median-prompt-2025",
+        "kwh_per_request": 0.00024,
+        "limitations": "Not applied in this dataset and not independently verified",
+        "measured_period": "May 2025",
+        "model": null,
+        "source_id": "google-gemini-energy-2025",
+        "title": "Google-reported median Gemini Apps text prompt energy",
+        "utilization": null,
+        "workload": null
+      }
+    ],
+    "evidence": [
+      {
+        "affected_assumption_source_ids": [],
+        "applicability": "Limits completeness claims for any Norway data-centre project inventory assembled from current public grid statuses.",
+        "finding": "Statnett publishes queued reserved and connected cases but states that records have been manually registered since 2018 and may contain gaps.",
+        "funding_and_conflicts": "Statnett is the Norwegian transmission system operator and publisher of the status data.",
+        "id": "statnett-inventory-completeness-2026",
+        "limitations": "No project-level machine-readable export or alias mapping was verified for this dataset.",
+        "method": "Review of Statnett connection-statistics scope note",
+        "source_ids": [
+          "statnett-connection-statistics-limitations"
+        ],
+        "stance": "mixed"
+      }
+    ],
+    "facility_comparator_observation_ids": [],
+    "model_version": "1.0",
+    "national_electricity_observation_ids": [
+      "no-electricity-production-2025",
+      "no-electricity-net-consumption-2025"
+    ],
+    "observations": [
+      {
+        "boundary": "employment_headcount",
+        "classification": {
+          "based_on": "ISCO-08 (COM)",
+          "code": "1",
+          "id": "7",
+          "name": "Classification of Occupations 08 (STYRK-08)",
+          "valid_from": "2011-01-01"
+        },
+        "country_code": "NO",
+        "definition": "Employees in STYRK-08 major group 1 Managers",
+        "evidence_status": "observed",
+        "id": "no-workers-styrk1",
+        "locator": "Yrke=1; Lonsstakere; 2025K4",
+        "metric": "workers",
+        "missing_reason": null,
+        "period": "2025K4",
+        "population_basis": "Employees in Norway; residents and non-residents; main job per person",
+        "reference_period": "Mid-month of the quarter",
+        "source_id": "ssb-11658-2025k4-broad",
+        "uncertainty_high": null,
+        "uncertainty_low": null,
+        "unit": "people",
+        "value": 244602.0,
+        "year": 2025
+      },
+      {
+        "boundary": "employment_headcount",
+        "classification": {
+          "based_on": "ISCO-08 (COM)",
+          "code": "2",
+          "id": "7",
+          "name": "Classification of Occupations 08 (STYRK-08)",
+          "valid_from": "2011-01-01"
+        },
+        "country_code": "NO",
+        "definition": "Employees in STYRK-08 major group 2 Professionals",
+        "evidence_status": "observed",
+        "id": "no-workers-styrk2",
+        "locator": "Yrke=2; Lonsstakere; 2025K4",
+        "metric": "workers",
+        "missing_reason": null,
+        "period": "2025K4",
+        "population_basis": "Employees in Norway; residents and non-residents; main job per person",
+        "reference_period": "Mid-month of the quarter",
+        "source_id": "ssb-11658-2025k4-broad",
+        "uncertainty_high": null,
+        "uncertainty_low": null,
+        "unit": "people",
+        "value": 755885.0,
+        "year": 2025
+      },
+      {
+        "boundary": "employment_headcount",
+        "classification": {
+          "based_on": "ISCO-08 (COM)",
+          "code": "3_01-03",
+          "id": "7",
+          "name": "Classification of Occupations 08 (STYRK-08)",
+          "valid_from": "2011-01-01"
+        },
+        "country_code": "NO",
+        "definition": "Employees in combined SSB group for technicians and associate professionals and armed forces",
+        "evidence_status": "observed",
+        "id": "no-workers-styrk3-armed",
+        "locator": "Yrke=3_01-03; Lonsstakere; 2025K4",
+        "metric": "workers",
+        "missing_reason": null,
+        "period": "2025K4",
+        "population_basis": "Employees in Norway; residents and non-residents; main job per person",
+        "reference_period": "Mid-month of the quarter",
+        "source_id": "ssb-11658-2025k4-broad",
+        "uncertainty_high": null,
+        "uncertainty_low": null,
+        "unit": "people",
+        "value": 437008.0,
+        "year": 2025
+      },
+      {
+        "boundary": "employment_headcount",
+        "classification": {
+          "based_on": "ISCO-08 (COM)",
+          "code": "4",
+          "id": "7",
+          "name": "Classification of Occupations 08 (STYRK-08)",
+          "valid_from": "2011-01-01"
+        },
+        "country_code": "NO",
+        "definition": "Employees in STYRK-08 major group 4 Clerical support workers",
+        "evidence_status": "observed",
+        "id": "no-workers-styrk4",
+        "locator": "Yrke=4; Lonsstakere; 2025K4",
+        "metric": "workers",
+        "missing_reason": null,
+        "period": "2025K4",
+        "population_basis": "Employees in Norway; residents and non-residents; main job per person",
+        "reference_period": "Mid-month of the quarter",
+        "source_id": "ssb-11658-2025k4-broad",
+        "uncertainty_high": null,
+        "uncertainty_low": null,
+        "unit": "people",
+        "value": 168016.0,
+        "year": 2025
+      },
+      {
+        "boundary": "employment_headcount",
+        "classification": {
+          "based_on": "ISCO-08 (COM)",
+          "code": "5",
+          "id": "7",
+          "name": "Classification of Occupations 08 (STYRK-08)",
+          "valid_from": "2011-01-01"
+        },
+        "country_code": "NO",
+        "definition": "Employees in STYRK-08 major group 5 Service and sales workers",
+        "evidence_status": "observed",
+        "id": "no-workers-styrk5",
+        "locator": "Yrke=5; Lonsstakere; 2025K4",
+        "metric": "workers",
+        "missing_reason": null,
+        "period": "2025K4",
+        "population_basis": "Employees in Norway; residents and non-residents; main job per person",
+        "reference_period": "Mid-month of the quarter",
+        "source_id": "ssb-11658-2025k4-broad",
+        "uncertainty_high": null,
+        "uncertainty_low": null,
+        "unit": "people",
+        "value": 611726.0,
+        "year": 2025
+      },
+      {
+        "boundary": "employment_headcount",
+        "classification": {
+          "based_on": "ISCO-08 (COM)",
+          "code": "6",
+          "id": "7",
+          "name": "Classification of Occupations 08 (STYRK-08)",
+          "valid_from": "2011-01-01"
+        },
+        "country_code": "NO",
+        "definition": "Employees in STYRK-08 major group 6 Skilled agricultural forestry and fishery workers",
+        "evidence_status": "observed",
+        "id": "no-workers-styrk6",
+        "locator": "Yrke=6; Lonsstakere; 2025K4",
+        "metric": "workers",
+        "missing_reason": null,
+        "period": "2025K4",
+        "population_basis": "Employees in Norway; residents and non-residents; main job per person",
+        "reference_period": "Mid-month of the quarter",
+        "source_id": "ssb-11658-2025k4-broad",
+        "uncertainty_high": null,
+        "uncertainty_low": null,
+        "unit": "people",
+        "value": 27006.0,
+        "year": 2025
+      },
+      {
+        "boundary": "employment_headcount",
+        "classification": {
+          "based_on": "ISCO-08 (COM)",
+          "code": "7",
+          "id": "7",
+          "name": "Classification of Occupations 08 (STYRK-08)",
+          "valid_from": "2011-01-01"
+        },
+        "country_code": "NO",
+        "definition": "Employees in STYRK-08 major group 7 Craft and related trades workers",
+        "evidence_status": "observed",
+        "id": "no-workers-styrk7",
+        "locator": "Yrke=7; Lonsstakere; 2025K4",
+        "metric": "workers",
+        "missing_reason": null,
+        "period": "2025K4",
+        "population_basis": "Employees in Norway; residents and non-residents; main job per person",
+        "reference_period": "Mid-month of the quarter",
+        "source_id": "ssb-11658-2025k4-broad",
+        "uncertainty_high": null,
+        "uncertainty_low": null,
+        "unit": "people",
+        "value": 255152.0,
+        "year": 2025
+      },
+      {
+        "boundary": "employment_headcount",
+        "classification": {
+          "based_on": "ISCO-08 (COM)",
+          "code": "8",
+          "id": "7",
+          "name": "Classification of Occupations 08 (STYRK-08)",
+          "valid_from": "2011-01-01"
+        },
+        "country_code": "NO",
+        "definition": "Employees in STYRK-08 major group 8 Plant and machine operators and assemblers",
+        "evidence_status": "observed",
+        "id": "no-workers-styrk8",
+        "locator": "Yrke=8; Lonsstakere; 2025K4",
+        "metric": "workers",
+        "missing_reason": null,
+        "period": "2025K4",
+        "population_basis": "Employees in Norway; residents and non-residents; main job per person",
+        "reference_period": "Mid-month of the quarter",
+        "source_id": "ssb-11658-2025k4-broad",
+        "uncertainty_high": null,
+        "uncertainty_low": null,
+        "unit": "people",
+        "value": 184471.0,
+        "year": 2025
+      },
+      {
+        "boundary": "employment_headcount",
+        "classification": {
+          "based_on": "ISCO-08 (COM)",
+          "code": "9",
+          "id": "7",
+          "name": "Classification of Occupations 08 (STYRK-08)",
+          "valid_from": "2011-01-01"
+        },
+        "country_code": "NO",
+        "definition": "Employees in STYRK-08 major group 9 Elementary occupations",
+        "evidence_status": "observed",
+        "id": "no-workers-styrk9",
+        "locator": "Yrke=9; Lonsstakere; 2025K4",
+        "metric": "workers",
+        "missing_reason": null,
+        "period": "2025K4",
+        "population_basis": "Employees in Norway; residents and non-residents; main job per person",
+        "reference_period": "Mid-month of the quarter",
+        "source_id": "ssb-11658-2025k4-broad",
+        "uncertainty_high": null,
+        "uncertainty_low": null,
+        "unit": "people",
+        "value": 146640.0,
+        "year": 2025
+      },
+      {
+        "boundary": "employment_headcount",
+        "classification": {
+          "based_on": "ISCO-08 (COM)",
+          "code": "0b",
+          "id": "7",
+          "name": "Classification of Occupations 08 (STYRK-08)",
+          "valid_from": "2011-01-01"
+        },
+        "country_code": "NO",
+        "definition": "Employees with unspecified or unidentifiable occupations",
+        "evidence_status": "observed",
+        "id": "no-workers-styrk0b",
+        "locator": "Yrke=0b; Lonsstakere; 2025K4",
+        "metric": "workers",
+        "missing_reason": null,
+        "period": "2025K4",
+        "population_basis": "Employees in Norway; residents and non-residents; main job per person",
+        "reference_period": "Mid-month of the quarter",
+        "source_id": "ssb-11658-2025k4-broad",
+        "uncertainty_high": null,
+        "uncertainty_low": null,
+        "unit": "people",
+        "value": 8530.0,
+        "year": 2025
+      },
+      {
+        "boundary": "national_electricity_production",
+        "classification": null,
+        "country_code": "NO",
+        "definition": "Total net electricity production in Norway",
+        "evidence_status": "observed",
+        "id": "no-electricity-production-2025",
+        "locator": "ContentsCode=ProdTotal; Tid=2025",
+        "metric": "electricity_production",
+        "missing_reason": null,
+        "period": "2025",
+        "population_basis": null,
+        "reference_period": "The entire year",
+        "source_id": "ssb-08307-2025-electricity",
+        "uncertainty_high": null,
+        "uncertainty_low": null,
+        "unit": "GWh",
+        "value": 161793.0,
+        "year": 2025
+      },
+      {
+        "boundary": "national_net_electricity_consumption",
+        "classification": null,
+        "country_code": "NO",
+        "definition": "Sum of measured electricity consumption across primary and secondary industries tertiary industries and households",
+        "evidence_status": "observed",
+        "id": "no-electricity-net-consumption-2025",
+        "locator": "ContentsCode=Nettoforbruk; Tid=2025",
+        "metric": "electricity_consumption",
+        "missing_reason": null,
+        "period": "2025",
+        "population_basis": null,
+        "reference_period": "The entire year",
+        "source_id": "ssb-08307-2025-electricity",
+        "uncertainty_high": null,
+        "uncertainty_low": null,
+        "unit": "GWh",
+        "value": 130125.0,
+        "year": 2025
+      },
+      {
+        "boundary": "annual_hours_per_worker",
+        "classification": null,
+        "country_code": "NO",
+        "definition": "Annual hours per employee in STYRK-08 group 1",
+        "evidence_status": "assumed",
+        "id": "no-hours-styrk1",
+        "locator": "Research gap",
+        "metric": "annual_hours",
+        "missing_reason": "No compatible broad-group annual-hours observation selected",
+        "period": null,
+        "population_basis": null,
+        "reference_period": null,
+        "source_id": "assumption-broad-occupation-gaps",
+        "uncertainty_high": null,
+        "uncertainty_low": null,
+        "unit": "hour_per_worker_year",
+        "value": null,
+        "year": 2025
+      },
+      {
+        "boundary": "annual_hours_per_worker",
+        "classification": null,
+        "country_code": "NO",
+        "definition": "Annual hours per employee in STYRK-08 group 2",
+        "evidence_status": "assumed",
+        "id": "no-hours-styrk2",
+        "locator": "Research gap",
+        "metric": "annual_hours",
+        "missing_reason": "No compatible broad-group annual-hours observation selected",
+        "period": null,
+        "population_basis": null,
+        "reference_period": null,
+        "source_id": "assumption-broad-occupation-gaps",
+        "uncertainty_high": null,
+        "uncertainty_low": null,
+        "unit": "hour_per_worker_year",
+        "value": null,
+        "year": 2025
+      },
+      {
+        "boundary": "annual_hours_per_worker",
+        "classification": null,
+        "country_code": "NO",
+        "definition": "Annual hours per employee in combined SSB group 3 and armed forces",
+        "evidence_status": "assumed",
+        "id": "no-hours-styrk3-armed",
+        "locator": "Research gap",
+        "metric": "annual_hours",
+        "missing_reason": "No compatible broad-group annual-hours observation selected",
+        "period": null,
+        "population_basis": null,
+        "reference_period": null,
+        "source_id": "assumption-broad-occupation-gaps",
+        "uncertainty_high": null,
+        "uncertainty_low": null,
+        "unit": "hour_per_worker_year",
+        "value": null,
+        "year": 2025
+      },
+      {
+        "boundary": "annual_hours_per_worker",
+        "classification": null,
+        "country_code": "NO",
+        "definition": "Annual hours per employee in STYRK-08 group 4",
+        "evidence_status": "assumed",
+        "id": "no-hours-styrk4",
+        "locator": "Research gap",
+        "metric": "annual_hours",
+        "missing_reason": "No compatible broad-group annual-hours observation selected",
+        "period": null,
+        "population_basis": null,
+        "reference_period": null,
+        "source_id": "assumption-broad-occupation-gaps",
+        "uncertainty_high": null,
+        "uncertainty_low": null,
+        "unit": "hour_per_worker_year",
+        "value": null,
+        "year": 2025
+      },
+      {
+        "boundary": "annual_hours_per_worker",
+        "classification": null,
+        "country_code": "NO",
+        "definition": "Annual hours per employee in STYRK-08 group 5",
+        "evidence_status": "assumed",
+        "id": "no-hours-styrk5",
+        "locator": "Research gap",
+        "metric": "annual_hours",
+        "missing_reason": "No compatible broad-group annual-hours observation selected",
+        "period": null,
+        "population_basis": null,
+        "reference_period": null,
+        "source_id": "assumption-broad-occupation-gaps",
+        "uncertainty_high": null,
+        "uncertainty_low": null,
+        "unit": "hour_per_worker_year",
+        "value": null,
+        "year": 2025
+      },
+      {
+        "boundary": "annual_hours_per_worker",
+        "classification": null,
+        "country_code": "NO",
+        "definition": "Annual hours per employee in STYRK-08 group 6",
+        "evidence_status": "assumed",
+        "id": "no-hours-styrk6",
+        "locator": "Research gap",
+        "metric": "annual_hours",
+        "missing_reason": "No compatible broad-group annual-hours observation selected",
+        "period": null,
+        "population_basis": null,
+        "reference_period": null,
+        "source_id": "assumption-broad-occupation-gaps",
+        "uncertainty_high": null,
+        "uncertainty_low": null,
+        "unit": "hour_per_worker_year",
+        "value": null,
+        "year": 2025
+      },
+      {
+        "boundary": "annual_hours_per_worker",
+        "classification": null,
+        "country_code": "NO",
+        "definition": "Annual hours per employee in STYRK-08 group 7",
+        "evidence_status": "assumed",
+        "id": "no-hours-styrk7",
+        "locator": "Research gap",
+        "metric": "annual_hours",
+        "missing_reason": "No compatible broad-group annual-hours observation selected",
+        "period": null,
+        "population_basis": null,
+        "reference_period": null,
+        "source_id": "assumption-broad-occupation-gaps",
+        "uncertainty_high": null,
+        "uncertainty_low": null,
+        "unit": "hour_per_worker_year",
+        "value": null,
+        "year": 2025
+      },
+      {
+        "boundary": "annual_hours_per_worker",
+        "classification": null,
+        "country_code": "NO",
+        "definition": "Annual hours per employee in STYRK-08 group 8",
+        "evidence_status": "assumed",
+        "id": "no-hours-styrk8",
+        "locator": "Research gap",
+        "metric": "annual_hours",
+        "missing_reason": "No compatible broad-group annual-hours observation selected",
+        "period": null,
+        "population_basis": null,
+        "reference_period": null,
+        "source_id": "assumption-broad-occupation-gaps",
+        "uncertainty_high": null,
+        "uncertainty_low": null,
+        "unit": "hour_per_worker_year",
+        "value": null,
+        "year": 2025
+      },
+      {
+        "boundary": "annual_hours_per_worker",
+        "classification": null,
+        "country_code": "NO",
+        "definition": "Annual hours per employee in STYRK-08 group 9",
+        "evidence_status": "assumed",
+        "id": "no-hours-styrk9",
+        "locator": "Research gap",
+        "metric": "annual_hours",
+        "missing_reason": "No compatible broad-group annual-hours observation selected",
+        "period": null,
+        "population_basis": null,
+        "reference_period": null,
+        "source_id": "assumption-broad-occupation-gaps",
+        "uncertainty_high": null,
+        "uncertainty_low": null,
+        "unit": "hour_per_worker_year",
+        "value": null,
+        "year": 2025
+      }
+    ],
+    "occupation_coverage": [
+      {
+        "cell_observation_ids": {
+          "0b": "no-workers-styrk0b",
+          "1": "no-workers-styrk1",
+          "2": "no-workers-styrk2",
+          "3_01-03": "no-workers-styrk3-armed",
+          "4": "no-workers-styrk4",
+          "5": "no-workers-styrk5",
+          "6": "no-workers-styrk6",
+          "7": "no-workers-styrk7",
+          "8": "no-workers-styrk8",
+          "9": "no-workers-styrk9"
+        },
+        "classification": {
+          "based_on": "ISCO-08 (COM)",
+          "code": "0-9",
+          "id": "7",
+          "name": "Classification of Occupations 08 (STYRK-08)",
+          "valid_from": "2011-01-01"
+        },
+        "country_code": "NO",
+        "declared_cell_ids": [
+          "1",
+          "2",
+          "3_01-03",
+          "4",
+          "5",
+          "6",
+          "7",
+          "8",
+          "9",
+          "0b"
+        ],
+        "id": "no-styrk08-major-groups-2025k4",
+        "occupation_cell_assignments": {
+          "no-styrk1-managers": [
+            "1"
+          ],
+          "no-styrk2-professionals": [
+            "2"
+          ],
+          "no-styrk3-armed": [
+            "3_01-03"
+          ],
+          "no-styrk4-clerical": [
+            "4"
+          ],
+          "no-styrk5-service-sales": [
+            "5"
+          ],
+          "no-styrk6-agriculture": [
+            "6"
+          ],
+          "no-styrk7-craft": [
+            "7"
+          ],
+          "no-styrk8-operators": [
+            "8"
+          ],
+          "no-styrk9-elementary": [
+            "9"
+          ]
+        },
+        "uncovered_cell_ids": [
+          "0b"
+        ],
+        "year": 2025
+      }
+    ],
+    "occupations": [
+      {
+        "annual_hours_observation_id": "no-hours-styrk1",
+        "country_code": "NO",
+        "id": "no-styrk1-managers",
+        "title": "Managers (STYRK-08 1)",
+        "workers_observation_id": "no-workers-styrk1",
+        "workforce_basis": "headcount",
+        "year": 2025
+      },
+      {
+        "annual_hours_observation_id": "no-hours-styrk2",
+        "country_code": "NO",
+        "id": "no-styrk2-professionals",
+        "title": "Professionals (STYRK-08 2)",
+        "workers_observation_id": "no-workers-styrk2",
+        "workforce_basis": "headcount",
+        "year": 2025
+      },
+      {
+        "annual_hours_observation_id": "no-hours-styrk3-armed",
+        "country_code": "NO",
+        "id": "no-styrk3-armed",
+        "title": "Technicians associate professionals and armed forces (SSB combined group)",
+        "workers_observation_id": "no-workers-styrk3-armed",
+        "workforce_basis": "headcount",
+        "year": 2025
+      },
+      {
+        "annual_hours_observation_id": "no-hours-styrk4",
+        "country_code": "NO",
+        "id": "no-styrk4-clerical",
+        "title": "Clerical support workers (STYRK-08 4)",
+        "workers_observation_id": "no-workers-styrk4",
+        "workforce_basis": "headcount",
+        "year": 2025
+      },
+      {
+        "annual_hours_observation_id": "no-hours-styrk5",
+        "country_code": "NO",
+        "id": "no-styrk5-service-sales",
+        "title": "Service and sales workers (STYRK-08 5)",
+        "workers_observation_id": "no-workers-styrk5",
+        "workforce_basis": "headcount",
+        "year": 2025
+      },
+      {
+        "annual_hours_observation_id": "no-hours-styrk6",
+        "country_code": "NO",
+        "id": "no-styrk6-agriculture",
+        "title": "Skilled agricultural forestry and fishery workers (STYRK-08 6)",
+        "workers_observation_id": "no-workers-styrk6",
+        "workforce_basis": "headcount",
+        "year": 2025
+      },
+      {
+        "annual_hours_observation_id": "no-hours-styrk7",
+        "country_code": "NO",
+        "id": "no-styrk7-craft",
+        "title": "Craft and related trades workers (STYRK-08 7)",
+        "workers_observation_id": "no-workers-styrk7",
+        "workforce_basis": "headcount",
+        "year": 2025
+      },
+      {
+        "annual_hours_observation_id": "no-hours-styrk8",
+        "country_code": "NO",
+        "id": "no-styrk8-operators",
+        "title": "Plant and machine operators and assemblers (STYRK-08 8)",
+        "workers_observation_id": "no-workers-styrk8",
+        "workforce_basis": "headcount",
+        "year": 2025
+      },
+      {
+        "annual_hours_observation_id": "no-hours-styrk9",
+        "country_code": "NO",
+        "id": "no-styrk9-elementary",
+        "title": "Elementary occupations (STYRK-08 9)",
+        "workers_observation_id": "no-workers-styrk9",
+        "workforce_basis": "headcount",
+        "year": 2025
+      }
+    ],
+    "projects": [
+      {
+        "aliases": [
+          "DC1-Stavanger",
+          "SVG1-Rennes\u00f8y"
+        ],
+        "completeness_limitations": "Operator-reported identity and current operation only; no municipal or grid record audited and no boundary-clear MW observation included.",
+        "country_code": "NO",
+        "id": "no-svg-rennesoy",
+        "phases": [
+          {
+            "aliases": [
+              "Former NATO ammunition storage facility"
+            ],
+            "construction_status": [
+              {
+                "as_of_date": "2026-09-09",
+                "locator": "Current operator page offers available server rooms in the converted facility",
+                "source_id": "green-mountain-svg-rennesoy",
+                "status": "operating"
+              }
+            ],
+            "grid_status": [
+              {
+                "as_of_date": "2026-09-09",
+                "locator": "No audited grid-case status in this source",
+                "source_id": "green-mountain-svg-rennesoy",
+                "status": "unknown"
+              }
+            ],
+            "id": "no-svg-rennesoy-existing",
+            "observation_ids": [],
+            "title": "Existing facility"
+          }
+        ],
+        "title": "SVG-Rennes\u00f8y"
+      },
+      {
+        "aliases": [
+          "LMD"
+        ],
+        "completeness_limitations": "Operator-reported identity and current operation only; expansion capacity has an unclear quantity boundary and is not included as MW.",
+        "country_code": "NO",
+        "id": "no-lefdal-mine",
+        "phases": [
+          {
+            "aliases": [
+              "Lefdal Mine"
+            ],
+            "construction_status": [
+              {
+                "as_of_date": "2026-09-09",
+                "locator": "Current operator page offers data-centre services at the M\u00e5l\u00f8y facility",
+                "source_id": "lefdal-mine-facility",
+                "status": "operating"
+              }
+            ],
+            "grid_status": [
+              {
+                "as_of_date": "2026-09-09",
+                "locator": "No audited grid-case status in this source",
+                "source_id": "lefdal-mine-facility",
+                "status": "unknown"
+              }
+            ],
+            "id": "no-lefdal-mine-existing",
+            "observation_ids": [],
+            "title": "Existing facility"
+          }
+        ],
+        "title": "Lefdal Mine Data Centers"
+      }
+    ],
+    "scenario": null,
+    "schema_version": "1.0",
+    "sources": [
+      {
+        "id": "ssb-11658-2025k4-broad",
+        "license": "CC BY 4.0",
+        "locator": "Both sexes; all ages; STYRK-08 one-digit groups and 0b; employees; 2025K4",
+        "publication_date": "2026-08-13",
+        "publisher": "Statistics Norway",
+        "query_url": "https://data.ssb.no/api/pxwebapi/v2/tables/11658/data?lang=en&valueCodes%5BKjonn%5D=0&valueCodes%5BAlder%5D=999D&valueCodes%5BYrke%5D=1%2C2%2C3_01-03%2C4%2C5%2C6%2C7%2C8%2C9%2C0b&valueCodes%5BContentsCode%5D=Lonsstakere&valueCodes%5BTid%5D=2025K4&outputFormat=json-stat2",
+        "retrieved_date": "2026-09-09",
+        "snapshot_path": "data/sources/ssb/norway-2025-baseline/table-11658-broad.json",
+        "snapshot_sha256": "fd7aa0a46cc6c9a811d1c1475acb4ae7de1f3a61fa7d500de6893996399dcfb5",
+        "source_kind": "observed",
+        "title": "Table 11658: Employees by broad occupation",
+        "url": "https://www.ssb.no/en/statbank/table/11658"
+      },
+      {
+        "id": "ssb-08307-2025-electricity",
+        "license": "CC BY 4.0",
+        "locator": "Production, total and net consumption; 2025; entire-year flows",
+        "publication_date": "2026-05-08",
+        "publisher": "Statistics Norway",
+        "query_url": "https://data.ssb.no/api/pxwebapi/v2/tables/08307/data?lang=en&valueCodes%5BContentsCode%5D=ProdTotal%2CNettoforbruk&valueCodes%5BTid%5D=2025&outputFormat=json-stat2",
+        "retrieved_date": "2026-09-09",
+        "snapshot_path": "data/sources/ssb/norway-2025-baseline/table-08307-electricity.json",
+        "snapshot_sha256": "8ba43b7a90c70d4ad9384a7cca43dba84c63f7e9eacf32817b536a11ea47ec63",
+        "source_kind": "observed",
+        "title": "Table 08307: Production and net consumption of electric energy",
+        "url": "https://www.ssb.no/en/statbank/table/08307"
+      },
+      {
+        "id": "assumption-broad-occupation-gaps",
+        "license": "Project research record; no external source",
+        "locator": "No broad-group annual-hours or AI-use assumptions selected for the observed national frame",
+        "publication_date": null,
+        "publisher": "DatacenterNeed project",
+        "query_url": null,
+        "retrieved_date": "2026-09-09",
+        "snapshot_path": null,
+        "snapshot_sha256": null,
+        "source_kind": "assumption",
+        "title": "Broad occupation task-profile and annual-hours gaps",
+        "url": null
+      },
+      {
+        "id": "assumption-pue-unused",
+        "license": "Project assumption; no external source",
+        "locator": "Value 1.0 is unused because all broad-group task profiles remain unknown",
+        "publication_date": null,
+        "publisher": "DatacenterNeed project assumption",
+        "query_url": null,
+        "retrieved_date": "2026-09-09",
+        "snapshot_path": null,
+        "snapshot_sha256": null,
+        "source_kind": "assumption",
+        "title": "PUE placeholder unused by missing task profiles",
+        "url": null
+      },
+      {
+        "id": "google-gemini-energy-2025",
+        "license": "CC BY 4.0 (arXiv version)",
+        "locator": "Retained benchmark contract; not applied to missing broad-group task profiles",
+        "publication_date": "2025-08-21",
+        "publisher": "Google",
+        "query_url": null,
+        "retrieved_date": "2026-09-09",
+        "snapshot_path": null,
+        "snapshot_sha256": null,
+        "source_kind": "reported",
+        "title": "Measuring the environmental impact of delivering AI at Google Scale",
+        "url": "https://arxiv.org/abs/2508.15734"
+      },
+      {
+        "id": "green-mountain-svg-rennesoy",
+        "license": "Public webpage; redistribution terms not verified",
+        "locator": "Current operator facility page describing the former NATO facility and available server rooms",
+        "publication_date": null,
+        "publisher": "Green Mountain",
+        "query_url": null,
+        "retrieved_date": "2026-09-09",
+        "snapshot_path": null,
+        "snapshot_sha256": null,
+        "source_kind": "reported",
+        "title": "SVG-Rennes\u00f8y data centre page",
+        "url": "https://greenmountain.no/data-center/svg-rennesoy/"
+      },
+      {
+        "id": "lefdal-mine-facility",
+        "license": "Public webpage; redistribution terms not verified",
+        "locator": "Current operator page describing the facility and expansion potential",
+        "publication_date": null,
+        "publisher": "Lefdal Mine Data Centers",
+        "query_url": null,
+        "retrieved_date": "2026-09-09",
+        "snapshot_path": null,
+        "snapshot_sha256": null,
+        "source_kind": "reported",
+        "title": "Lefdal Mine Data Centers facility page",
+        "url": "https://www.lefdalmine.com/"
+      },
+      {
+        "id": "statnett-connection-statistics-limitations",
+        "license": "Public webpage; data reuse terms not verified",
+        "locator": "Overview text states manual registration since 2018, possible gaps, and currently displayed statuses",
+        "publication_date": null,
+        "publisher": "Statnett",
+        "query_url": null,
+        "retrieved_date": "2026-09-09",
+        "snapshot_path": null,
+        "snapshot_sha256": null,
+        "source_kind": "reported",
+        "title": "Statistics on grid connection cases",
+        "url": "https://www.statnett.no/nettkapasitet-til-produksjon-og-forbruk/foresporsler-og-reservasjon-i-nettet/"
+      }
+    ],
+    "task_profiles": [
+      {
+        "ai_fraction": null,
+        "digital_fraction": null,
+        "id": "no-task-styrk1-gap",
+        "missing_reason": "No reviewed task profile selected",
+        "occupation_id": "no-styrk1-managers",
+        "placements": [],
+        "requests_per_ai_hour": null,
+        "source_ids": [
+          "assumption-broad-occupation-gaps"
+        ]
+      },
+      {
+        "ai_fraction": null,
+        "digital_fraction": null,
+        "id": "no-task-styrk2-gap",
+        "missing_reason": "No reviewed task profile selected",
+        "occupation_id": "no-styrk2-professionals",
+        "placements": [],
+        "requests_per_ai_hour": null,
+        "source_ids": [
+          "assumption-broad-occupation-gaps"
+        ]
+      },
+      {
+        "ai_fraction": null,
+        "digital_fraction": null,
+        "id": "no-task-styrk3-gap",
+        "missing_reason": "No reviewed task profile selected",
+        "occupation_id": "no-styrk3-armed",
+        "placements": [],
+        "requests_per_ai_hour": null,
+        "source_ids": [
+          "assumption-broad-occupation-gaps"
+        ]
+      },
+      {
+        "ai_fraction": null,
+        "digital_fraction": null,
+        "id": "no-task-styrk4-gap",
+        "missing_reason": "No reviewed task profile selected",
+        "occupation_id": "no-styrk4-clerical",
+        "placements": [],
+        "requests_per_ai_hour": null,
+        "source_ids": [
+          "assumption-broad-occupation-gaps"
+        ]
+      },
+      {
+        "ai_fraction": null,
+        "digital_fraction": null,
+        "id": "no-task-styrk5-gap",
+        "missing_reason": "No reviewed task profile selected",
+        "occupation_id": "no-styrk5-service-sales",
+        "placements": [],
+        "requests_per_ai_hour": null,
+        "source_ids": [
+          "assumption-broad-occupation-gaps"
+        ]
+      },
+      {
+        "ai_fraction": null,
+        "digital_fraction": null,
+        "id": "no-task-styrk6-gap",
+        "missing_reason": "No reviewed task profile selected",
+        "occupation_id": "no-styrk6-agriculture",
+        "placements": [],
+        "requests_per_ai_hour": null,
+        "source_ids": [
+          "assumption-broad-occupation-gaps"
+        ]
+      },
+      {
+        "ai_fraction": null,
+        "digital_fraction": null,
+        "id": "no-task-styrk7-gap",
+        "missing_reason": "No reviewed task profile selected",
+        "occupation_id": "no-styrk7-craft",
+        "placements": [],
+        "requests_per_ai_hour": null,
+        "source_ids": [
+          "assumption-broad-occupation-gaps"
+        ]
+      },
+      {
+        "ai_fraction": null,
+        "digital_fraction": null,
+        "id": "no-task-styrk8-gap",
+        "missing_reason": "No reviewed task profile selected",
+        "occupation_id": "no-styrk8-operators",
+        "placements": [],
+        "requests_per_ai_hour": null,
+        "source_ids": [
+          "assumption-broad-occupation-gaps"
+        ]
+      },
+      {
+        "ai_fraction": null,
+        "digital_fraction": null,
+        "id": "no-task-styrk9-gap",
+        "missing_reason": "No reviewed task profile selected",
+        "occupation_id": "no-styrk9-elementary",
+        "placements": [],
+        "requests_per_ai_hour": null,
+        "source_ids": [
+          "assumption-broad-occupation-gaps"
+        ]
+      }
+    ]
+  },
+  "model_version": "1.0",
+  "national_electricity": [
+    {
+      "boundary": "national_net_electricity_consumption",
+      "classification": null,
+      "country_code": "NO",
+      "definition": "Sum of measured electricity consumption across primary and secondary industries tertiary industries and households",
+      "evidence_status": "observed",
+      "id": "no-electricity-net-consumption-2025",
+      "locator": "ContentsCode=Nettoforbruk; Tid=2025",
+      "metric": "electricity_consumption",
+      "missing_reason": null,
+      "period": "2025",
+      "population_basis": null,
+      "reference_period": "The entire year",
+      "source_id": "ssb-08307-2025-electricity",
+      "uncertainty_high": null,
+      "uncertainty_low": null,
+      "unit": "GWh",
+      "value": 130125.0,
+      "year": 2025
+    },
+    {
+      "boundary": "national_electricity_production",
+      "classification": null,
+      "country_code": "NO",
+      "definition": "Total net electricity production in Norway",
+      "evidence_status": "observed",
+      "id": "no-electricity-production-2025",
+      "locator": "ContentsCode=ProdTotal; Tid=2025",
+      "metric": "electricity_production",
+      "missing_reason": null,
+      "period": "2025",
+      "population_basis": null,
+      "reference_period": "The entire year",
+      "source_id": "ssb-08307-2025-electricity",
+      "uncertainty_high": null,
+      "uncertainty_low": null,
+      "unit": "GWh",
+      "value": 161793.0,
+      "year": 2025
+    }
+  ],
+  "occupations": [
+    {
+      "annual_requests": null,
+      "cloud_facility_mwh": null,
+      "country_code": "NO",
+      "known_total_mwh": null,
+      "local_device_mwh": null,
+      "missing_reason": "No compatible broad-group annual-hours observation selected; No reviewed task profile selected",
+      "occupation_id": "no-styrk1-managers",
+      "source_ids": [
+        "assumption-broad-occupation-gaps",
+        "ssb-11658-2025k4-broad"
+      ],
+      "status": "unknown",
+      "title": "Managers (STYRK-08 1)",
+      "workforce_basis": "headcount",
+      "year": 2025
+    },
+    {
+      "annual_requests": null,
+      "cloud_facility_mwh": null,
+      "country_code": "NO",
+      "known_total_mwh": null,
+      "local_device_mwh": null,
+      "missing_reason": "No compatible broad-group annual-hours observation selected; No reviewed task profile selected",
+      "occupation_id": "no-styrk2-professionals",
+      "source_ids": [
+        "assumption-broad-occupation-gaps",
+        "ssb-11658-2025k4-broad"
+      ],
+      "status": "unknown",
+      "title": "Professionals (STYRK-08 2)",
+      "workforce_basis": "headcount",
+      "year": 2025
+    },
+    {
+      "annual_requests": null,
+      "cloud_facility_mwh": null,
+      "country_code": "NO",
+      "known_total_mwh": null,
+      "local_device_mwh": null,
+      "missing_reason": "No compatible broad-group annual-hours observation selected; No reviewed task profile selected",
+      "occupation_id": "no-styrk3-armed",
+      "source_ids": [
+        "assumption-broad-occupation-gaps",
+        "ssb-11658-2025k4-broad"
+      ],
+      "status": "unknown",
+      "title": "Technicians associate professionals and armed forces (SSB combined group)",
+      "workforce_basis": "headcount",
+      "year": 2025
+    },
+    {
+      "annual_requests": null,
+      "cloud_facility_mwh": null,
+      "country_code": "NO",
+      "known_total_mwh": null,
+      "local_device_mwh": null,
+      "missing_reason": "No compatible broad-group annual-hours observation selected; No reviewed task profile selected",
+      "occupation_id": "no-styrk4-clerical",
+      "source_ids": [
+        "assumption-broad-occupation-gaps",
+        "ssb-11658-2025k4-broad"
+      ],
+      "status": "unknown",
+      "title": "Clerical support workers (STYRK-08 4)",
+      "workforce_basis": "headcount",
+      "year": 2025
+    },
+    {
+      "annual_requests": null,
+      "cloud_facility_mwh": null,
+      "country_code": "NO",
+      "known_total_mwh": null,
+      "local_device_mwh": null,
+      "missing_reason": "No compatible broad-group annual-hours observation selected; No reviewed task profile selected",
+      "occupation_id": "no-styrk5-service-sales",
+      "source_ids": [
+        "assumption-broad-occupation-gaps",
+        "ssb-11658-2025k4-broad"
+      ],
+      "status": "unknown",
+      "title": "Service and sales workers (STYRK-08 5)",
+      "workforce_basis": "headcount",
+      "year": 2025
+    },
+    {
+      "annual_requests": null,
+      "cloud_facility_mwh": null,
+      "country_code": "NO",
+      "known_total_mwh": null,
+      "local_device_mwh": null,
+      "missing_reason": "No compatible broad-group annual-hours observation selected; No reviewed task profile selected",
+      "occupation_id": "no-styrk6-agriculture",
+      "source_ids": [
+        "assumption-broad-occupation-gaps",
+        "ssb-11658-2025k4-broad"
+      ],
+      "status": "unknown",
+      "title": "Skilled agricultural forestry and fishery workers (STYRK-08 6)",
+      "workforce_basis": "headcount",
+      "year": 2025
+    },
+    {
+      "annual_requests": null,
+      "cloud_facility_mwh": null,
+      "country_code": "NO",
+      "known_total_mwh": null,
+      "local_device_mwh": null,
+      "missing_reason": "No compatible broad-group annual-hours observation selected; No reviewed task profile selected",
+      "occupation_id": "no-styrk7-craft",
+      "source_ids": [
+        "assumption-broad-occupation-gaps",
+        "ssb-11658-2025k4-broad"
+      ],
+      "status": "unknown",
+      "title": "Craft and related trades workers (STYRK-08 7)",
+      "workforce_basis": "headcount",
+      "year": 2025
+    },
+    {
+      "annual_requests": null,
+      "cloud_facility_mwh": null,
+      "country_code": "NO",
+      "known_total_mwh": null,
+      "local_device_mwh": null,
+      "missing_reason": "No compatible broad-group annual-hours observation selected; No reviewed task profile selected",
+      "occupation_id": "no-styrk8-operators",
+      "source_ids": [
+        "assumption-broad-occupation-gaps",
+        "ssb-11658-2025k4-broad"
+      ],
+      "status": "unknown",
+      "title": "Plant and machine operators and assemblers (STYRK-08 8)",
+      "workforce_basis": "headcount",
+      "year": 2025
+    },
+    {
+      "annual_requests": null,
+      "cloud_facility_mwh": null,
+      "country_code": "NO",
+      "known_total_mwh": null,
+      "local_device_mwh": null,
+      "missing_reason": "No compatible broad-group annual-hours observation selected; No reviewed task profile selected",
+      "occupation_id": "no-styrk9-elementary",
+      "source_ids": [
+        "assumption-broad-occupation-gaps",
+        "ssb-11658-2025k4-broad"
+      ],
+      "status": "unknown",
+      "title": "Elementary occupations (STYRK-08 9)",
+      "workforce_basis": "headcount",
+      "year": 2025
+    }
+  ],
+  "project_totals": [],
+  "projects": [
+    {
+      "aliases": [
+        "LMD"
+      ],
+      "completeness_limitations": "Operator-reported identity and current operation only; expansion capacity has an unclear quantity boundary and is not included as MW.",
+      "country_code": "NO",
+      "id": "no-lefdal-mine",
+      "phases": [
+        {
+          "aliases": [
+            "Lefdal Mine"
+          ],
+          "construction_status": [
+            {
+              "as_of_date": "2026-09-09",
+              "locator": "Current operator page offers data-centre services at the M\u00e5l\u00f8y facility",
+              "source_id": "lefdal-mine-facility",
+              "status": "operating"
+            }
+          ],
+          "grid_status": [
+            {
+              "as_of_date": "2026-09-09",
+              "locator": "No audited grid-case status in this source",
+              "source_id": "lefdal-mine-facility",
+              "status": "unknown"
+            }
+          ],
+          "id": "no-lefdal-mine-existing",
+          "observations": [],
+          "title": "Existing facility"
+        }
+      ],
+      "title": "Lefdal Mine Data Centers"
+    },
+    {
+      "aliases": [
+        "DC1-Stavanger",
+        "SVG1-Rennes\u00f8y"
+      ],
+      "completeness_limitations": "Operator-reported identity and current operation only; no municipal or grid record audited and no boundary-clear MW observation included.",
+      "country_code": "NO",
+      "id": "no-svg-rennesoy",
+      "phases": [
+        {
+          "aliases": [
+            "Former NATO ammunition storage facility"
+          ],
+          "construction_status": [
+            {
+              "as_of_date": "2026-09-09",
+              "locator": "Current operator page offers available server rooms in the converted facility",
+              "source_id": "green-mountain-svg-rennesoy",
+              "status": "operating"
+            }
+          ],
+          "grid_status": [
+            {
+              "as_of_date": "2026-09-09",
+              "locator": "No audited grid-case status in this source",
+              "source_id": "green-mountain-svg-rennesoy",
+              "status": "unknown"
+            }
+          ],
+          "id": "no-svg-rennesoy-existing",
+          "observations": [],
+          "title": "Existing facility"
+        }
+      ],
+      "title": "SVG-Rennes\u00f8y"
+    }
+  ],
+  "scenario": null,
+  "schema_version": "1.0",
+  "scope": {
+    "description": "Occupation-linked human-triggered AI inference only.",
+    "national_total_mwh": null,
+    "scope_status": "incomplete",
+    "unmodeled_categories": [
+      {
+        "category": "non_ai",
+        "energy_mwh": null,
+        "reason": "Traditional data-centre workloads are outside this milestone."
+      },
+      {
+        "category": "consumer_ai",
+        "energy_mwh": null,
+        "reason": "Consumer AI use is not represented by occupation inputs."
+      },
+      {
+        "category": "autonomous_background_inference",
+        "energy_mwh": null,
+        "reason": "Autonomous and background inference is not modeled."
+      },
+      {
+        "category": "foundation_training",
+        "energy_mwh": null,
+        "reason": "Foundation-model training is not modeled."
+      },
+      {
+        "category": "fine_tuning",
+        "energy_mwh": null,
+        "reason": "Fine-tuning is not modeled."
+      },
+      {
+        "category": "retrieval_embeddings",
+        "energy_mwh": null,
+        "reason": "Retrieval and embedding workloads are not modeled."
+      }
+    ]
+  },
+  "source_trace": [
+    {
+      "id": "assumption-broad-occupation-gaps",
+      "license": "Project research record; no external source",
+      "locator": "No broad-group annual-hours or AI-use assumptions selected for the observed national frame",
+      "publication_date": null,
+      "publisher": "DatacenterNeed project",
+      "query_url": null,
+      "retrieved_date": "2026-09-09",
+      "snapshot_path": null,
+      "snapshot_sha256": null,
+      "source_kind": "assumption",
+      "title": "Broad occupation task-profile and annual-hours gaps",
+      "url": null
+    },
+    {
+      "id": "assumption-pue-unused",
+      "license": "Project assumption; no external source",
+      "locator": "Value 1.0 is unused because all broad-group task profiles remain unknown",
+      "publication_date": null,
+      "publisher": "DatacenterNeed project assumption",
+      "query_url": null,
+      "retrieved_date": "2026-09-09",
+      "snapshot_path": null,
+      "snapshot_sha256": null,
+      "source_kind": "assumption",
+      "title": "PUE placeholder unused by missing task profiles",
+      "url": null
+    },
+    {
+      "id": "google-gemini-energy-2025",
+      "license": "CC BY 4.0 (arXiv version)",
+      "locator": "Retained benchmark contract; not applied to missing broad-group task profiles",
+      "publication_date": "2025-08-21",
+      "publisher": "Google",
+      "query_url": null,
+      "retrieved_date": "2026-09-09",
+      "snapshot_path": null,
+      "snapshot_sha256": null,
+      "source_kind": "reported",
+      "title": "Measuring the environmental impact of delivering AI at Google Scale",
+      "url": "https://arxiv.org/abs/2508.15734"
+    },
+    {
+      "id": "green-mountain-svg-rennesoy",
+      "license": "Public webpage; redistribution terms not verified",
+      "locator": "Current operator facility page describing the former NATO facility and available server rooms",
+      "publication_date": null,
+      "publisher": "Green Mountain",
+      "query_url": null,
+      "retrieved_date": "2026-09-09",
+      "snapshot_path": null,
+      "snapshot_sha256": null,
+      "source_kind": "reported",
+      "title": "SVG-Rennes\u00f8y data centre page",
+      "url": "https://greenmountain.no/data-center/svg-rennesoy/"
+    },
+    {
+      "id": "lefdal-mine-facility",
+      "license": "Public webpage; redistribution terms not verified",
+      "locator": "Current operator page describing the facility and expansion potential",
+      "publication_date": null,
+      "publisher": "Lefdal Mine Data Centers",
+      "query_url": null,
+      "retrieved_date": "2026-09-09",
+      "snapshot_path": null,
+      "snapshot_sha256": null,
+      "source_kind": "reported",
+      "title": "Lefdal Mine Data Centers facility page",
+      "url": "https://www.lefdalmine.com/"
+    },
+    {
+      "id": "ssb-08307-2025-electricity",
+      "license": "CC BY 4.0",
+      "locator": "Production, total and net consumption; 2025; entire-year flows",
+      "publication_date": "2026-05-08",
+      "publisher": "Statistics Norway",
+      "query_url": "https://data.ssb.no/api/pxwebapi/v2/tables/08307/data?lang=en&valueCodes%5BContentsCode%5D=ProdTotal%2CNettoforbruk&valueCodes%5BTid%5D=2025&outputFormat=json-stat2",
+      "retrieved_date": "2026-09-09",
+      "snapshot_path": "data/sources/ssb/norway-2025-baseline/table-08307-electricity.json",
+      "snapshot_sha256": "8ba43b7a90c70d4ad9384a7cca43dba84c63f7e9eacf32817b536a11ea47ec63",
+      "source_kind": "observed",
+      "title": "Table 08307: Production and net consumption of electric energy",
+      "url": "https://www.ssb.no/en/statbank/table/08307"
+    },
+    {
+      "id": "ssb-11658-2025k4-broad",
+      "license": "CC BY 4.0",
+      "locator": "Both sexes; all ages; STYRK-08 one-digit groups and 0b; employees; 2025K4",
+      "publication_date": "2026-08-13",
+      "publisher": "Statistics Norway",
+      "query_url": "https://data.ssb.no/api/pxwebapi/v2/tables/11658/data?lang=en&valueCodes%5BKjonn%5D=0&valueCodes%5BAlder%5D=999D&valueCodes%5BYrke%5D=1%2C2%2C3_01-03%2C4%2C5%2C6%2C7%2C8%2C9%2C0b&valueCodes%5BContentsCode%5D=Lonsstakere&valueCodes%5BTid%5D=2025K4&outputFormat=json-stat2",
+      "retrieved_date": "2026-09-09",
+      "snapshot_path": "data/sources/ssb/norway-2025-baseline/table-11658-broad.json",
+      "snapshot_sha256": "fd7aa0a46cc6c9a811d1c1475acb4ae7de1f3a61fa7d500de6893996399dcfb5",
+      "source_kind": "observed",
+      "title": "Table 11658: Employees by broad occupation",
+      "url": "https://www.ssb.no/en/statbank/table/11658"
+    },
+    {
+      "id": "statnett-connection-statistics-limitations",
+      "license": "Public webpage; data reuse terms not verified",
+      "locator": "Overview text states manual registration since 2018, possible gaps, and currently displayed statuses",
+      "publication_date": null,
+      "publisher": "Statnett",
+      "query_url": null,
+      "retrieved_date": "2026-09-09",
+      "snapshot_path": null,
+      "snapshot_sha256": null,
+      "source_kind": "reported",
+      "title": "Statistics on grid connection cases",
+      "url": "https://www.statnett.no/nettkapasitet-til-produksjon-og-forbruk/foresporsler-og-reservasjon-i-nettet/"
+    }
+  ]
+}

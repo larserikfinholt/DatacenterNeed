@@ -1,11 +1,11 @@
 # Implementation Plan and Session Handoff
 
-Updated: 2026-09-09 after completion of Milestone 3 scenario modeling. This file is the durable handoff for a fresh coding session.
+Updated: 2026-09-09 after completion of Milestone 4 static dashboard. This file is the durable handoff for a fresh coding session.
 It supersedes the original session-only plan where implementation status differs.
 
 ## Prompt for the Next Session
 
-> Read docs/implementation-plan.md, docs/implementation-status.md, and the research brief in readme.md. Continue from Milestone 4, preserving the implemented Python foundation, audited Norway 2025 coverage baseline, and completed scenario engine. Use GPT-5.6 Sol (copilot) for implementation subagents and GPT-5.6 Terra (copilot) for simpler tasks. Tell me if those models cannot be selected. First verify the local baseline, then build a static dashboard from versioned artifacts without filling evidence gaps with defaults. Keep assumptions separate from observations. Do not build a dashboard on invented national figures. Update the handoff and status documents when the milestone is complete. Do not commit, push, or deploy without my request.
+> Read docs/implementation-plan.md, docs/implementation-status.md, and the research brief in readme.md. Continue from Milestone 5, preserving the implemented Python foundation, audited Norway 2025 coverage baseline, scenario engine, and static dashboard. Use GPT-5.6 Sol (copilot) for implementation subagents and GPT-5.6 Terra (copilot) for simpler tasks. Tell me if those models cannot be selected. First verify the local baseline and inspect the versioned dashboard artifacts. Keep assumptions separate from observations and do not convert Norway's incomplete evidence into national figures. Prepare public-release work only when authorized; do not commit, push, deploy, configure Pages, or change CI without my request. Update the handoff and status documents when the milestone is complete.
 
 ## Agreed Direction
 
@@ -37,11 +37,13 @@ Last verified locally on Windows on 2026-09-09:
 - Synthetic, `software-developers-2025`, and `norway-2025` inputs validated and built offline.
 - Schema export and `git diff --check` passed.
 
-CI is configured for Windows/Ubuntu and Python 3.12/3.13. Remote CI has not been verified. No deployment, frontend, remote resource creation, commit, or push was performed by the assistant. The user may check in the work after this handoff; inspect Git state rather than assuming changes remain uncommitted.
+CI is configured for Windows/Ubuntu and Python 3.12/3.13. Remote CI has not been verified. No deployment, Pages configuration, CI integration for the dashboard, remote resource creation, commit, or push was performed by the assistant. The user may check in the work after this handoff; inspect Git state rather than assuming changes remain uncommitted.
 
 Milestone 2 added an atomic SSB Norway baseline fetch, explicit occupation coverage partitions, national electricity contracts, project/phase/status schemas, unknown-preserving project aggregation, and an evidence ledger. The 2025 dataset contains nine broad modeled groups and one uncovered `0b` cell, observed production/net consumption, and a limited two-site project identity pilot without MW totals.
 
 Milestone 3 added optional scenario contracts and a separate scenario engine. It evaluates all 3 adoption by 3 placement combinations; keeps seven demand categories separate; models explicit pre-rebound activity plus additive documented-baseline rebound; conserves imports, domestic hosting, and exports while retaining unknown residuals/gaps; and supports named one-at-a-time ranges and joint stress. It also adds explicit AI-only inverse denominators, matched country/year/boundary value-resource ratios, and assumption/observed/reported/synthetic provenance. Unknown used activity, intensity, or incomplete occupation coverage blocks complete national totals and complete hosting, while known subtotals remain available. Only `synthetic.yaml` contains explicit synthetic scenario assumptions and complete synthetic coverage; Norway datasets have no scenario configuration, remain unchanged, and keep `national_total_mwh` null.
+
+Milestone 4 added a static Vite vanilla TypeScript dashboard under `web/`, with no backend, runtime Python, or visitor-side upstream fetching. It reads committed versioned artifacts under `web/public/artifacts/v1`: the Norway 2025 observed baseline and a prominently labeled synthetic example. `scripts/refresh_web_artifacts.py` verifies each `result.json` SHA-256 against its manifest before deterministic copying and indexing; `scripts/export_dashboard_vectors.py` exports authoritative Python scenario vectors. The four views cover Electricity & capacity, Demand & scenarios, Projects & resources, and Sources, assumptions & evidence. Norway remains the default and shows its null national total, no scenario, explicit missing occupation calculations, no MW project totals, non-exhaustive two-site inventory, observed 2025 electricity only, and absent benefits. Adjustable scenario workflows are available only for the synthetic dataset.
 
 ## Start Here
 
@@ -61,6 +63,8 @@ uv run datacenter-need schema --output build/input.schema.json
 
 Run from the repository root. The build writes `result.json`, `occupation_breakdown.csv`, `input.schema.json`, and `manifest.json` under `build/example/`. Generated output and local caches are ignored by Git; source fixtures and the lockfile are not.
 
+For dashboard development and browser checks, install frontend dependencies with `npm ci --prefix web` and the pinned browser runtime with `npm --prefix web exec playwright install chromium` before running `npm --prefix web run test:all`.
+
 ## Existing Implementation Map
 
 | File | Responsibility |
@@ -75,6 +79,9 @@ Run from the repository root. The build writes `result.json`, `occupation_breakd
 | [test_data.py](../tests/test_data.py) | Input contracts, missing data, country neutrality, and replayable trace tests |
 | [test_build.py](../tests/test_build.py) | Repeatability, offline behavior, and output protection tests |
 | [ci.yml](../.github/workflows/ci.yml) | Frozen installation, tests, lint, validation, and offline build |
+| [web/](../web/) | Static Vite vanilla TypeScript dashboard, browser scenario algebra, charts, and tests |
+| [refresh_web_artifacts.py](../scripts/refresh_web_artifacts.py) | Manifest-verified deterministic artifact refresh and index generation |
+| [export_dashboard_vectors.py](../scripts/export_dashboard_vectors.py) | Authoritative Python scenario-vector export for browser parity tests |
 
 ## Completed Milestone: Verified Norwegian Data
 
@@ -151,20 +158,20 @@ Completed 2026-09-09 as a bounded baseline. The workforce partition reconciles t
 
 Acceptance outcome: 59 tests passed, Ruff passed, all three inputs validated and built offline, schema export succeeded, and `git diff --check` passed. The synthetic fixture exercises complete synthetic scenario coverage. Norway inputs contain no scenario configuration, remain unchanged, and do not produce a national scenario finding or a complete national total.
 
-### Milestone 4: Static Dashboard
+### Completed Milestone 4: Static Dashboard
 
-- Proposed stack: Vite vanilla TypeScript, Vega-Lite charts, Lucide icons, Vitest, and Playwright. No frontend currently exists; Node 22.20.0 was available in the initial session.
-- Build four simple views: capacity/electricity; demand/scenarios; project benefits/resources; sources/assumptions/evidence.
-- Default to a usable explorer, not a marketing landing page. Provide accessible tables alongside charts, visible units/as-of dates, uncertainty and coverage states, and source/calculation drill-down.
-- Add editable assumptions, preset comparison/reset, versioned URL sharing, validated custom-scenario JSON import/export, and CSV downloads.
-- Python remains the reference engine. Export schemas, coefficients, and golden test vectors; implement only the necessary calculation algebra in the browser. Require Python/TypeScript parity tests before publishing adjustable outputs.
-- No visitor-side upstream source fetching or runtime Python server. Handle missing data and incompatible artifact versions explicitly.
+- Static Vite vanilla TypeScript dashboard under `web/`, using Vega-Lite charts with HTML table equivalents and Lucide icons. It has no backend, runtime Python, or upstream fetching.
+- Four views are implemented: Electricity & capacity; Demand & scenarios; Projects & resources; and Sources, assumptions & evidence. Benefits are explicitly absent where the source artifacts contain none.
+- Norway is the default baseline. It retains `national_total_mwh: null`, `scenario: null`, explicit missing occupation calculations, no MW project totals, a non-exhaustive two-site inventory, and observed 2025 electricity only.
+- The synthetic dataset is prominently labeled. It alone enables adjustable scenario workflows: adoption/placement presets, four validated overrides, compare/reset, versioned URL sharing, validated versioned JSON selection import/export, and scenario plus original occupation CSV downloads.
+- `scripts/refresh_web_artifacts.py` verifies result SHA-256 values from manifests before deterministic copy/index output. `scripts/export_dashboard_vectors.py` exports authoritative Python vectors. Artifact versions are parsed strictly; incompatible artifacts, URLs, and imports are rejected.
+- Browser parity covers 23 exact Python-generated golden vectors: 9 presets, 12 sensitivity points, 1 joint stress case, and 1 explicit override. Vitest also mutates unknown/null cases; PUE, rebound, hosting, provenance, and null semantics are covered.
 
-Acceptance gate: source inspection and scenario workflows work at 375px and 1440px widths, keyboard navigation works, screenshots show readable nonoverlapping content, and parity tests pass. Start a local dev server and provide its URL when this milestone is implemented.
+Acceptance outcome: local verification on 2026-09-09 passed 59 Python tests and Ruff; 24 frontend unit/parity tests; 4 Playwright tests; and the frontend production build. Playwright covered 375x812 and 1440x1000 viewports, keyboard navigation, no document overflow, nonblank SVG marks, Norway missing states, and synthetic resource values. Manual screenshots at both target widths were inspected as readable and nonoverlapping. `git diff --check` also passed earlier. The Vite build warns that the lazy-loaded Vega embed chunk is about 850 KB while the main UI bundle is about 40 KB; this is a non-blocking Milestone 5 performance follow-up, not a correctness gap.
 
 ### Milestone 5: Public Release and Contributions
 
-- Extend existing CI with artifact reproducibility, browser tests, and parity checks. Live source smoke tests belong to a separate refresh workflow, not deterministic offline tests.
+- Extend existing CI with artifact reproducibility, browser tests, and parity checks. Live source smoke tests belong to a separate refresh workflow, not deterministic offline tests. This CI integration has not been implemented.
 - Add reviewed manual source refresh first; scheduled refreshes may later propose changes, never silently replace published evidence or assumptions.
 - Confirm repository ownership/settings and publication authorization before deployment. Implement Pages base-path/static navigation support and publish versioned validated artifacts from a trusted branch.
 - Keep least-privilege permissions and publishing credentials away from untrusted pull requests. Preserve the last good release and provide change history.

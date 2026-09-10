@@ -1,0 +1,3348 @@
+{
+  "countries": [
+    {
+      "calculated_occupation_count": 1,
+      "country_code": "NO",
+      "known_occupational_ai_subtotal_mwh": 0.5856,
+      "national_total_mwh": null,
+      "occupation_coverage": {
+        "classification": {
+          "based_on": null,
+          "code": "all",
+          "id": "synthetic-occupation-classification",
+          "name": "Synthetic occupation classification",
+          "valid_from": null
+        },
+        "complete_declared_workers": 1000.0,
+        "declared_cell_count": 1,
+        "frame_id": "no-2025-synthetic-coverage",
+        "known_declared_workers": 1000.0,
+        "known_modeled_workers": 1000.0,
+        "modeled_cell_count": 1,
+        "scope_status": "complete",
+        "uncovered_cell_count": 0,
+        "uncovered_cell_ids": []
+      },
+      "scope_status": "incomplete",
+      "unknown_occupation_count": 0,
+      "year": 2025
+    },
+    {
+      "calculated_occupation_count": 1,
+      "country_code": "SE",
+      "known_occupational_ai_subtotal_mwh": 0.4723200000000001,
+      "national_total_mwh": null,
+      "occupation_coverage": null,
+      "scope_status": "incomplete",
+      "unknown_occupation_count": 0,
+      "year": 2025
+    }
+  ],
+  "evidence": [],
+  "facility_comparators": [
+    {
+      "annual_average_load_mw": 2000.0,
+      "annual_energy_mwh": 17520000.0,
+      "capacity_mw": 2000.0,
+      "country_code": "NO",
+      "evidence_status": "synthetic",
+      "interpretation": "Hypothetical full-year operation at load factor 1, not measured use.",
+      "load_factor": 1.0,
+      "missing_reason": null,
+      "observation_id": "synthetic-facility-2gw",
+      "source_ids": [
+        "synthetic-capacity"
+      ],
+      "year": 2025
+    }
+  ],
+  "input_trace": {
+    "cloud_pue": {
+      "source_ids": [
+        "assumption-energy"
+      ],
+      "value": 1.2
+    },
+    "energy_benchmarks": [
+      {
+        "batching": null,
+        "boundary": "cloud_it",
+        "context_and_output": null,
+        "definition": "Synthetic request-level cloud IT energy, not measured evidence",
+        "hardware": null,
+        "id": "synthetic-cloud-it",
+        "kwh_per_request": 0.002,
+        "limitations": null,
+        "measured_period": null,
+        "model": null,
+        "source_id": "assumption-energy",
+        "title": "Synthetic cloud IT request benchmark",
+        "utilization": null,
+        "workload": null
+      },
+      {
+        "batching": null,
+        "boundary": "local_device",
+        "context_and_output": null,
+        "definition": "Synthetic request-level local-device energy, not measured evidence",
+        "hardware": null,
+        "id": "synthetic-local",
+        "kwh_per_request": 0.0005,
+        "limitations": null,
+        "measured_period": null,
+        "model": null,
+        "source_id": "assumption-energy",
+        "title": "Synthetic local-device request benchmark",
+        "utilization": null,
+        "workload": null
+      }
+    ],
+    "evidence": [],
+    "facility_comparator_observation_ids": [
+      "synthetic-facility-2gw"
+    ],
+    "model_version": "1.0",
+    "national_electricity_observation_ids": [],
+    "observations": [
+      {
+        "boundary": "employment_headcount",
+        "classification": {
+          "based_on": null,
+          "code": "synthetic-all",
+          "id": "synthetic-occupation-classification",
+          "name": "Synthetic occupation classification",
+          "valid_from": null
+        },
+        "country_code": "NO",
+        "definition": "Synthetic employed-person count for contract testing",
+        "evidence_status": "synthetic",
+        "id": "no-workers",
+        "locator": "synthetic row NO workers",
+        "metric": "workers",
+        "missing_reason": null,
+        "period": null,
+        "population_basis": null,
+        "reference_period": null,
+        "source_id": "synthetic-workforce",
+        "uncertainty_high": null,
+        "uncertainty_low": null,
+        "unit": "people",
+        "value": 1000.0,
+        "year": 2025
+      },
+      {
+        "boundary": "annual_hours_per_worker",
+        "classification": null,
+        "country_code": "NO",
+        "definition": "Synthetic annual hours per employed person",
+        "evidence_status": "synthetic",
+        "id": "no-hours",
+        "locator": "synthetic row NO hours",
+        "metric": "annual_hours",
+        "missing_reason": null,
+        "period": null,
+        "population_basis": null,
+        "reference_period": null,
+        "source_id": "synthetic-workforce",
+        "uncertainty_high": null,
+        "uncertainty_low": null,
+        "unit": "hour_per_worker_year",
+        "value": 1600.0,
+        "year": 2025
+      },
+      {
+        "boundary": "employment_headcount",
+        "classification": null,
+        "country_code": "SE",
+        "definition": "Synthetic employed-person count for second-country testing",
+        "evidence_status": "synthetic",
+        "id": "se-workers",
+        "locator": "synthetic row SE workers",
+        "metric": "workers",
+        "missing_reason": null,
+        "period": null,
+        "population_basis": null,
+        "reference_period": null,
+        "source_id": "synthetic-workforce",
+        "uncertainty_high": null,
+        "uncertainty_low": null,
+        "unit": "people",
+        "value": 800.0,
+        "year": 2025
+      },
+      {
+        "boundary": "annual_hours_per_worker",
+        "classification": null,
+        "country_code": "SE",
+        "definition": "Synthetic annual hours per employed person",
+        "evidence_status": "synthetic",
+        "id": "se-hours",
+        "locator": "synthetic row SE hours",
+        "metric": "annual_hours",
+        "missing_reason": null,
+        "period": null,
+        "population_basis": null,
+        "reference_period": null,
+        "source_id": "synthetic-workforce",
+        "uncertainty_high": null,
+        "uncertainty_low": null,
+        "unit": "hour_per_worker_year",
+        "value": 1500.0,
+        "year": 2025
+      },
+      {
+        "boundary": "cloud_facility",
+        "classification": null,
+        "country_code": "NO",
+        "definition": "Synthetic facility capacity for a full-year thought experiment",
+        "evidence_status": "synthetic",
+        "id": "synthetic-facility-2gw",
+        "locator": "synthetic 2 GW comparator",
+        "metric": "facility_capacity",
+        "missing_reason": null,
+        "period": null,
+        "population_basis": null,
+        "reference_period": null,
+        "source_id": "synthetic-capacity",
+        "uncertainty_high": null,
+        "uncertainty_low": null,
+        "unit": "MW",
+        "value": 2000.0,
+        "year": 2025
+      }
+    ],
+    "occupation_coverage": [
+      {
+        "cell_observation_ids": {
+          "synthetic-all": "no-workers"
+        },
+        "classification": {
+          "based_on": null,
+          "code": "all",
+          "id": "synthetic-occupation-classification",
+          "name": "Synthetic occupation classification",
+          "valid_from": null
+        },
+        "country_code": "NO",
+        "declared_cell_ids": [
+          "synthetic-all"
+        ],
+        "id": "no-2025-synthetic-coverage",
+        "occupation_cell_assignments": {
+          "no-synthetic-occupation": [
+            "synthetic-all"
+          ]
+        },
+        "uncovered_cell_ids": [],
+        "year": 2025
+      }
+    ],
+    "occupations": [
+      {
+        "annual_hours_observation_id": "no-hours",
+        "country_code": "NO",
+        "id": "no-synthetic-occupation",
+        "title": "Synthetic Norway occupation",
+        "workers_observation_id": "no-workers",
+        "workforce_basis": "headcount",
+        "year": 2025
+      },
+      {
+        "annual_hours_observation_id": "se-hours",
+        "country_code": "SE",
+        "id": "se-synthetic-occupation",
+        "title": "Synthetic Sweden occupation",
+        "workers_observation_id": "se-workers",
+        "workforce_basis": "headcount",
+        "year": 2025
+      }
+    ],
+    "projects": [],
+    "scenario": {
+      "adoption_presets": [
+        {
+          "category_activities": [
+            {
+              "activity_unit": "synthetic_background_jobs",
+              "category": "autonomous_background_inference",
+              "definition": "Explicit autonomous activity independent of worker hours",
+              "missing_reason": null,
+              "pre_rebound_activity_units": 100000.0,
+              "source_ids": [
+                "assumption-scenario"
+              ]
+            },
+            {
+              "activity_unit": "synthetic_consumer_requests",
+              "category": "consumer_ai",
+              "definition": "Synthetic consumer AI activity",
+              "missing_reason": null,
+              "pre_rebound_activity_units": 50000.0,
+              "source_ids": [
+                "assumption-scenario"
+              ]
+            },
+            {
+              "activity_unit": "synthetic_training_runs",
+              "category": "foundation_training",
+              "definition": "Synthetic foundation training runs",
+              "missing_reason": null,
+              "pre_rebound_activity_units": 2.0,
+              "source_ids": [
+                "assumption-scenario"
+              ]
+            },
+            {
+              "activity_unit": "synthetic_fine_tuning_jobs",
+              "category": "fine_tuning",
+              "definition": "Synthetic fine-tuning jobs",
+              "missing_reason": null,
+              "pre_rebound_activity_units": 20.0,
+              "source_ids": [
+                "assumption-scenario"
+              ]
+            },
+            {
+              "activity_unit": "synthetic_retrieval_jobs",
+              "category": "retrieval_embeddings",
+              "definition": "Synthetic retrieval and embedding activity",
+              "missing_reason": null,
+              "pre_rebound_activity_units": 200000.0,
+              "source_ids": [
+                "assumption-scenario"
+              ]
+            },
+            {
+              "activity_unit": "synthetic_non_ai_units",
+              "category": "non_ai",
+              "definition": "Synthetic traditional workload activity",
+              "missing_reason": null,
+              "pre_rebound_activity_units": 500000.0,
+              "source_ids": [
+                "assumption-scenario"
+              ]
+            }
+          ],
+          "definition": "Half the synthetic occupation-linked baseline activity",
+          "name": "conservative",
+          "occupation_activity_multiplier": 0.5,
+          "rebound": null,
+          "source_ids": [
+            "assumption-scenario"
+          ]
+        },
+        {
+          "category_activities": [
+            {
+              "activity_unit": "synthetic_background_jobs",
+              "category": "autonomous_background_inference",
+              "definition": "Explicit autonomous activity independent of worker hours",
+              "missing_reason": null,
+              "pre_rebound_activity_units": 1000000.0,
+              "source_ids": [
+                "assumption-scenario"
+              ]
+            },
+            {
+              "activity_unit": "synthetic_consumer_requests",
+              "category": "consumer_ai",
+              "definition": "Synthetic consumer AI activity",
+              "missing_reason": null,
+              "pre_rebound_activity_units": 500000.0,
+              "source_ids": [
+                "assumption-scenario"
+              ]
+            },
+            {
+              "activity_unit": "synthetic_training_runs",
+              "category": "foundation_training",
+              "definition": "Synthetic foundation training runs",
+              "missing_reason": null,
+              "pre_rebound_activity_units": 10.0,
+              "source_ids": [
+                "assumption-scenario"
+              ]
+            },
+            {
+              "activity_unit": "synthetic_fine_tuning_jobs",
+              "category": "fine_tuning",
+              "definition": "Synthetic fine-tuning jobs",
+              "missing_reason": null,
+              "pre_rebound_activity_units": 100.0,
+              "source_ids": [
+                "assumption-scenario"
+              ]
+            },
+            {
+              "activity_unit": "synthetic_retrieval_jobs",
+              "category": "retrieval_embeddings",
+              "definition": "Synthetic retrieval and embedding activity",
+              "missing_reason": null,
+              "pre_rebound_activity_units": 1000000.0,
+              "source_ids": [
+                "assumption-scenario"
+              ]
+            },
+            {
+              "activity_unit": "synthetic_non_ai_units",
+              "category": "non_ai",
+              "definition": "Synthetic traditional workload activity",
+              "missing_reason": null,
+              "pre_rebound_activity_units": 2000000.0,
+              "source_ids": [
+                "assumption-scenario"
+              ]
+            }
+          ],
+          "definition": "Synthetic occupation-linked baseline activity",
+          "name": "moderate",
+          "occupation_activity_multiplier": 1.0,
+          "rebound": null,
+          "source_ids": [
+            "assumption-scenario"
+          ]
+        },
+        {
+          "category_activities": [
+            {
+              "activity_unit": "synthetic_background_jobs",
+              "category": "autonomous_background_inference",
+              "definition": "Explicit autonomous activity independent of worker hours",
+              "missing_reason": null,
+              "pre_rebound_activity_units": 5000000.0,
+              "source_ids": [
+                "assumption-scenario"
+              ]
+            },
+            {
+              "activity_unit": "synthetic_consumer_requests",
+              "category": "consumer_ai",
+              "definition": "Synthetic consumer AI activity",
+              "missing_reason": null,
+              "pre_rebound_activity_units": 5000000.0,
+              "source_ids": [
+                "assumption-scenario"
+              ]
+            },
+            {
+              "activity_unit": "synthetic_training_runs",
+              "category": "foundation_training",
+              "definition": "Synthetic foundation training runs",
+              "missing_reason": null,
+              "pre_rebound_activity_units": 100.0,
+              "source_ids": [
+                "assumption-scenario"
+              ]
+            },
+            {
+              "activity_unit": "synthetic_fine_tuning_jobs",
+              "category": "fine_tuning",
+              "definition": "Synthetic fine-tuning jobs",
+              "missing_reason": null,
+              "pre_rebound_activity_units": 1000.0,
+              "source_ids": [
+                "assumption-scenario"
+              ]
+            },
+            {
+              "activity_unit": "synthetic_retrieval_jobs",
+              "category": "retrieval_embeddings",
+              "definition": "Synthetic retrieval and embedding activity",
+              "missing_reason": null,
+              "pre_rebound_activity_units": 10000000.0,
+              "source_ids": [
+                "assumption-scenario"
+              ]
+            },
+            {
+              "activity_unit": "synthetic_non_ai_units",
+              "category": "non_ai",
+              "definition": "Synthetic traditional workload activity",
+              "missing_reason": null,
+              "pre_rebound_activity_units": 10000000.0,
+              "source_ids": [
+                "assumption-scenario"
+              ]
+            }
+          ],
+          "definition": "High-demand counterexample with continuous synthetic activity",
+          "name": "high",
+          "occupation_activity_multiplier": 10.0,
+          "rebound": {
+            "additional_activity_fraction": 2.0,
+            "baseline_activity_units": 1000000.0,
+            "baseline_definition": "Moderate autonomous background activity before rebound",
+            "category": "autonomous_background_inference",
+            "source_ids": [
+              "assumption-scenario"
+            ]
+          },
+          "source_ids": [
+            "assumption-scenario"
+          ]
+        }
+      ],
+      "country_code": "NO",
+      "energy_intensities": [
+        {
+          "activity_unit": "request",
+          "category": "occupation_human_inference",
+          "cloud_boundary": "cloud_it",
+          "cloud_kwh_per_activity_unit": 0.002,
+          "cloud_missing_reason": null,
+          "definition": "Synthetic human inference intensity",
+          "local_device_kwh_per_activity_unit": 0.0005,
+          "local_device_missing_reason": null,
+          "source_ids": [
+            "assumption-energy"
+          ]
+        },
+        {
+          "activity_unit": "synthetic_background_jobs",
+          "category": "autonomous_background_inference",
+          "cloud_boundary": "cloud_it",
+          "cloud_kwh_per_activity_unit": 0.003,
+          "cloud_missing_reason": null,
+          "definition": "Synthetic background job intensity",
+          "local_device_kwh_per_activity_unit": 0.0007,
+          "local_device_missing_reason": null,
+          "source_ids": [
+            "assumption-energy"
+          ]
+        },
+        {
+          "activity_unit": "synthetic_consumer_requests",
+          "category": "consumer_ai",
+          "cloud_boundary": "cloud_it",
+          "cloud_kwh_per_activity_unit": 0.001,
+          "cloud_missing_reason": null,
+          "definition": "Synthetic consumer request intensity",
+          "local_device_kwh_per_activity_unit": 0.0004,
+          "local_device_missing_reason": null,
+          "source_ids": [
+            "assumption-energy"
+          ]
+        },
+        {
+          "activity_unit": "synthetic_training_runs",
+          "category": "foundation_training",
+          "cloud_boundary": "cloud_facility",
+          "cloud_kwh_per_activity_unit": 100000.0,
+          "cloud_missing_reason": null,
+          "definition": "Synthetic facility-boundary training-run intensity",
+          "local_device_kwh_per_activity_unit": 0.0,
+          "local_device_missing_reason": null,
+          "source_ids": [
+            "assumption-energy"
+          ]
+        },
+        {
+          "activity_unit": "synthetic_fine_tuning_jobs",
+          "category": "fine_tuning",
+          "cloud_boundary": "cloud_it",
+          "cloud_kwh_per_activity_unit": 1000.0,
+          "cloud_missing_reason": null,
+          "definition": "Synthetic fine-tuning intensity",
+          "local_device_kwh_per_activity_unit": 100.0,
+          "local_device_missing_reason": null,
+          "source_ids": [
+            "assumption-energy"
+          ]
+        },
+        {
+          "activity_unit": "synthetic_retrieval_jobs",
+          "category": "retrieval_embeddings",
+          "cloud_boundary": "cloud_it",
+          "cloud_kwh_per_activity_unit": 0.0002,
+          "cloud_missing_reason": null,
+          "definition": "Synthetic retrieval intensity",
+          "local_device_kwh_per_activity_unit": 0.0001,
+          "local_device_missing_reason": null,
+          "source_ids": [
+            "assumption-energy"
+          ]
+        },
+        {
+          "activity_unit": "synthetic_non_ai_units",
+          "category": "non_ai",
+          "cloud_boundary": "cloud_it",
+          "cloud_kwh_per_activity_unit": 0.0015,
+          "cloud_missing_reason": null,
+          "definition": "Synthetic non-AI workload intensity",
+          "local_device_kwh_per_activity_unit": 0.0003,
+          "local_device_missing_reason": null,
+          "source_ids": [
+            "assumption-energy"
+          ]
+        }
+      ],
+      "hosting": {
+        "available_domestic_capacity_missing_reason": null,
+        "available_domestic_capacity_mwh": 5000.0,
+        "definition": "Synthetic facility-boundary hosting allocation",
+        "exported_hosting_missing_reason": null,
+        "exported_hosting_mwh": 100.0,
+        "source_ids": [
+          "assumption-scenario"
+        ]
+      },
+      "inverse_allocations": [
+        {
+          "activity_unit": "AI requests",
+          "allocation_share": 0.5,
+          "country_code": "NO",
+          "denominator_definition": "Explicit synthetic worker denominator",
+          "denominator_unit": "synthetic_workers",
+          "denominator_value": 1000.0,
+          "energy_boundary": "cloud_it",
+          "facility_capacity_mw": 1.0,
+          "id": "synthetic-ai-allocation",
+          "kwh_per_activity_unit": 0.002,
+          "load_factor": 1.0,
+          "source_ids": [
+            "assumption-scenario",
+            "assumption-energy"
+          ],
+          "workload_scope": "ai_only",
+          "year": 2025
+        }
+      ],
+      "placement_presets": [
+        {
+          "cloud_share": 0.9,
+          "definition": "Mostly centralized with most cloud demand imported",
+          "domestic_hosting_share": 0.3,
+          "name": "cloud-heavy",
+          "source_ids": [
+            "assumption-scenario"
+          ]
+        },
+        {
+          "cloud_share": 0.6,
+          "definition": "Mixed cloud and local placement",
+          "domestic_hosting_share": 0.6,
+          "name": "hybrid",
+          "source_ids": [
+            "assumption-scenario"
+          ]
+        },
+        {
+          "cloud_share": 0.2,
+          "definition": "Mostly local execution with domestic hosting of remaining cloud demand",
+          "domestic_hosting_share": 0.8,
+          "name": "local-heavy",
+          "source_ids": [
+            "assumption-scenario"
+          ]
+        }
+      ],
+      "sensitivity": {
+        "adoption": "moderate",
+        "joint_stress_cases": [
+          {
+            "cloud_pue": 1.5,
+            "cloud_share": 0.95,
+            "definition": "Joint high-demand, centralized, domestically hosted stress case",
+            "demand_multiplier": 5.0,
+            "domestic_hosting_share": 0.9,
+            "id": "high-demand-stress",
+            "source_ids": [
+              "assumption-scenario"
+            ]
+          }
+        ],
+        "named_ranges": [
+          {
+            "base": 1.0,
+            "definition": "Named demand scaling range",
+            "high": 3.0,
+            "id": "demand-range",
+            "low": 0.5,
+            "parameter": "demand_multiplier",
+            "source_ids": [
+              "assumption-scenario"
+            ]
+          },
+          {
+            "base": 0.6,
+            "definition": "Named cloud placement range",
+            "high": 0.95,
+            "id": "cloud-share-range",
+            "low": 0.3,
+            "parameter": "cloud_share",
+            "source_ids": [
+              "assumption-scenario"
+            ]
+          },
+          {
+            "base": 0.6,
+            "definition": "Named domestic hosting range",
+            "high": 0.9,
+            "id": "domestic-hosting-range",
+            "low": 0.2,
+            "parameter": "domestic_hosting_share",
+            "source_ids": [
+              "assumption-scenario"
+            ]
+          },
+          {
+            "base": 1.2,
+            "definition": "Named cloud PUE range",
+            "high": 1.5,
+            "id": "pue-range",
+            "low": 1.0,
+            "parameter": "cloud_pue",
+            "source_ids": [
+              "assumption-scenario"
+            ]
+          }
+        ],
+        "placement": "hybrid"
+      },
+      "value_resource_ratios": [
+        {
+          "id": "synthetic-jobs-per-mw",
+          "resource": {
+            "boundary": "synthetic-project-a",
+            "country_code": "NO",
+            "definition": "Synthetic matched facility capacity",
+            "source_ids": [
+              "synthetic-value"
+            ],
+            "unit": "facility_MW",
+            "value": 10.0,
+            "year": 2025
+          },
+          "value": {
+            "boundary": "synthetic-project-a",
+            "country_code": "NO",
+            "definition": "Synthetic permanent jobs",
+            "source_ids": [
+              "synthetic-value"
+            ],
+            "unit": "permanent_jobs",
+            "value": 100.0,
+            "year": 2025
+          }
+        }
+      ],
+      "year": 2025
+    },
+    "schema_version": "1.0",
+    "sources": [
+      {
+        "id": "synthetic-workforce",
+        "license": "Not designated; synthetic project fixture",
+        "locator": "Generated example, not observed evidence",
+        "publication_date": null,
+        "publisher": "DatacenterNeed test fixture",
+        "query_url": null,
+        "retrieved_date": null,
+        "snapshot_path": null,
+        "snapshot_sha256": null,
+        "source_kind": "synthetic",
+        "title": "Synthetic workforce fixture",
+        "url": null
+      },
+      {
+        "id": "assumption-usage",
+        "license": "Not designated; synthetic project fixture",
+        "locator": "Generated example, not observed evidence",
+        "publication_date": null,
+        "publisher": "DatacenterNeed test fixture",
+        "query_url": null,
+        "retrieved_date": null,
+        "snapshot_path": null,
+        "snapshot_sha256": null,
+        "source_kind": "assumption",
+        "title": "Synthetic AI usage assumptions",
+        "url": null
+      },
+      {
+        "id": "assumption-energy",
+        "license": "Not designated; synthetic project fixture",
+        "locator": "Generated example, not a measured benchmark",
+        "publication_date": null,
+        "publisher": "DatacenterNeed test fixture",
+        "query_url": null,
+        "retrieved_date": null,
+        "snapshot_path": null,
+        "snapshot_sha256": null,
+        "source_kind": "assumption",
+        "title": "Synthetic request-level energy assumptions",
+        "url": null
+      },
+      {
+        "id": "synthetic-capacity",
+        "license": "Not designated; synthetic project fixture",
+        "locator": "Generated example, not Norway capacity evidence",
+        "publication_date": null,
+        "publisher": "DatacenterNeed test fixture",
+        "query_url": null,
+        "retrieved_date": null,
+        "snapshot_path": null,
+        "snapshot_sha256": null,
+        "source_kind": "synthetic",
+        "title": "Synthetic 2 GW facility thought experiment",
+        "url": null
+      },
+      {
+        "id": "assumption-scenario",
+        "license": "Not designated; synthetic project fixture",
+        "locator": "Generated scenario assumptions, not observed evidence",
+        "publication_date": null,
+        "publisher": "DatacenterNeed test fixture",
+        "query_url": null,
+        "retrieved_date": null,
+        "snapshot_path": null,
+        "snapshot_sha256": null,
+        "source_kind": "assumption",
+        "title": "Synthetic scenario assumptions",
+        "url": null
+      },
+      {
+        "id": "synthetic-value",
+        "license": "Not designated; synthetic project fixture",
+        "locator": "Generated ratio inputs, not observed evidence",
+        "publication_date": null,
+        "publisher": "DatacenterNeed test fixture",
+        "query_url": null,
+        "retrieved_date": null,
+        "snapshot_path": null,
+        "snapshot_sha256": null,
+        "source_kind": "synthetic",
+        "title": "Synthetic project value and resource quantities",
+        "url": null
+      }
+    ],
+    "task_profiles": [
+      {
+        "ai_fraction": 0.1,
+        "digital_fraction": 0.5,
+        "id": "no-synthetic-task",
+        "missing_reason": null,
+        "occupation_id": "no-synthetic-occupation",
+        "placements": [
+          {
+            "benchmark_id": "synthetic-cloud-it",
+            "name": "synthetic cloud model",
+            "share": 0.7
+          },
+          {
+            "benchmark_id": "synthetic-local",
+            "name": "synthetic local model",
+            "share": 0.3
+          }
+        ],
+        "requests_per_ai_hour": 4.0,
+        "source_ids": [
+          "assumption-usage"
+        ]
+      },
+      {
+        "ai_fraction": 0.2,
+        "digital_fraction": 0.4,
+        "id": "se-synthetic-task",
+        "missing_reason": null,
+        "occupation_id": "se-synthetic-occupation",
+        "placements": [
+          {
+            "benchmark_id": "synthetic-cloud-it",
+            "name": "synthetic cloud model",
+            "share": 0.6
+          },
+          {
+            "benchmark_id": "synthetic-local",
+            "name": "synthetic local model",
+            "share": 0.4
+          }
+        ],
+        "requests_per_ai_hour": 3.0,
+        "source_ids": [
+          "assumption-usage"
+        ]
+      }
+    ]
+  },
+  "model_version": "1.0",
+  "national_electricity": [],
+  "occupations": [
+    {
+      "annual_requests": 320000.0,
+      "cloud_facility_mwh": 0.5376000000000001,
+      "country_code": "NO",
+      "known_total_mwh": 0.5856,
+      "local_device_mwh": 0.048,
+      "missing_reason": null,
+      "occupation_id": "no-synthetic-occupation",
+      "source_ids": [
+        "assumption-energy",
+        "assumption-usage",
+        "synthetic-workforce"
+      ],
+      "status": "known",
+      "title": "Synthetic Norway occupation",
+      "workforce_basis": "headcount",
+      "year": 2025
+    },
+    {
+      "annual_requests": 288000.0,
+      "cloud_facility_mwh": 0.41472000000000003,
+      "country_code": "SE",
+      "known_total_mwh": 0.4723200000000001,
+      "local_device_mwh": 0.0576,
+      "missing_reason": null,
+      "occupation_id": "se-synthetic-occupation",
+      "source_ids": [
+        "assumption-energy",
+        "assumption-usage",
+        "synthetic-workforce"
+      ],
+      "status": "known",
+      "title": "Synthetic Sweden occupation",
+      "workforce_basis": "headcount",
+      "year": 2025
+    }
+  ],
+  "project_totals": [],
+  "projects": [],
+  "scenario": {
+    "combinations": [
+      {
+        "adoption": "conservative",
+        "categories": [
+          {
+            "activity_units": 160000.0,
+            "category": "occupation_human_inference",
+            "cloud_facility_mwh": 0.34559999999999996,
+            "cloud_it_mwh": 0.288,
+            "known_total_mwh": 0.35359999999999997,
+            "local_device_mwh": 0.007999999999999998,
+            "missing_reason": null,
+            "pre_rebound_activity_units": 160000.0,
+            "provenance": {
+              "assumption_source_ids": [
+                "assumption-energy",
+                "assumption-scenario",
+                "assumption-usage"
+              ],
+              "observed_source_ids": [],
+              "reported_source_ids": [],
+              "synthetic_source_ids": [
+                "synthetic-workforce"
+              ]
+            },
+            "rebound_activity_units": 0.0,
+            "status": "known"
+          },
+          {
+            "activity_units": 100000.0,
+            "category": "autonomous_background_inference",
+            "cloud_facility_mwh": 0.324,
+            "cloud_it_mwh": 0.27,
+            "known_total_mwh": 0.331,
+            "local_device_mwh": 0.006999999999999998,
+            "missing_reason": null,
+            "pre_rebound_activity_units": 100000.0,
+            "provenance": {
+              "assumption_source_ids": [
+                "assumption-energy",
+                "assumption-scenario"
+              ],
+              "observed_source_ids": [],
+              "reported_source_ids": [],
+              "synthetic_source_ids": []
+            },
+            "rebound_activity_units": 0.0,
+            "status": "known"
+          },
+          {
+            "activity_units": 50000.0,
+            "category": "consumer_ai",
+            "cloud_facility_mwh": 0.054,
+            "cloud_it_mwh": 0.045,
+            "known_total_mwh": 0.056,
+            "local_device_mwh": 0.0019999999999999996,
+            "missing_reason": null,
+            "pre_rebound_activity_units": 50000.0,
+            "provenance": {
+              "assumption_source_ids": [
+                "assumption-energy",
+                "assumption-scenario"
+              ],
+              "observed_source_ids": [],
+              "reported_source_ids": [],
+              "synthetic_source_ids": []
+            },
+            "rebound_activity_units": 0.0,
+            "status": "known"
+          },
+          {
+            "activity_units": 2.0,
+            "category": "foundation_training",
+            "cloud_facility_mwh": 180.0,
+            "cloud_it_mwh": null,
+            "known_total_mwh": 180.0,
+            "local_device_mwh": 0.0,
+            "missing_reason": null,
+            "pre_rebound_activity_units": 2.0,
+            "provenance": {
+              "assumption_source_ids": [
+                "assumption-energy",
+                "assumption-scenario"
+              ],
+              "observed_source_ids": [],
+              "reported_source_ids": [],
+              "synthetic_source_ids": []
+            },
+            "rebound_activity_units": 0.0,
+            "status": "known"
+          },
+          {
+            "activity_units": 20.0,
+            "category": "fine_tuning",
+            "cloud_facility_mwh": 21.599999999999998,
+            "cloud_it_mwh": 18.0,
+            "known_total_mwh": 21.799999999999997,
+            "local_device_mwh": 0.19999999999999996,
+            "missing_reason": null,
+            "pre_rebound_activity_units": 20.0,
+            "provenance": {
+              "assumption_source_ids": [
+                "assumption-energy",
+                "assumption-scenario"
+              ],
+              "observed_source_ids": [],
+              "reported_source_ids": [],
+              "synthetic_source_ids": []
+            },
+            "rebound_activity_units": 0.0,
+            "status": "known"
+          },
+          {
+            "activity_units": 200000.0,
+            "category": "retrieval_embeddings",
+            "cloud_facility_mwh": 0.043199999999999995,
+            "cloud_it_mwh": 0.036,
+            "known_total_mwh": 0.0452,
+            "local_device_mwh": 0.0019999999999999996,
+            "missing_reason": null,
+            "pre_rebound_activity_units": 200000.0,
+            "provenance": {
+              "assumption_source_ids": [
+                "assumption-energy",
+                "assumption-scenario"
+              ],
+              "observed_source_ids": [],
+              "reported_source_ids": [],
+              "synthetic_source_ids": []
+            },
+            "rebound_activity_units": 0.0,
+            "status": "known"
+          },
+          {
+            "activity_units": 500000.0,
+            "category": "non_ai",
+            "cloud_facility_mwh": 0.81,
+            "cloud_it_mwh": 0.675,
+            "known_total_mwh": 0.8250000000000001,
+            "local_device_mwh": 0.014999999999999994,
+            "missing_reason": null,
+            "pre_rebound_activity_units": 500000.0,
+            "provenance": {
+              "assumption_source_ids": [
+                "assumption-energy",
+                "assumption-scenario"
+              ],
+              "observed_source_ids": [],
+              "reported_source_ids": [],
+              "synthetic_source_ids": []
+            },
+            "rebound_activity_units": 0.0,
+            "status": "known"
+          }
+        ],
+        "hosting": {
+          "allocated_domestic_capacity_mwh": 160.95304,
+          "available_domestic_capacity_missing_reason": null,
+          "boundary": "cloud_facility",
+          "capacity_gap_mwh": 0,
+          "domestic_consumption_mwh": 203.1768,
+          "domestically_hosted_mwh": 60.953039999999994,
+          "exported_hosting_missing_reason": null,
+          "exported_hosting_mwh": 100.0,
+          "imported_mwh": 142.22376,
+          "provenance": {
+            "assumption_source_ids": [
+              "assumption-energy",
+              "assumption-scenario",
+              "assumption-usage"
+            ],
+            "observed_source_ids": [],
+            "reported_source_ids": [],
+            "synthetic_source_ids": [
+              "synthetic-workforce"
+            ]
+          },
+          "residual_capacity_mwh": 4839.04696,
+          "residual_interpretation": "Unallocated capacity; not inferred export or waste."
+        },
+        "id": "conservative__cloud-heavy",
+        "known_cloud_facility_subtotal_mwh": 203.1768,
+        "known_local_device_subtotal_mwh": 0.23399999999999996,
+        "known_national_subtotal_mwh": 203.4108,
+        "national_total_mwh": 203.4108,
+        "parameters": {
+          "cloud_pue": 1.2,
+          "cloud_share": 0.9,
+          "demand_multiplier": 1,
+          "domestic_hosting_share": 0.3
+        },
+        "placement": "cloud-heavy",
+        "scope_status": "complete"
+      },
+      {
+        "adoption": "conservative",
+        "categories": [
+          {
+            "activity_units": 160000.0,
+            "category": "occupation_human_inference",
+            "cloud_facility_mwh": 0.2304,
+            "cloud_it_mwh": 0.192,
+            "known_total_mwh": 0.26239999999999997,
+            "local_device_mwh": 0.032,
+            "missing_reason": null,
+            "pre_rebound_activity_units": 160000.0,
+            "provenance": {
+              "assumption_source_ids": [
+                "assumption-energy",
+                "assumption-scenario",
+                "assumption-usage"
+              ],
+              "observed_source_ids": [],
+              "reported_source_ids": [],
+              "synthetic_source_ids": [
+                "synthetic-workforce"
+              ]
+            },
+            "rebound_activity_units": 0.0,
+            "status": "known"
+          },
+          {
+            "activity_units": 100000.0,
+            "category": "autonomous_background_inference",
+            "cloud_facility_mwh": 0.216,
+            "cloud_it_mwh": 0.18,
+            "known_total_mwh": 0.244,
+            "local_device_mwh": 0.028,
+            "missing_reason": null,
+            "pre_rebound_activity_units": 100000.0,
+            "provenance": {
+              "assumption_source_ids": [
+                "assumption-energy",
+                "assumption-scenario"
+              ],
+              "observed_source_ids": [],
+              "reported_source_ids": [],
+              "synthetic_source_ids": []
+            },
+            "rebound_activity_units": 0.0,
+            "status": "known"
+          },
+          {
+            "activity_units": 50000.0,
+            "category": "consumer_ai",
+            "cloud_facility_mwh": 0.036,
+            "cloud_it_mwh": 0.03,
+            "known_total_mwh": 0.044,
+            "local_device_mwh": 0.008,
+            "missing_reason": null,
+            "pre_rebound_activity_units": 50000.0,
+            "provenance": {
+              "assumption_source_ids": [
+                "assumption-energy",
+                "assumption-scenario"
+              ],
+              "observed_source_ids": [],
+              "reported_source_ids": [],
+              "synthetic_source_ids": []
+            },
+            "rebound_activity_units": 0.0,
+            "status": "known"
+          },
+          {
+            "activity_units": 2.0,
+            "category": "foundation_training",
+            "cloud_facility_mwh": 120.0,
+            "cloud_it_mwh": null,
+            "known_total_mwh": 120.0,
+            "local_device_mwh": 0.0,
+            "missing_reason": null,
+            "pre_rebound_activity_units": 2.0,
+            "provenance": {
+              "assumption_source_ids": [
+                "assumption-energy",
+                "assumption-scenario"
+              ],
+              "observed_source_ids": [],
+              "reported_source_ids": [],
+              "synthetic_source_ids": []
+            },
+            "rebound_activity_units": 0.0,
+            "status": "known"
+          },
+          {
+            "activity_units": 20.0,
+            "category": "fine_tuning",
+            "cloud_facility_mwh": 14.399999999999999,
+            "cloud_it_mwh": 12.0,
+            "known_total_mwh": 15.2,
+            "local_device_mwh": 0.8,
+            "missing_reason": null,
+            "pre_rebound_activity_units": 20.0,
+            "provenance": {
+              "assumption_source_ids": [
+                "assumption-energy",
+                "assumption-scenario"
+              ],
+              "observed_source_ids": [],
+              "reported_source_ids": [],
+              "synthetic_source_ids": []
+            },
+            "rebound_activity_units": 0.0,
+            "status": "known"
+          },
+          {
+            "activity_units": 200000.0,
+            "category": "retrieval_embeddings",
+            "cloud_facility_mwh": 0.0288,
+            "cloud_it_mwh": 0.024,
+            "known_total_mwh": 0.0368,
+            "local_device_mwh": 0.008,
+            "missing_reason": null,
+            "pre_rebound_activity_units": 200000.0,
+            "provenance": {
+              "assumption_source_ids": [
+                "assumption-energy",
+                "assumption-scenario"
+              ],
+              "observed_source_ids": [],
+              "reported_source_ids": [],
+              "synthetic_source_ids": []
+            },
+            "rebound_activity_units": 0.0,
+            "status": "known"
+          },
+          {
+            "activity_units": 500000.0,
+            "category": "non_ai",
+            "cloud_facility_mwh": 0.54,
+            "cloud_it_mwh": 0.45,
+            "known_total_mwh": 0.6,
+            "local_device_mwh": 0.05999999999999999,
+            "missing_reason": null,
+            "pre_rebound_activity_units": 500000.0,
+            "provenance": {
+              "assumption_source_ids": [
+                "assumption-energy",
+                "assumption-scenario"
+              ],
+              "observed_source_ids": [],
+              "reported_source_ids": [],
+              "synthetic_source_ids": []
+            },
+            "rebound_activity_units": 0.0,
+            "status": "known"
+          }
+        ],
+        "hosting": {
+          "allocated_domestic_capacity_mwh": 181.27071999999998,
+          "available_domestic_capacity_missing_reason": null,
+          "boundary": "cloud_facility",
+          "capacity_gap_mwh": 0,
+          "domestic_consumption_mwh": 135.4512,
+          "domestically_hosted_mwh": 81.27072,
+          "exported_hosting_missing_reason": null,
+          "exported_hosting_mwh": 100.0,
+          "imported_mwh": 54.18048,
+          "provenance": {
+            "assumption_source_ids": [
+              "assumption-energy",
+              "assumption-scenario",
+              "assumption-usage"
+            ],
+            "observed_source_ids": [],
+            "reported_source_ids": [],
+            "synthetic_source_ids": [
+              "synthetic-workforce"
+            ]
+          },
+          "residual_capacity_mwh": 4818.72928,
+          "residual_interpretation": "Unallocated capacity; not inferred export or waste."
+        },
+        "id": "conservative__hybrid",
+        "known_cloud_facility_subtotal_mwh": 135.4512,
+        "known_local_device_subtotal_mwh": 0.936,
+        "known_national_subtotal_mwh": 136.3872,
+        "national_total_mwh": 136.3872,
+        "parameters": {
+          "cloud_pue": 1.2,
+          "cloud_share": 0.6,
+          "demand_multiplier": 1,
+          "domestic_hosting_share": 0.6
+        },
+        "placement": "hybrid",
+        "scope_status": "complete"
+      },
+      {
+        "adoption": "conservative",
+        "categories": [
+          {
+            "activity_units": 160000.0,
+            "category": "occupation_human_inference",
+            "cloud_facility_mwh": 0.0768,
+            "cloud_it_mwh": 0.064,
+            "known_total_mwh": 0.14079999999999998,
+            "local_device_mwh": 0.064,
+            "missing_reason": null,
+            "pre_rebound_activity_units": 160000.0,
+            "provenance": {
+              "assumption_source_ids": [
+                "assumption-energy",
+                "assumption-scenario",
+                "assumption-usage"
+              ],
+              "observed_source_ids": [],
+              "reported_source_ids": [],
+              "synthetic_source_ids": [
+                "synthetic-workforce"
+              ]
+            },
+            "rebound_activity_units": 0.0,
+            "status": "known"
+          },
+          {
+            "activity_units": 100000.0,
+            "category": "autonomous_background_inference",
+            "cloud_facility_mwh": 0.072,
+            "cloud_it_mwh": 0.06,
+            "known_total_mwh": 0.128,
+            "local_device_mwh": 0.056,
+            "missing_reason": null,
+            "pre_rebound_activity_units": 100000.0,
+            "provenance": {
+              "assumption_source_ids": [
+                "assumption-energy",
+                "assumption-scenario"
+              ],
+              "observed_source_ids": [],
+              "reported_source_ids": [],
+              "synthetic_source_ids": []
+            },
+            "rebound_activity_units": 0.0,
+            "status": "known"
+          },
+          {
+            "activity_units": 50000.0,
+            "category": "consumer_ai",
+            "cloud_facility_mwh": 0.012,
+            "cloud_it_mwh": 0.01,
+            "known_total_mwh": 0.028,
+            "local_device_mwh": 0.016,
+            "missing_reason": null,
+            "pre_rebound_activity_units": 50000.0,
+            "provenance": {
+              "assumption_source_ids": [
+                "assumption-energy",
+                "assumption-scenario"
+              ],
+              "observed_source_ids": [],
+              "reported_source_ids": [],
+              "synthetic_source_ids": []
+            },
+            "rebound_activity_units": 0.0,
+            "status": "known"
+          },
+          {
+            "activity_units": 2.0,
+            "category": "foundation_training",
+            "cloud_facility_mwh": 40.0,
+            "cloud_it_mwh": null,
+            "known_total_mwh": 40.0,
+            "local_device_mwh": 0.0,
+            "missing_reason": null,
+            "pre_rebound_activity_units": 2.0,
+            "provenance": {
+              "assumption_source_ids": [
+                "assumption-energy",
+                "assumption-scenario"
+              ],
+              "observed_source_ids": [],
+              "reported_source_ids": [],
+              "synthetic_source_ids": []
+            },
+            "rebound_activity_units": 0.0,
+            "status": "known"
+          },
+          {
+            "activity_units": 20.0,
+            "category": "fine_tuning",
+            "cloud_facility_mwh": 4.8,
+            "cloud_it_mwh": 4.0,
+            "known_total_mwh": 6.4,
+            "local_device_mwh": 1.6,
+            "missing_reason": null,
+            "pre_rebound_activity_units": 20.0,
+            "provenance": {
+              "assumption_source_ids": [
+                "assumption-energy",
+                "assumption-scenario"
+              ],
+              "observed_source_ids": [],
+              "reported_source_ids": [],
+              "synthetic_source_ids": []
+            },
+            "rebound_activity_units": 0.0,
+            "status": "known"
+          },
+          {
+            "activity_units": 200000.0,
+            "category": "retrieval_embeddings",
+            "cloud_facility_mwh": 0.0096,
+            "cloud_it_mwh": 0.008,
+            "known_total_mwh": 0.025599999999999998,
+            "local_device_mwh": 0.016,
+            "missing_reason": null,
+            "pre_rebound_activity_units": 200000.0,
+            "provenance": {
+              "assumption_source_ids": [
+                "assumption-energy",
+                "assumption-scenario"
+              ],
+              "observed_source_ids": [],
+              "reported_source_ids": [],
+              "synthetic_source_ids": []
+            },
+            "rebound_activity_units": 0.0,
+            "status": "known"
+          },
+          {
+            "activity_units": 500000.0,
+            "category": "non_ai",
+            "cloud_facility_mwh": 0.18,
+            "cloud_it_mwh": 0.15,
+            "known_total_mwh": 0.3,
+            "local_device_mwh": 0.11999999999999998,
+            "missing_reason": null,
+            "pre_rebound_activity_units": 500000.0,
+            "provenance": {
+              "assumption_source_ids": [
+                "assumption-energy",
+                "assumption-scenario"
+              ],
+              "observed_source_ids": [],
+              "reported_source_ids": [],
+              "synthetic_source_ids": []
+            },
+            "rebound_activity_units": 0.0,
+            "status": "known"
+          }
+        ],
+        "hosting": {
+          "allocated_domestic_capacity_mwh": 136.12032,
+          "available_domestic_capacity_missing_reason": null,
+          "boundary": "cloud_facility",
+          "capacity_gap_mwh": 0,
+          "domestic_consumption_mwh": 45.1504,
+          "domestically_hosted_mwh": 36.12032,
+          "exported_hosting_missing_reason": null,
+          "exported_hosting_mwh": 100.0,
+          "imported_mwh": 9.030079999999998,
+          "provenance": {
+            "assumption_source_ids": [
+              "assumption-energy",
+              "assumption-scenario",
+              "assumption-usage"
+            ],
+            "observed_source_ids": [],
+            "reported_source_ids": [],
+            "synthetic_source_ids": [
+              "synthetic-workforce"
+            ]
+          },
+          "residual_capacity_mwh": 4863.87968,
+          "residual_interpretation": "Unallocated capacity; not inferred export or waste."
+        },
+        "id": "conservative__local-heavy",
+        "known_cloud_facility_subtotal_mwh": 45.1504,
+        "known_local_device_subtotal_mwh": 1.872,
+        "known_national_subtotal_mwh": 47.0224,
+        "national_total_mwh": 47.0224,
+        "parameters": {
+          "cloud_pue": 1.2,
+          "cloud_share": 0.2,
+          "demand_multiplier": 1,
+          "domestic_hosting_share": 0.8
+        },
+        "placement": "local-heavy",
+        "scope_status": "complete"
+      },
+      {
+        "adoption": "high",
+        "categories": [
+          {
+            "activity_units": 3200000.0,
+            "category": "occupation_human_inference",
+            "cloud_facility_mwh": 6.912,
+            "cloud_it_mwh": 5.76,
+            "known_total_mwh": 7.072,
+            "local_device_mwh": 0.15999999999999998,
+            "missing_reason": null,
+            "pre_rebound_activity_units": 3200000.0,
+            "provenance": {
+              "assumption_source_ids": [
+                "assumption-energy",
+                "assumption-scenario",
+                "assumption-usage"
+              ],
+              "observed_source_ids": [],
+              "reported_source_ids": [],
+              "synthetic_source_ids": [
+                "synthetic-workforce"
+              ]
+            },
+            "rebound_activity_units": 0.0,
+            "status": "known"
+          },
+          {
+            "activity_units": 7000000.0,
+            "category": "autonomous_background_inference",
+            "cloud_facility_mwh": 22.679999999999996,
+            "cloud_it_mwh": 18.9,
+            "known_total_mwh": 23.169999999999995,
+            "local_device_mwh": 0.4899999999999999,
+            "missing_reason": null,
+            "pre_rebound_activity_units": 5000000.0,
+            "provenance": {
+              "assumption_source_ids": [
+                "assumption-energy",
+                "assumption-scenario"
+              ],
+              "observed_source_ids": [],
+              "reported_source_ids": [],
+              "synthetic_source_ids": []
+            },
+            "rebound_activity_units": 2000000.0,
+            "status": "known"
+          },
+          {
+            "activity_units": 5000000.0,
+            "category": "consumer_ai",
+            "cloud_facility_mwh": 5.3999999999999995,
+            "cloud_it_mwh": 4.5,
+            "known_total_mwh": 5.6,
+            "local_device_mwh": 0.19999999999999998,
+            "missing_reason": null,
+            "pre_rebound_activity_units": 5000000.0,
+            "provenance": {
+              "assumption_source_ids": [
+                "assumption-energy",
+                "assumption-scenario"
+              ],
+              "observed_source_ids": [],
+              "reported_source_ids": [],
+              "synthetic_source_ids": []
+            },
+            "rebound_activity_units": 0.0,
+            "status": "known"
+          },
+          {
+            "activity_units": 100.0,
+            "category": "foundation_training",
+            "cloud_facility_mwh": 9000.0,
+            "cloud_it_mwh": null,
+            "known_total_mwh": 9000.0,
+            "local_device_mwh": 0.0,
+            "missing_reason": null,
+            "pre_rebound_activity_units": 100.0,
+            "provenance": {
+              "assumption_source_ids": [
+                "assumption-energy",
+                "assumption-scenario"
+              ],
+              "observed_source_ids": [],
+              "reported_source_ids": [],
+              "synthetic_source_ids": []
+            },
+            "rebound_activity_units": 0.0,
+            "status": "known"
+          },
+          {
+            "activity_units": 1000.0,
+            "category": "fine_tuning",
+            "cloud_facility_mwh": 1080.0,
+            "cloud_it_mwh": 900.0,
+            "known_total_mwh": 1090.0,
+            "local_device_mwh": 9.999999999999996,
+            "missing_reason": null,
+            "pre_rebound_activity_units": 1000.0,
+            "provenance": {
+              "assumption_source_ids": [
+                "assumption-energy",
+                "assumption-scenario"
+              ],
+              "observed_source_ids": [],
+              "reported_source_ids": [],
+              "synthetic_source_ids": []
+            },
+            "rebound_activity_units": 0.0,
+            "status": "known"
+          },
+          {
+            "activity_units": 10000000.0,
+            "category": "retrieval_embeddings",
+            "cloud_facility_mwh": 2.16,
+            "cloud_it_mwh": 1.8,
+            "known_total_mwh": 2.2600000000000002,
+            "local_device_mwh": 0.09999999999999999,
+            "missing_reason": null,
+            "pre_rebound_activity_units": 10000000.0,
+            "provenance": {
+              "assumption_source_ids": [
+                "assumption-energy",
+                "assumption-scenario"
+              ],
+              "observed_source_ids": [],
+              "reported_source_ids": [],
+              "synthetic_source_ids": []
+            },
+            "rebound_activity_units": 0.0,
+            "status": "known"
+          },
+          {
+            "activity_units": 10000000.0,
+            "category": "non_ai",
+            "cloud_facility_mwh": 16.2,
+            "cloud_it_mwh": 13.5,
+            "known_total_mwh": 16.5,
+            "local_device_mwh": 0.2999999999999999,
+            "missing_reason": null,
+            "pre_rebound_activity_units": 10000000.0,
+            "provenance": {
+              "assumption_source_ids": [
+                "assumption-energy",
+                "assumption-scenario"
+              ],
+              "observed_source_ids": [],
+              "reported_source_ids": [],
+              "synthetic_source_ids": []
+            },
+            "rebound_activity_units": 0.0,
+            "status": "known"
+          }
+        ],
+        "hosting": {
+          "allocated_domestic_capacity_mwh": 3140.0056,
+          "available_domestic_capacity_missing_reason": null,
+          "boundary": "cloud_facility",
+          "capacity_gap_mwh": 0,
+          "domestic_consumption_mwh": 10133.352,
+          "domestically_hosted_mwh": 3040.0056,
+          "exported_hosting_missing_reason": null,
+          "exported_hosting_mwh": 100.0,
+          "imported_mwh": 7093.3464,
+          "provenance": {
+            "assumption_source_ids": [
+              "assumption-energy",
+              "assumption-scenario",
+              "assumption-usage"
+            ],
+            "observed_source_ids": [],
+            "reported_source_ids": [],
+            "synthetic_source_ids": [
+              "synthetic-workforce"
+            ]
+          },
+          "residual_capacity_mwh": 1859.9944,
+          "residual_interpretation": "Unallocated capacity; not inferred export or waste."
+        },
+        "id": "high__cloud-heavy",
+        "known_cloud_facility_subtotal_mwh": 10133.352,
+        "known_local_device_subtotal_mwh": 11.249999999999996,
+        "known_national_subtotal_mwh": 10144.602,
+        "national_total_mwh": 10144.602,
+        "parameters": {
+          "cloud_pue": 1.2,
+          "cloud_share": 0.9,
+          "demand_multiplier": 1,
+          "domestic_hosting_share": 0.3
+        },
+        "placement": "cloud-heavy",
+        "scope_status": "complete"
+      },
+      {
+        "adoption": "high",
+        "categories": [
+          {
+            "activity_units": 3200000.0,
+            "category": "occupation_human_inference",
+            "cloud_facility_mwh": 4.608,
+            "cloud_it_mwh": 3.84,
+            "known_total_mwh": 5.247999999999999,
+            "local_device_mwh": 0.64,
+            "missing_reason": null,
+            "pre_rebound_activity_units": 3200000.0,
+            "provenance": {
+              "assumption_source_ids": [
+                "assumption-energy",
+                "assumption-scenario",
+                "assumption-usage"
+              ],
+              "observed_source_ids": [],
+              "reported_source_ids": [],
+              "synthetic_source_ids": [
+                "synthetic-workforce"
+              ]
+            },
+            "rebound_activity_units": 0.0,
+            "status": "known"
+          },
+          {
+            "activity_units": 7000000.0,
+            "category": "autonomous_background_inference",
+            "cloud_facility_mwh": 15.12,
+            "cloud_it_mwh": 12.6,
+            "known_total_mwh": 17.08,
+            "local_device_mwh": 1.96,
+            "missing_reason": null,
+            "pre_rebound_activity_units": 5000000.0,
+            "provenance": {
+              "assumption_source_ids": [
+                "assumption-energy",
+                "assumption-scenario"
+              ],
+              "observed_source_ids": [],
+              "reported_source_ids": [],
+              "synthetic_source_ids": []
+            },
+            "rebound_activity_units": 2000000.0,
+            "status": "known"
+          },
+          {
+            "activity_units": 5000000.0,
+            "category": "consumer_ai",
+            "cloud_facility_mwh": 3.5999999999999996,
+            "cloud_it_mwh": 3.0,
+            "known_total_mwh": 4.3999999999999995,
+            "local_device_mwh": 0.8,
+            "missing_reason": null,
+            "pre_rebound_activity_units": 5000000.0,
+            "provenance": {
+              "assumption_source_ids": [
+                "assumption-energy",
+                "assumption-scenario"
+              ],
+              "observed_source_ids": [],
+              "reported_source_ids": [],
+              "synthetic_source_ids": []
+            },
+            "rebound_activity_units": 0.0,
+            "status": "known"
+          },
+          {
+            "activity_units": 100.0,
+            "category": "foundation_training",
+            "cloud_facility_mwh": 6000.0,
+            "cloud_it_mwh": null,
+            "known_total_mwh": 6000.0,
+            "local_device_mwh": 0.0,
+            "missing_reason": null,
+            "pre_rebound_activity_units": 100.0,
+            "provenance": {
+              "assumption_source_ids": [
+                "assumption-energy",
+                "assumption-scenario"
+              ],
+              "observed_source_ids": [],
+              "reported_source_ids": [],
+              "synthetic_source_ids": []
+            },
+            "rebound_activity_units": 0.0,
+            "status": "known"
+          },
+          {
+            "activity_units": 1000.0,
+            "category": "fine_tuning",
+            "cloud_facility_mwh": 720.0,
+            "cloud_it_mwh": 600.0,
+            "known_total_mwh": 760.0,
+            "local_device_mwh": 40.0,
+            "missing_reason": null,
+            "pre_rebound_activity_units": 1000.0,
+            "provenance": {
+              "assumption_source_ids": [
+                "assumption-energy",
+                "assumption-scenario"
+              ],
+              "observed_source_ids": [],
+              "reported_source_ids": [],
+              "synthetic_source_ids": []
+            },
+            "rebound_activity_units": 0.0,
+            "status": "known"
+          },
+          {
+            "activity_units": 10000000.0,
+            "category": "retrieval_embeddings",
+            "cloud_facility_mwh": 1.44,
+            "cloud_it_mwh": 1.2,
+            "known_total_mwh": 1.8399999999999999,
+            "local_device_mwh": 0.4,
+            "missing_reason": null,
+            "pre_rebound_activity_units": 10000000.0,
+            "provenance": {
+              "assumption_source_ids": [
+                "assumption-energy",
+                "assumption-scenario"
+              ],
+              "observed_source_ids": [],
+              "reported_source_ids": [],
+              "synthetic_source_ids": []
+            },
+            "rebound_activity_units": 0.0,
+            "status": "known"
+          },
+          {
+            "activity_units": 10000000.0,
+            "category": "non_ai",
+            "cloud_facility_mwh": 10.799999999999999,
+            "cloud_it_mwh": 9.0,
+            "known_total_mwh": 11.999999999999998,
+            "local_device_mwh": 1.2,
+            "missing_reason": null,
+            "pre_rebound_activity_units": 10000000.0,
+            "provenance": {
+              "assumption_source_ids": [
+                "assumption-energy",
+                "assumption-scenario"
+              ],
+              "observed_source_ids": [],
+              "reported_source_ids": [],
+              "synthetic_source_ids": []
+            },
+            "rebound_activity_units": 0.0,
+            "status": "known"
+          }
+        ],
+        "hosting": {
+          "allocated_domestic_capacity_mwh": 4153.3408,
+          "available_domestic_capacity_missing_reason": null,
+          "boundary": "cloud_facility",
+          "capacity_gap_mwh": 0,
+          "domestic_consumption_mwh": 6755.568,
+          "domestically_hosted_mwh": 4053.3408,
+          "exported_hosting_missing_reason": null,
+          "exported_hosting_mwh": 100.0,
+          "imported_mwh": 2702.2272000000003,
+          "provenance": {
+            "assumption_source_ids": [
+              "assumption-energy",
+              "assumption-scenario",
+              "assumption-usage"
+            ],
+            "observed_source_ids": [],
+            "reported_source_ids": [],
+            "synthetic_source_ids": [
+              "synthetic-workforce"
+            ]
+          },
+          "residual_capacity_mwh": 846.6592,
+          "residual_interpretation": "Unallocated capacity; not inferred export or waste."
+        },
+        "id": "high__hybrid",
+        "known_cloud_facility_subtotal_mwh": 6755.568,
+        "known_local_device_subtotal_mwh": 45.0,
+        "known_national_subtotal_mwh": 6800.568,
+        "national_total_mwh": 6800.568,
+        "parameters": {
+          "cloud_pue": 1.2,
+          "cloud_share": 0.6,
+          "demand_multiplier": 1,
+          "domestic_hosting_share": 0.6
+        },
+        "placement": "hybrid",
+        "scope_status": "complete"
+      },
+      {
+        "adoption": "high",
+        "categories": [
+          {
+            "activity_units": 3200000.0,
+            "category": "occupation_human_inference",
+            "cloud_facility_mwh": 1.536,
+            "cloud_it_mwh": 1.28,
+            "known_total_mwh": 2.816,
+            "local_device_mwh": 1.28,
+            "missing_reason": null,
+            "pre_rebound_activity_units": 3200000.0,
+            "provenance": {
+              "assumption_source_ids": [
+                "assumption-energy",
+                "assumption-scenario",
+                "assumption-usage"
+              ],
+              "observed_source_ids": [],
+              "reported_source_ids": [],
+              "synthetic_source_ids": [
+                "synthetic-workforce"
+              ]
+            },
+            "rebound_activity_units": 0.0,
+            "status": "known"
+          },
+          {
+            "activity_units": 7000000.0,
+            "category": "autonomous_background_inference",
+            "cloud_facility_mwh": 5.04,
+            "cloud_it_mwh": 4.2,
+            "known_total_mwh": 8.96,
+            "local_device_mwh": 3.92,
+            "missing_reason": null,
+            "pre_rebound_activity_units": 5000000.0,
+            "provenance": {
+              "assumption_source_ids": [
+                "assumption-energy",
+                "assumption-scenario"
+              ],
+              "observed_source_ids": [],
+              "reported_source_ids": [],
+              "synthetic_source_ids": []
+            },
+            "rebound_activity_units": 2000000.0,
+            "status": "known"
+          },
+          {
+            "activity_units": 5000000.0,
+            "category": "consumer_ai",
+            "cloud_facility_mwh": 1.2,
+            "cloud_it_mwh": 1.0,
+            "known_total_mwh": 2.8,
+            "local_device_mwh": 1.6,
+            "missing_reason": null,
+            "pre_rebound_activity_units": 5000000.0,
+            "provenance": {
+              "assumption_source_ids": [
+                "assumption-energy",
+                "assumption-scenario"
+              ],
+              "observed_source_ids": [],
+              "reported_source_ids": [],
+              "synthetic_source_ids": []
+            },
+            "rebound_activity_units": 0.0,
+            "status": "known"
+          },
+          {
+            "activity_units": 100.0,
+            "category": "foundation_training",
+            "cloud_facility_mwh": 2000.0,
+            "cloud_it_mwh": null,
+            "known_total_mwh": 2000.0,
+            "local_device_mwh": 0.0,
+            "missing_reason": null,
+            "pre_rebound_activity_units": 100.0,
+            "provenance": {
+              "assumption_source_ids": [
+                "assumption-energy",
+                "assumption-scenario"
+              ],
+              "observed_source_ids": [],
+              "reported_source_ids": [],
+              "synthetic_source_ids": []
+            },
+            "rebound_activity_units": 0.0,
+            "status": "known"
+          },
+          {
+            "activity_units": 1000.0,
+            "category": "fine_tuning",
+            "cloud_facility_mwh": 240.0,
+            "cloud_it_mwh": 200.0,
+            "known_total_mwh": 320.0,
+            "local_device_mwh": 80.0,
+            "missing_reason": null,
+            "pre_rebound_activity_units": 1000.0,
+            "provenance": {
+              "assumption_source_ids": [
+                "assumption-energy",
+                "assumption-scenario"
+              ],
+              "observed_source_ids": [],
+              "reported_source_ids": [],
+              "synthetic_source_ids": []
+            },
+            "rebound_activity_units": 0.0,
+            "status": "known"
+          },
+          {
+            "activity_units": 10000000.0,
+            "category": "retrieval_embeddings",
+            "cloud_facility_mwh": 0.48,
+            "cloud_it_mwh": 0.4,
+            "known_total_mwh": 1.28,
+            "local_device_mwh": 0.8,
+            "missing_reason": null,
+            "pre_rebound_activity_units": 10000000.0,
+            "provenance": {
+              "assumption_source_ids": [
+                "assumption-energy",
+                "assumption-scenario"
+              ],
+              "observed_source_ids": [],
+              "reported_source_ids": [],
+              "synthetic_source_ids": []
+            },
+            "rebound_activity_units": 0.0,
+            "status": "known"
+          },
+          {
+            "activity_units": 10000000.0,
+            "category": "non_ai",
+            "cloud_facility_mwh": 3.5999999999999996,
+            "cloud_it_mwh": 3.0,
+            "known_total_mwh": 6.0,
+            "local_device_mwh": 2.4,
+            "missing_reason": null,
+            "pre_rebound_activity_units": 10000000.0,
+            "provenance": {
+              "assumption_source_ids": [
+                "assumption-energy",
+                "assumption-scenario"
+              ],
+              "observed_source_ids": [],
+              "reported_source_ids": [],
+              "synthetic_source_ids": []
+            },
+            "rebound_activity_units": 0.0,
+            "status": "known"
+          }
+        ],
+        "hosting": {
+          "allocated_domestic_capacity_mwh": 1901.4848000000002,
+          "available_domestic_capacity_missing_reason": null,
+          "boundary": "cloud_facility",
+          "capacity_gap_mwh": 0,
+          "domestic_consumption_mwh": 2251.856,
+          "domestically_hosted_mwh": 1801.4848000000002,
+          "exported_hosting_missing_reason": null,
+          "exported_hosting_mwh": 100.0,
+          "imported_mwh": 450.37120000000004,
+          "provenance": {
+            "assumption_source_ids": [
+              "assumption-energy",
+              "assumption-scenario",
+              "assumption-usage"
+            ],
+            "observed_source_ids": [],
+            "reported_source_ids": [],
+            "synthetic_source_ids": [
+              "synthetic-workforce"
+            ]
+          },
+          "residual_capacity_mwh": 3098.5152,
+          "residual_interpretation": "Unallocated capacity; not inferred export or waste."
+        },
+        "id": "high__local-heavy",
+        "known_cloud_facility_subtotal_mwh": 2251.856,
+        "known_local_device_subtotal_mwh": 90.0,
+        "known_national_subtotal_mwh": 2341.856,
+        "national_total_mwh": 2341.856,
+        "parameters": {
+          "cloud_pue": 1.2,
+          "cloud_share": 0.2,
+          "demand_multiplier": 1,
+          "domestic_hosting_share": 0.8
+        },
+        "placement": "local-heavy",
+        "scope_status": "complete"
+      },
+      {
+        "adoption": "moderate",
+        "categories": [
+          {
+            "activity_units": 320000.0,
+            "category": "occupation_human_inference",
+            "cloud_facility_mwh": 0.6911999999999999,
+            "cloud_it_mwh": 0.576,
+            "known_total_mwh": 0.7071999999999999,
+            "local_device_mwh": 0.015999999999999997,
+            "missing_reason": null,
+            "pre_rebound_activity_units": 320000.0,
+            "provenance": {
+              "assumption_source_ids": [
+                "assumption-energy",
+                "assumption-scenario",
+                "assumption-usage"
+              ],
+              "observed_source_ids": [],
+              "reported_source_ids": [],
+              "synthetic_source_ids": [
+                "synthetic-workforce"
+              ]
+            },
+            "rebound_activity_units": 0.0,
+            "status": "known"
+          },
+          {
+            "activity_units": 1000000.0,
+            "category": "autonomous_background_inference",
+            "cloud_facility_mwh": 3.24,
+            "cloud_it_mwh": 2.7,
+            "known_total_mwh": 3.31,
+            "local_device_mwh": 0.06999999999999998,
+            "missing_reason": null,
+            "pre_rebound_activity_units": 1000000.0,
+            "provenance": {
+              "assumption_source_ids": [
+                "assumption-energy",
+                "assumption-scenario"
+              ],
+              "observed_source_ids": [],
+              "reported_source_ids": [],
+              "synthetic_source_ids": []
+            },
+            "rebound_activity_units": 0.0,
+            "status": "known"
+          },
+          {
+            "activity_units": 500000.0,
+            "category": "consumer_ai",
+            "cloud_facility_mwh": 0.54,
+            "cloud_it_mwh": 0.45,
+            "known_total_mwh": 0.56,
+            "local_device_mwh": 0.019999999999999997,
+            "missing_reason": null,
+            "pre_rebound_activity_units": 500000.0,
+            "provenance": {
+              "assumption_source_ids": [
+                "assumption-energy",
+                "assumption-scenario"
+              ],
+              "observed_source_ids": [],
+              "reported_source_ids": [],
+              "synthetic_source_ids": []
+            },
+            "rebound_activity_units": 0.0,
+            "status": "known"
+          },
+          {
+            "activity_units": 10.0,
+            "category": "foundation_training",
+            "cloud_facility_mwh": 900.0,
+            "cloud_it_mwh": null,
+            "known_total_mwh": 900.0,
+            "local_device_mwh": 0.0,
+            "missing_reason": null,
+            "pre_rebound_activity_units": 10.0,
+            "provenance": {
+              "assumption_source_ids": [
+                "assumption-energy",
+                "assumption-scenario"
+              ],
+              "observed_source_ids": [],
+              "reported_source_ids": [],
+              "synthetic_source_ids": []
+            },
+            "rebound_activity_units": 0.0,
+            "status": "known"
+          },
+          {
+            "activity_units": 100.0,
+            "category": "fine_tuning",
+            "cloud_facility_mwh": 108.0,
+            "cloud_it_mwh": 90.0,
+            "known_total_mwh": 109.0,
+            "local_device_mwh": 0.9999999999999998,
+            "missing_reason": null,
+            "pre_rebound_activity_units": 100.0,
+            "provenance": {
+              "assumption_source_ids": [
+                "assumption-energy",
+                "assumption-scenario"
+              ],
+              "observed_source_ids": [],
+              "reported_source_ids": [],
+              "synthetic_source_ids": []
+            },
+            "rebound_activity_units": 0.0,
+            "status": "known"
+          },
+          {
+            "activity_units": 1000000.0,
+            "category": "retrieval_embeddings",
+            "cloud_facility_mwh": 0.216,
+            "cloud_it_mwh": 0.18,
+            "known_total_mwh": 0.226,
+            "local_device_mwh": 0.009999999999999998,
+            "missing_reason": null,
+            "pre_rebound_activity_units": 1000000.0,
+            "provenance": {
+              "assumption_source_ids": [
+                "assumption-energy",
+                "assumption-scenario"
+              ],
+              "observed_source_ids": [],
+              "reported_source_ids": [],
+              "synthetic_source_ids": []
+            },
+            "rebound_activity_units": 0.0,
+            "status": "known"
+          },
+          {
+            "activity_units": 2000000.0,
+            "category": "non_ai",
+            "cloud_facility_mwh": 3.24,
+            "cloud_it_mwh": 2.7,
+            "known_total_mwh": 3.3000000000000003,
+            "local_device_mwh": 0.05999999999999998,
+            "missing_reason": null,
+            "pre_rebound_activity_units": 2000000.0,
+            "provenance": {
+              "assumption_source_ids": [
+                "assumption-energy",
+                "assumption-scenario"
+              ],
+              "observed_source_ids": [],
+              "reported_source_ids": [],
+              "synthetic_source_ids": []
+            },
+            "rebound_activity_units": 0.0,
+            "status": "known"
+          }
+        ],
+        "hosting": {
+          "allocated_domestic_capacity_mwh": 404.77815999999996,
+          "available_domestic_capacity_missing_reason": null,
+          "boundary": "cloud_facility",
+          "capacity_gap_mwh": 0,
+          "domestic_consumption_mwh": 1015.9272,
+          "domestically_hosted_mwh": 304.77815999999996,
+          "exported_hosting_missing_reason": null,
+          "exported_hosting_mwh": 100.0,
+          "imported_mwh": 711.14904,
+          "provenance": {
+            "assumption_source_ids": [
+              "assumption-energy",
+              "assumption-scenario",
+              "assumption-usage"
+            ],
+            "observed_source_ids": [],
+            "reported_source_ids": [],
+            "synthetic_source_ids": [
+              "synthetic-workforce"
+            ]
+          },
+          "residual_capacity_mwh": 4595.22184,
+          "residual_interpretation": "Unallocated capacity; not inferred export or waste."
+        },
+        "id": "moderate__cloud-heavy",
+        "known_cloud_facility_subtotal_mwh": 1015.9272,
+        "known_local_device_subtotal_mwh": 1.1759999999999997,
+        "known_national_subtotal_mwh": 1017.1032,
+        "national_total_mwh": 1017.1032,
+        "parameters": {
+          "cloud_pue": 1.2,
+          "cloud_share": 0.9,
+          "demand_multiplier": 1,
+          "domestic_hosting_share": 0.3
+        },
+        "placement": "cloud-heavy",
+        "scope_status": "complete"
+      },
+      {
+        "adoption": "moderate",
+        "categories": [
+          {
+            "activity_units": 320000.0,
+            "category": "occupation_human_inference",
+            "cloud_facility_mwh": 0.4608,
+            "cloud_it_mwh": 0.384,
+            "known_total_mwh": 0.5247999999999999,
+            "local_device_mwh": 0.064,
+            "missing_reason": null,
+            "pre_rebound_activity_units": 320000.0,
+            "provenance": {
+              "assumption_source_ids": [
+                "assumption-energy",
+                "assumption-scenario",
+                "assumption-usage"
+              ],
+              "observed_source_ids": [],
+              "reported_source_ids": [],
+              "synthetic_source_ids": [
+                "synthetic-workforce"
+              ]
+            },
+            "rebound_activity_units": 0.0,
+            "status": "known"
+          },
+          {
+            "activity_units": 1000000.0,
+            "category": "autonomous_background_inference",
+            "cloud_facility_mwh": 2.16,
+            "cloud_it_mwh": 1.8,
+            "known_total_mwh": 2.4400000000000004,
+            "local_device_mwh": 0.28,
+            "missing_reason": null,
+            "pre_rebound_activity_units": 1000000.0,
+            "provenance": {
+              "assumption_source_ids": [
+                "assumption-energy",
+                "assumption-scenario"
+              ],
+              "observed_source_ids": [],
+              "reported_source_ids": [],
+              "synthetic_source_ids": []
+            },
+            "rebound_activity_units": 0.0,
+            "status": "known"
+          },
+          {
+            "activity_units": 500000.0,
+            "category": "consumer_ai",
+            "cloud_facility_mwh": 0.36,
+            "cloud_it_mwh": 0.3,
+            "known_total_mwh": 0.44,
+            "local_device_mwh": 0.08,
+            "missing_reason": null,
+            "pre_rebound_activity_units": 500000.0,
+            "provenance": {
+              "assumption_source_ids": [
+                "assumption-energy",
+                "assumption-scenario"
+              ],
+              "observed_source_ids": [],
+              "reported_source_ids": [],
+              "synthetic_source_ids": []
+            },
+            "rebound_activity_units": 0.0,
+            "status": "known"
+          },
+          {
+            "activity_units": 10.0,
+            "category": "foundation_training",
+            "cloud_facility_mwh": 600.0,
+            "cloud_it_mwh": null,
+            "known_total_mwh": 600.0,
+            "local_device_mwh": 0.0,
+            "missing_reason": null,
+            "pre_rebound_activity_units": 10.0,
+            "provenance": {
+              "assumption_source_ids": [
+                "assumption-energy",
+                "assumption-scenario"
+              ],
+              "observed_source_ids": [],
+              "reported_source_ids": [],
+              "synthetic_source_ids": []
+            },
+            "rebound_activity_units": 0.0,
+            "status": "known"
+          },
+          {
+            "activity_units": 100.0,
+            "category": "fine_tuning",
+            "cloud_facility_mwh": 72.0,
+            "cloud_it_mwh": 60.0,
+            "known_total_mwh": 76.0,
+            "local_device_mwh": 4.0,
+            "missing_reason": null,
+            "pre_rebound_activity_units": 100.0,
+            "provenance": {
+              "assumption_source_ids": [
+                "assumption-energy",
+                "assumption-scenario"
+              ],
+              "observed_source_ids": [],
+              "reported_source_ids": [],
+              "synthetic_source_ids": []
+            },
+            "rebound_activity_units": 0.0,
+            "status": "known"
+          },
+          {
+            "activity_units": 1000000.0,
+            "category": "retrieval_embeddings",
+            "cloud_facility_mwh": 0.144,
+            "cloud_it_mwh": 0.12,
+            "known_total_mwh": 0.184,
+            "local_device_mwh": 0.04,
+            "missing_reason": null,
+            "pre_rebound_activity_units": 1000000.0,
+            "provenance": {
+              "assumption_source_ids": [
+                "assumption-energy",
+                "assumption-scenario"
+              ],
+              "observed_source_ids": [],
+              "reported_source_ids": [],
+              "synthetic_source_ids": []
+            },
+            "rebound_activity_units": 0.0,
+            "status": "known"
+          },
+          {
+            "activity_units": 2000000.0,
+            "category": "non_ai",
+            "cloud_facility_mwh": 2.16,
+            "cloud_it_mwh": 1.8,
+            "known_total_mwh": 2.4,
+            "local_device_mwh": 0.23999999999999996,
+            "missing_reason": null,
+            "pre_rebound_activity_units": 2000000.0,
+            "provenance": {
+              "assumption_source_ids": [
+                "assumption-energy",
+                "assumption-scenario"
+              ],
+              "observed_source_ids": [],
+              "reported_source_ids": [],
+              "synthetic_source_ids": []
+            },
+            "rebound_activity_units": 0.0,
+            "status": "known"
+          }
+        ],
+        "hosting": {
+          "allocated_domestic_capacity_mwh": 506.37088,
+          "available_domestic_capacity_missing_reason": null,
+          "boundary": "cloud_facility",
+          "capacity_gap_mwh": 0,
+          "domestic_consumption_mwh": 677.2848,
+          "domestically_hosted_mwh": 406.37088,
+          "exported_hosting_missing_reason": null,
+          "exported_hosting_mwh": 100.0,
+          "imported_mwh": 270.91392,
+          "provenance": {
+            "assumption_source_ids": [
+              "assumption-energy",
+              "assumption-scenario",
+              "assumption-usage"
+            ],
+            "observed_source_ids": [],
+            "reported_source_ids": [],
+            "synthetic_source_ids": [
+              "synthetic-workforce"
+            ]
+          },
+          "residual_capacity_mwh": 4493.62912,
+          "residual_interpretation": "Unallocated capacity; not inferred export or waste."
+        },
+        "id": "moderate__hybrid",
+        "known_cloud_facility_subtotal_mwh": 677.2848,
+        "known_local_device_subtotal_mwh": 4.704,
+        "known_national_subtotal_mwh": 681.9888,
+        "national_total_mwh": 681.9888,
+        "parameters": {
+          "cloud_pue": 1.2,
+          "cloud_share": 0.6,
+          "demand_multiplier": 1,
+          "domestic_hosting_share": 0.6
+        },
+        "placement": "hybrid",
+        "scope_status": "complete"
+      },
+      {
+        "adoption": "moderate",
+        "categories": [
+          {
+            "activity_units": 320000.0,
+            "category": "occupation_human_inference",
+            "cloud_facility_mwh": 0.1536,
+            "cloud_it_mwh": 0.128,
+            "known_total_mwh": 0.28159999999999996,
+            "local_device_mwh": 0.128,
+            "missing_reason": null,
+            "pre_rebound_activity_units": 320000.0,
+            "provenance": {
+              "assumption_source_ids": [
+                "assumption-energy",
+                "assumption-scenario",
+                "assumption-usage"
+              ],
+              "observed_source_ids": [],
+              "reported_source_ids": [],
+              "synthetic_source_ids": [
+                "synthetic-workforce"
+              ]
+            },
+            "rebound_activity_units": 0.0,
+            "status": "known"
+          },
+          {
+            "activity_units": 1000000.0,
+            "category": "autonomous_background_inference",
+            "cloud_facility_mwh": 0.72,
+            "cloud_it_mwh": 0.6,
+            "known_total_mwh": 1.28,
+            "local_device_mwh": 0.56,
+            "missing_reason": null,
+            "pre_rebound_activity_units": 1000000.0,
+            "provenance": {
+              "assumption_source_ids": [
+                "assumption-energy",
+                "assumption-scenario"
+              ],
+              "observed_source_ids": [],
+              "reported_source_ids": [],
+              "synthetic_source_ids": []
+            },
+            "rebound_activity_units": 0.0,
+            "status": "known"
+          },
+          {
+            "activity_units": 500000.0,
+            "category": "consumer_ai",
+            "cloud_facility_mwh": 0.12,
+            "cloud_it_mwh": 0.1,
+            "known_total_mwh": 0.28,
+            "local_device_mwh": 0.16,
+            "missing_reason": null,
+            "pre_rebound_activity_units": 500000.0,
+            "provenance": {
+              "assumption_source_ids": [
+                "assumption-energy",
+                "assumption-scenario"
+              ],
+              "observed_source_ids": [],
+              "reported_source_ids": [],
+              "synthetic_source_ids": []
+            },
+            "rebound_activity_units": 0.0,
+            "status": "known"
+          },
+          {
+            "activity_units": 10.0,
+            "category": "foundation_training",
+            "cloud_facility_mwh": 200.0,
+            "cloud_it_mwh": null,
+            "known_total_mwh": 200.0,
+            "local_device_mwh": 0.0,
+            "missing_reason": null,
+            "pre_rebound_activity_units": 10.0,
+            "provenance": {
+              "assumption_source_ids": [
+                "assumption-energy",
+                "assumption-scenario"
+              ],
+              "observed_source_ids": [],
+              "reported_source_ids": [],
+              "synthetic_source_ids": []
+            },
+            "rebound_activity_units": 0.0,
+            "status": "known"
+          },
+          {
+            "activity_units": 100.0,
+            "category": "fine_tuning",
+            "cloud_facility_mwh": 24.0,
+            "cloud_it_mwh": 20.0,
+            "known_total_mwh": 32.0,
+            "local_device_mwh": 8.0,
+            "missing_reason": null,
+            "pre_rebound_activity_units": 100.0,
+            "provenance": {
+              "assumption_source_ids": [
+                "assumption-energy",
+                "assumption-scenario"
+              ],
+              "observed_source_ids": [],
+              "reported_source_ids": [],
+              "synthetic_source_ids": []
+            },
+            "rebound_activity_units": 0.0,
+            "status": "known"
+          },
+          {
+            "activity_units": 1000000.0,
+            "category": "retrieval_embeddings",
+            "cloud_facility_mwh": 0.048,
+            "cloud_it_mwh": 0.04,
+            "known_total_mwh": 0.128,
+            "local_device_mwh": 0.08,
+            "missing_reason": null,
+            "pre_rebound_activity_units": 1000000.0,
+            "provenance": {
+              "assumption_source_ids": [
+                "assumption-energy",
+                "assumption-scenario"
+              ],
+              "observed_source_ids": [],
+              "reported_source_ids": [],
+              "synthetic_source_ids": []
+            },
+            "rebound_activity_units": 0.0,
+            "status": "known"
+          },
+          {
+            "activity_units": 2000000.0,
+            "category": "non_ai",
+            "cloud_facility_mwh": 0.72,
+            "cloud_it_mwh": 0.6,
+            "known_total_mwh": 1.2,
+            "local_device_mwh": 0.4799999999999999,
+            "missing_reason": null,
+            "pre_rebound_activity_units": 2000000.0,
+            "provenance": {
+              "assumption_source_ids": [
+                "assumption-energy",
+                "assumption-scenario"
+              ],
+              "observed_source_ids": [],
+              "reported_source_ids": [],
+              "synthetic_source_ids": []
+            },
+            "rebound_activity_units": 0.0,
+            "status": "known"
+          }
+        ],
+        "hosting": {
+          "allocated_domestic_capacity_mwh": 280.60928,
+          "available_domestic_capacity_missing_reason": null,
+          "boundary": "cloud_facility",
+          "capacity_gap_mwh": 0,
+          "domestic_consumption_mwh": 225.7616,
+          "domestically_hosted_mwh": 180.60928,
+          "exported_hosting_missing_reason": null,
+          "exported_hosting_mwh": 100.0,
+          "imported_mwh": 45.152319999999975,
+          "provenance": {
+            "assumption_source_ids": [
+              "assumption-energy",
+              "assumption-scenario",
+              "assumption-usage"
+            ],
+            "observed_source_ids": [],
+            "reported_source_ids": [],
+            "synthetic_source_ids": [
+              "synthetic-workforce"
+            ]
+          },
+          "residual_capacity_mwh": 4719.39072,
+          "residual_interpretation": "Unallocated capacity; not inferred export or waste."
+        },
+        "id": "moderate__local-heavy",
+        "known_cloud_facility_subtotal_mwh": 225.7616,
+        "known_local_device_subtotal_mwh": 9.408,
+        "known_national_subtotal_mwh": 235.16959999999997,
+        "national_total_mwh": 235.16959999999997,
+        "parameters": {
+          "cloud_pue": 1.2,
+          "cloud_share": 0.2,
+          "demand_multiplier": 1,
+          "domestic_hosting_share": 0.8
+        },
+        "placement": "local-heavy",
+        "scope_status": "complete"
+      }
+    ],
+    "country_code": "NO",
+    "inverse_allocations": [
+      {
+        "activity_unit": "AI requests",
+        "activity_units_per_denominator": 1825000.0,
+        "allocation_share": 0.5,
+        "cloud_pue_applied": 1.2,
+        "country_code": "NO",
+        "denominator_definition": "Explicit synthetic worker denominator",
+        "denominator_unit": "synthetic_workers",
+        "denominator_value": 1000.0,
+        "energy_boundary": "cloud_it",
+        "facility_capacity_mw": 1.0,
+        "id": "synthetic-ai-allocation",
+        "kwh_per_activity_unit": 0.002,
+        "load_factor": 1.0,
+        "provenance": {
+          "assumption_source_ids": [
+            "assumption-energy",
+            "assumption-scenario"
+          ],
+          "observed_source_ids": [],
+          "reported_source_ids": [],
+          "synthetic_source_ids": []
+        },
+        "workload_scope": "ai_only",
+        "year": 2025
+      }
+    ],
+    "sensitivity": {
+      "joint_stress_cases": [
+        {
+          "definition": "Joint high-demand, centralized, domestically hosted stress case",
+          "hosting": {
+            "allocated_domestic_capacity_mwh": 5063.31775,
+            "available_domestic_capacity_missing_reason": null,
+            "boundary": "cloud_facility",
+            "capacity_gap_mwh": 63.31775000000016,
+            "domestic_consumption_mwh": 5514.7975,
+            "domestically_hosted_mwh": 4963.31775,
+            "exported_hosting_missing_reason": null,
+            "exported_hosting_mwh": 100.0,
+            "imported_mwh": 551.4797499999995,
+            "provenance": {
+              "assumption_source_ids": [
+                "assumption-energy",
+                "assumption-scenario",
+                "assumption-usage"
+              ],
+              "observed_source_ids": [],
+              "reported_source_ids": [],
+              "synthetic_source_ids": [
+                "synthetic-workforce"
+              ]
+            },
+            "residual_capacity_mwh": 0,
+            "residual_interpretation": "Unallocated capacity; not inferred export or waste."
+          },
+          "id": "high-demand-stress",
+          "known_cloud_facility_subtotal_mwh": 5514.7975,
+          "known_local_device_subtotal_mwh": 2.9400000000000026,
+          "known_national_subtotal_mwh": 5517.737499999999,
+          "national_total_mwh": 5517.737499999999,
+          "parameters": {
+            "cloud_pue": 1.5,
+            "cloud_share": 0.95,
+            "demand_multiplier": 5.0,
+            "domestic_hosting_share": 0.9
+          },
+          "provenance": {
+            "assumption_source_ids": [
+              "assumption-scenario"
+            ],
+            "observed_source_ids": [],
+            "reported_source_ids": [],
+            "synthetic_source_ids": []
+          },
+          "scope_status": "complete"
+        }
+      ],
+      "one_at_a_time": [
+        {
+          "definition": "Named cloud placement range",
+          "id": "cloud-share-range",
+          "parameter": "cloud_share",
+          "points": [
+            {
+              "hosting": {
+                "allocated_domestic_capacity_mwh": 303.18543999999997,
+                "available_domestic_capacity_missing_reason": null,
+                "boundary": "cloud_facility",
+                "capacity_gap_mwh": 0,
+                "domestic_consumption_mwh": 338.6424,
+                "domestically_hosted_mwh": 203.18544,
+                "exported_hosting_missing_reason": null,
+                "exported_hosting_mwh": 100.0,
+                "imported_mwh": 135.45696,
+                "provenance": {
+                  "assumption_source_ids": [
+                    "assumption-energy",
+                    "assumption-scenario",
+                    "assumption-usage"
+                  ],
+                  "observed_source_ids": [],
+                  "reported_source_ids": [],
+                  "synthetic_source_ids": [
+                    "synthetic-workforce"
+                  ]
+                },
+                "residual_capacity_mwh": 4696.81456,
+                "residual_interpretation": "Unallocated capacity; not inferred export or waste."
+              },
+              "known_cloud_facility_subtotal_mwh": 338.6424,
+              "known_local_device_subtotal_mwh": 8.232,
+              "known_national_subtotal_mwh": 346.87440000000004,
+              "national_total_mwh": 346.87440000000004,
+              "position": "low",
+              "scope_status": "complete",
+              "value": 0.3
+            },
+            {
+              "hosting": {
+                "allocated_domestic_capacity_mwh": 506.37088,
+                "available_domestic_capacity_missing_reason": null,
+                "boundary": "cloud_facility",
+                "capacity_gap_mwh": 0,
+                "domestic_consumption_mwh": 677.2848,
+                "domestically_hosted_mwh": 406.37088,
+                "exported_hosting_missing_reason": null,
+                "exported_hosting_mwh": 100.0,
+                "imported_mwh": 270.91392,
+                "provenance": {
+                  "assumption_source_ids": [
+                    "assumption-energy",
+                    "assumption-scenario",
+                    "assumption-usage"
+                  ],
+                  "observed_source_ids": [],
+                  "reported_source_ids": [],
+                  "synthetic_source_ids": [
+                    "synthetic-workforce"
+                  ]
+                },
+                "residual_capacity_mwh": 4493.62912,
+                "residual_interpretation": "Unallocated capacity; not inferred export or waste."
+              },
+              "known_cloud_facility_subtotal_mwh": 677.2848,
+              "known_local_device_subtotal_mwh": 4.704,
+              "known_national_subtotal_mwh": 681.9888,
+              "national_total_mwh": 681.9888,
+              "position": "base",
+              "scope_status": "complete",
+              "value": 0.6
+            },
+            {
+              "hosting": {
+                "allocated_domestic_capacity_mwh": 743.42056,
+                "available_domestic_capacity_missing_reason": null,
+                "boundary": "cloud_facility",
+                "capacity_gap_mwh": 0,
+                "domestic_consumption_mwh": 1072.3676,
+                "domestically_hosted_mwh": 643.42056,
+                "exported_hosting_missing_reason": null,
+                "exported_hosting_mwh": 100.0,
+                "imported_mwh": 428.94704,
+                "provenance": {
+                  "assumption_source_ids": [
+                    "assumption-energy",
+                    "assumption-scenario",
+                    "assumption-usage"
+                  ],
+                  "observed_source_ids": [],
+                  "reported_source_ids": [],
+                  "synthetic_source_ids": [
+                    "synthetic-workforce"
+                  ]
+                },
+                "residual_capacity_mwh": 4256.5794399999995,
+                "residual_interpretation": "Unallocated capacity; not inferred export or waste."
+              },
+              "known_cloud_facility_subtotal_mwh": 1072.3676,
+              "known_local_device_subtotal_mwh": 0.5880000000000005,
+              "known_national_subtotal_mwh": 1072.9556,
+              "national_total_mwh": 1072.9556,
+              "position": "high",
+              "scope_status": "complete",
+              "value": 0.95
+            }
+          ],
+          "provenance": {
+            "assumption_source_ids": [
+              "assumption-scenario"
+            ],
+            "observed_source_ids": [],
+            "reported_source_ids": [],
+            "synthetic_source_ids": []
+          }
+        },
+        {
+          "definition": "Named demand scaling range",
+          "id": "demand-range",
+          "parameter": "demand_multiplier",
+          "points": [
+            {
+              "hosting": {
+                "allocated_domestic_capacity_mwh": 303.18543999999997,
+                "available_domestic_capacity_missing_reason": null,
+                "boundary": "cloud_facility",
+                "capacity_gap_mwh": 0,
+                "domestic_consumption_mwh": 338.6424,
+                "domestically_hosted_mwh": 203.18544,
+                "exported_hosting_missing_reason": null,
+                "exported_hosting_mwh": 100.0,
+                "imported_mwh": 135.45696,
+                "provenance": {
+                  "assumption_source_ids": [
+                    "assumption-energy",
+                    "assumption-scenario",
+                    "assumption-usage"
+                  ],
+                  "observed_source_ids": [],
+                  "reported_source_ids": [],
+                  "synthetic_source_ids": [
+                    "synthetic-workforce"
+                  ]
+                },
+                "residual_capacity_mwh": 4696.81456,
+                "residual_interpretation": "Unallocated capacity; not inferred export or waste."
+              },
+              "known_cloud_facility_subtotal_mwh": 338.6424,
+              "known_local_device_subtotal_mwh": 2.352,
+              "known_national_subtotal_mwh": 340.9944,
+              "national_total_mwh": 340.9944,
+              "position": "low",
+              "scope_status": "complete",
+              "value": 0.5
+            },
+            {
+              "hosting": {
+                "allocated_domestic_capacity_mwh": 506.37088,
+                "available_domestic_capacity_missing_reason": null,
+                "boundary": "cloud_facility",
+                "capacity_gap_mwh": 0,
+                "domestic_consumption_mwh": 677.2848,
+                "domestically_hosted_mwh": 406.37088,
+                "exported_hosting_missing_reason": null,
+                "exported_hosting_mwh": 100.0,
+                "imported_mwh": 270.91392,
+                "provenance": {
+                  "assumption_source_ids": [
+                    "assumption-energy",
+                    "assumption-scenario",
+                    "assumption-usage"
+                  ],
+                  "observed_source_ids": [],
+                  "reported_source_ids": [],
+                  "synthetic_source_ids": [
+                    "synthetic-workforce"
+                  ]
+                },
+                "residual_capacity_mwh": 4493.62912,
+                "residual_interpretation": "Unallocated capacity; not inferred export or waste."
+              },
+              "known_cloud_facility_subtotal_mwh": 677.2848,
+              "known_local_device_subtotal_mwh": 4.704,
+              "known_national_subtotal_mwh": 681.9888,
+              "national_total_mwh": 681.9888,
+              "position": "base",
+              "scope_status": "complete",
+              "value": 1.0
+            },
+            {
+              "hosting": {
+                "allocated_domestic_capacity_mwh": 1319.1126399999998,
+                "available_domestic_capacity_missing_reason": null,
+                "boundary": "cloud_facility",
+                "capacity_gap_mwh": 0,
+                "domestic_consumption_mwh": 2031.8544,
+                "domestically_hosted_mwh": 1219.1126399999998,
+                "exported_hosting_missing_reason": null,
+                "exported_hosting_mwh": 100.0,
+                "imported_mwh": 812.7417600000001,
+                "provenance": {
+                  "assumption_source_ids": [
+                    "assumption-energy",
+                    "assumption-scenario",
+                    "assumption-usage"
+                  ],
+                  "observed_source_ids": [],
+                  "reported_source_ids": [],
+                  "synthetic_source_ids": [
+                    "synthetic-workforce"
+                  ]
+                },
+                "residual_capacity_mwh": 3680.88736,
+                "residual_interpretation": "Unallocated capacity; not inferred export or waste."
+              },
+              "known_cloud_facility_subtotal_mwh": 2031.8544,
+              "known_local_device_subtotal_mwh": 14.112,
+              "known_national_subtotal_mwh": 2045.9664,
+              "national_total_mwh": 2045.9664,
+              "position": "high",
+              "scope_status": "complete",
+              "value": 3.0
+            }
+          ],
+          "provenance": {
+            "assumption_source_ids": [
+              "assumption-scenario"
+            ],
+            "observed_source_ids": [],
+            "reported_source_ids": [],
+            "synthetic_source_ids": []
+          }
+        },
+        {
+          "definition": "Named domestic hosting range",
+          "id": "domestic-hosting-range",
+          "parameter": "domestic_hosting_share",
+          "points": [
+            {
+              "hosting": {
+                "allocated_domestic_capacity_mwh": 235.45696,
+                "available_domestic_capacity_missing_reason": null,
+                "boundary": "cloud_facility",
+                "capacity_gap_mwh": 0,
+                "domestic_consumption_mwh": 677.2848,
+                "domestically_hosted_mwh": 135.45696,
+                "exported_hosting_missing_reason": null,
+                "exported_hosting_mwh": 100.0,
+                "imported_mwh": 541.82784,
+                "provenance": {
+                  "assumption_source_ids": [
+                    "assumption-energy",
+                    "assumption-scenario",
+                    "assumption-usage"
+                  ],
+                  "observed_source_ids": [],
+                  "reported_source_ids": [],
+                  "synthetic_source_ids": [
+                    "synthetic-workforce"
+                  ]
+                },
+                "residual_capacity_mwh": 4764.54304,
+                "residual_interpretation": "Unallocated capacity; not inferred export or waste."
+              },
+              "known_cloud_facility_subtotal_mwh": 677.2848,
+              "known_local_device_subtotal_mwh": 4.704,
+              "known_national_subtotal_mwh": 681.9888,
+              "national_total_mwh": 681.9888,
+              "position": "low",
+              "scope_status": "complete",
+              "value": 0.2
+            },
+            {
+              "hosting": {
+                "allocated_domestic_capacity_mwh": 506.37088,
+                "available_domestic_capacity_missing_reason": null,
+                "boundary": "cloud_facility",
+                "capacity_gap_mwh": 0,
+                "domestic_consumption_mwh": 677.2848,
+                "domestically_hosted_mwh": 406.37088,
+                "exported_hosting_missing_reason": null,
+                "exported_hosting_mwh": 100.0,
+                "imported_mwh": 270.91392,
+                "provenance": {
+                  "assumption_source_ids": [
+                    "assumption-energy",
+                    "assumption-scenario",
+                    "assumption-usage"
+                  ],
+                  "observed_source_ids": [],
+                  "reported_source_ids": [],
+                  "synthetic_source_ids": [
+                    "synthetic-workforce"
+                  ]
+                },
+                "residual_capacity_mwh": 4493.62912,
+                "residual_interpretation": "Unallocated capacity; not inferred export or waste."
+              },
+              "known_cloud_facility_subtotal_mwh": 677.2848,
+              "known_local_device_subtotal_mwh": 4.704,
+              "known_national_subtotal_mwh": 681.9888,
+              "national_total_mwh": 681.9888,
+              "position": "base",
+              "scope_status": "complete",
+              "value": 0.6
+            },
+            {
+              "hosting": {
+                "allocated_domestic_capacity_mwh": 709.55632,
+                "available_domestic_capacity_missing_reason": null,
+                "boundary": "cloud_facility",
+                "capacity_gap_mwh": 0,
+                "domestic_consumption_mwh": 677.2848,
+                "domestically_hosted_mwh": 609.55632,
+                "exported_hosting_missing_reason": null,
+                "exported_hosting_mwh": 100.0,
+                "imported_mwh": 67.72847999999999,
+                "provenance": {
+                  "assumption_source_ids": [
+                    "assumption-energy",
+                    "assumption-scenario",
+                    "assumption-usage"
+                  ],
+                  "observed_source_ids": [],
+                  "reported_source_ids": [],
+                  "synthetic_source_ids": [
+                    "synthetic-workforce"
+                  ]
+                },
+                "residual_capacity_mwh": 4290.44368,
+                "residual_interpretation": "Unallocated capacity; not inferred export or waste."
+              },
+              "known_cloud_facility_subtotal_mwh": 677.2848,
+              "known_local_device_subtotal_mwh": 4.704,
+              "known_national_subtotal_mwh": 681.9888,
+              "national_total_mwh": 681.9888,
+              "position": "high",
+              "scope_status": "complete",
+              "value": 0.9
+            }
+          ],
+          "provenance": {
+            "assumption_source_ids": [
+              "assumption-scenario"
+            ],
+            "observed_source_ids": [],
+            "reported_source_ids": [],
+            "synthetic_source_ids": []
+          }
+        },
+        {
+          "definition": "Named cloud PUE range",
+          "id": "pue-range",
+          "parameter": "cloud_pue",
+          "points": [
+            {
+              "hosting": {
+                "allocated_domestic_capacity_mwh": 498.6424,
+                "available_domestic_capacity_missing_reason": null,
+                "boundary": "cloud_facility",
+                "capacity_gap_mwh": 0,
+                "domestic_consumption_mwh": 664.404,
+                "domestically_hosted_mwh": 398.6424,
+                "exported_hosting_missing_reason": null,
+                "exported_hosting_mwh": 100.0,
+                "imported_mwh": 265.7616,
+                "provenance": {
+                  "assumption_source_ids": [
+                    "assumption-energy",
+                    "assumption-scenario",
+                    "assumption-usage"
+                  ],
+                  "observed_source_ids": [],
+                  "reported_source_ids": [],
+                  "synthetic_source_ids": [
+                    "synthetic-workforce"
+                  ]
+                },
+                "residual_capacity_mwh": 4501.3576,
+                "residual_interpretation": "Unallocated capacity; not inferred export or waste."
+              },
+              "known_cloud_facility_subtotal_mwh": 664.404,
+              "known_local_device_subtotal_mwh": 4.704,
+              "known_national_subtotal_mwh": 669.108,
+              "national_total_mwh": 669.108,
+              "position": "low",
+              "scope_status": "complete",
+              "value": 1.0
+            },
+            {
+              "hosting": {
+                "allocated_domestic_capacity_mwh": 506.37088,
+                "available_domestic_capacity_missing_reason": null,
+                "boundary": "cloud_facility",
+                "capacity_gap_mwh": 0,
+                "domestic_consumption_mwh": 677.2848,
+                "domestically_hosted_mwh": 406.37088,
+                "exported_hosting_missing_reason": null,
+                "exported_hosting_mwh": 100.0,
+                "imported_mwh": 270.91392,
+                "provenance": {
+                  "assumption_source_ids": [
+                    "assumption-energy",
+                    "assumption-scenario",
+                    "assumption-usage"
+                  ],
+                  "observed_source_ids": [],
+                  "reported_source_ids": [],
+                  "synthetic_source_ids": [
+                    "synthetic-workforce"
+                  ]
+                },
+                "residual_capacity_mwh": 4493.62912,
+                "residual_interpretation": "Unallocated capacity; not inferred export or waste."
+              },
+              "known_cloud_facility_subtotal_mwh": 677.2848,
+              "known_local_device_subtotal_mwh": 4.704,
+              "known_national_subtotal_mwh": 681.9888,
+              "national_total_mwh": 681.9888,
+              "position": "base",
+              "scope_status": "complete",
+              "value": 1.2
+            },
+            {
+              "hosting": {
+                "allocated_domestic_capacity_mwh": 517.9636,
+                "available_domestic_capacity_missing_reason": null,
+                "boundary": "cloud_facility",
+                "capacity_gap_mwh": 0,
+                "domestic_consumption_mwh": 696.606,
+                "domestically_hosted_mwh": 417.9636,
+                "exported_hosting_missing_reason": null,
+                "exported_hosting_mwh": 100.0,
+                "imported_mwh": 278.6424,
+                "provenance": {
+                  "assumption_source_ids": [
+                    "assumption-energy",
+                    "assumption-scenario",
+                    "assumption-usage"
+                  ],
+                  "observed_source_ids": [],
+                  "reported_source_ids": [],
+                  "synthetic_source_ids": [
+                    "synthetic-workforce"
+                  ]
+                },
+                "residual_capacity_mwh": 4482.0364,
+                "residual_interpretation": "Unallocated capacity; not inferred export or waste."
+              },
+              "known_cloud_facility_subtotal_mwh": 696.606,
+              "known_local_device_subtotal_mwh": 4.704,
+              "known_national_subtotal_mwh": 701.31,
+              "national_total_mwh": 701.31,
+              "position": "high",
+              "scope_status": "complete",
+              "value": 1.5
+            }
+          ],
+          "provenance": {
+            "assumption_source_ids": [
+              "assumption-scenario"
+            ],
+            "observed_source_ids": [],
+            "reported_source_ids": [],
+            "synthetic_source_ids": []
+          }
+        }
+      ],
+      "reference_adoption": "moderate",
+      "reference_placement": "hybrid"
+    },
+    "value_resource_ratios": [
+      {
+        "boundary": "synthetic-project-a",
+        "country_code": "NO",
+        "id": "synthetic-jobs-per-mw",
+        "provenance": {
+          "assumption_source_ids": [],
+          "observed_source_ids": [],
+          "reported_source_ids": [],
+          "synthetic_source_ids": [
+            "synthetic-value"
+          ]
+        },
+        "ratio": 10.0,
+        "ratio_unit": "permanent_jobs/facility_MW",
+        "resource_definition": "Synthetic matched facility capacity",
+        "value_definition": "Synthetic permanent jobs",
+        "year": 2025
+      }
+    ],
+    "year": 2025
+  },
+  "schema_version": "1.0",
+  "scope": {
+    "description": "Occupation-linked human-triggered AI inference only.",
+    "national_total_mwh": null,
+    "scope_status": "incomplete",
+    "unmodeled_categories": [
+      {
+        "category": "non_ai",
+        "energy_mwh": null,
+        "reason": "Traditional data-centre workloads are outside this milestone."
+      },
+      {
+        "category": "consumer_ai",
+        "energy_mwh": null,
+        "reason": "Consumer AI use is not represented by occupation inputs."
+      },
+      {
+        "category": "autonomous_background_inference",
+        "energy_mwh": null,
+        "reason": "Autonomous and background inference is not modeled."
+      },
+      {
+        "category": "foundation_training",
+        "energy_mwh": null,
+        "reason": "Foundation-model training is not modeled."
+      },
+      {
+        "category": "fine_tuning",
+        "energy_mwh": null,
+        "reason": "Fine-tuning is not modeled."
+      },
+      {
+        "category": "retrieval_embeddings",
+        "energy_mwh": null,
+        "reason": "Retrieval and embedding workloads are not modeled."
+      }
+    ]
+  },
+  "source_trace": [
+    {
+      "id": "assumption-energy",
+      "license": "Not designated; synthetic project fixture",
+      "locator": "Generated example, not a measured benchmark",
+      "publication_date": null,
+      "publisher": "DatacenterNeed test fixture",
+      "query_url": null,
+      "retrieved_date": null,
+      "snapshot_path": null,
+      "snapshot_sha256": null,
+      "source_kind": "assumption",
+      "title": "Synthetic request-level energy assumptions",
+      "url": null
+    },
+    {
+      "id": "assumption-scenario",
+      "license": "Not designated; synthetic project fixture",
+      "locator": "Generated scenario assumptions, not observed evidence",
+      "publication_date": null,
+      "publisher": "DatacenterNeed test fixture",
+      "query_url": null,
+      "retrieved_date": null,
+      "snapshot_path": null,
+      "snapshot_sha256": null,
+      "source_kind": "assumption",
+      "title": "Synthetic scenario assumptions",
+      "url": null
+    },
+    {
+      "id": "assumption-usage",
+      "license": "Not designated; synthetic project fixture",
+      "locator": "Generated example, not observed evidence",
+      "publication_date": null,
+      "publisher": "DatacenterNeed test fixture",
+      "query_url": null,
+      "retrieved_date": null,
+      "snapshot_path": null,
+      "snapshot_sha256": null,
+      "source_kind": "assumption",
+      "title": "Synthetic AI usage assumptions",
+      "url": null
+    },
+    {
+      "id": "synthetic-capacity",
+      "license": "Not designated; synthetic project fixture",
+      "locator": "Generated example, not Norway capacity evidence",
+      "publication_date": null,
+      "publisher": "DatacenterNeed test fixture",
+      "query_url": null,
+      "retrieved_date": null,
+      "snapshot_path": null,
+      "snapshot_sha256": null,
+      "source_kind": "synthetic",
+      "title": "Synthetic 2 GW facility thought experiment",
+      "url": null
+    },
+    {
+      "id": "synthetic-value",
+      "license": "Not designated; synthetic project fixture",
+      "locator": "Generated ratio inputs, not observed evidence",
+      "publication_date": null,
+      "publisher": "DatacenterNeed test fixture",
+      "query_url": null,
+      "retrieved_date": null,
+      "snapshot_path": null,
+      "snapshot_sha256": null,
+      "source_kind": "synthetic",
+      "title": "Synthetic project value and resource quantities",
+      "url": null
+    },
+    {
+      "id": "synthetic-workforce",
+      "license": "Not designated; synthetic project fixture",
+      "locator": "Generated example, not observed evidence",
+      "publication_date": null,
+      "publisher": "DatacenterNeed test fixture",
+      "query_url": null,
+      "retrieved_date": null,
+      "snapshot_path": null,
+      "snapshot_sha256": null,
+      "source_kind": "synthetic",
+      "title": "Synthetic workforce fixture",
+      "url": null
+    }
+  ]
+}

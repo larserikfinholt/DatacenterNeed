@@ -1,0 +1,32 @@
+{
+  "datasets": [
+    {
+      "id": "synthetic",
+      "title": "Synthetic example",
+      "kind": "synthetic",
+      "country": "NO",
+      "year": 2025,
+      "schemaVersion": "1.0",
+      "modelVersion": "1.0",
+      "paths": {
+        "result": "/artifacts/v1/synthetic/result.json",
+        "manifest": "/artifacts/v1/synthetic/manifest.json",
+        "occupationBreakdown": "/artifacts/v1/synthetic/occupation_breakdown.csv"
+      }
+    },
+    {
+      "id": "norway-2025",
+      "title": "Norway 2025 observed baseline",
+      "kind": "observed-baseline",
+      "country": "NO",
+      "year": 2025,
+      "schemaVersion": "1.0",
+      "modelVersion": "1.0",
+      "paths": {
+        "result": "/artifacts/v1/norway-2025/result.json",
+        "manifest": "/artifacts/v1/norway-2025/manifest.json",
+        "occupationBreakdown": "/artifacts/v1/norway-2025/occupation_breakdown.csv"
+      }
+    }
+  ]
+}

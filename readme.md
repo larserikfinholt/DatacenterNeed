@@ -1,6 +1,6 @@
 # Project: Measuring the Real Societal Need for Data Centres
 
-> **Important:** The Norway 2025 dataset now covers nine nonoverlapping broad SSB occupation groups (2,830,506 employees) and separately exposes 8,530 employees with unspecified or unidentifiable occupations. Annual hours and task profiles remain unknown, so it produces no national AI-energy estimate. It also records 2025 electricity production and net consumption plus a deliberately incomplete two-site project inventory with no aggregable MW. There is no web dashboard; `national_total_mwh` remains `null`.
+> **Important:** The Norway 2025 dataset now covers nine nonoverlapping broad SSB occupation groups (2,830,506 employees) and separately exposes 8,530 employees with unspecified or unidentifiable occupations. Annual hours and task profiles remain unknown, so it produces no national AI-energy estimate. It also records observed 2025 electricity production and net consumption plus a deliberately incomplete two-site project inventory with no aggregable MW. The static dashboard preserves these limits: `national_total_mwh` and Norway scenarios remain `null`.
 
 ## Quickstart
 
@@ -32,6 +32,23 @@ uv run datacenter-need fetch-norway-baseline
 ```
 
 The second fetch validates and atomically archives the broad 2025 Q4 occupation extract and 2025 annual electricity extract together. Network refreshes are reviewed operations; offline builds never fetch upstream data.
+
+## Dashboard
+
+The static Vite vanilla TypeScript dashboard in `web/` reads committed versioned artifacts only; it has no backend, runtime Python, or visitor-side upstream fetching. Norway 2025 is the default observed baseline and retains missing occupation calculations, no MW project totals, a non-exhaustive two-site inventory, observed 2025 electricity only, and absent benefits. The prominently labeled synthetic dataset is the only dataset with adjustable scenarios.
+
+```powershell
+npm ci --prefix web
+npm --prefix web exec playwright install chromium
+npm --prefix web run artifacts:refresh
+uv run python scripts/export_dashboard_vectors.py
+npm --prefix web run test:unit
+npm --prefix web run test:e2e
+npm --prefix web run build
+npm --prefix web run dev -- --host 127.0.0.1
+```
+
+Artifact refresh requires the existing Python builds and verifies every `result.json` SHA-256 against its manifest before deterministic copying and indexing. The vector export produces the authoritative Python scenario cases used by browser parity tests. During local development, the dashboard is available at http://127.0.0.1:5173/ while the development server is running.
 
 Read the [methodology](docs/methodology.md), [source register](docs/source-register.md), [contribution guidance](CONTRIBUTING.md), and [implementation status](docs/implementation-status.md) before interpreting or extending the fixtures.
 

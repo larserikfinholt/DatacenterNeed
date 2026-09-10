@@ -1,0 +1,3 @@
+occupation_id,title,country_code,year,workforce_basis,annual_requests,cloud_facility_mwh,local_device_mwh,known_total_mwh,status,missing_reason,source_ids
+no-synthetic-occupation,Synthetic Norway occupation,NO,2025,headcount,320000.0,0.5376000000000001,0.048,0.5856,known,,assumption-energy;assumption-usage;synthetic-workforce
+se-synthetic-occupation,Synthetic Sweden occupation,SE,2025,headcount,288000.0,0.41472000000000003,0.0576,0.4723200000000001,known,,assumption-energy;assumption-usage;synthetic-workforce

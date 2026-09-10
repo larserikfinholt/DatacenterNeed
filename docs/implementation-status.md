@@ -46,15 +46,28 @@ The test model uses synthetic fixtures only. It is not a national finding: all N
 
 Milestone 3 is complete. Unknown used activity or intensity, and incomplete occupation coverage, prevent complete national totals and complete hosting; known subtotals remain. Norway datasets have no scenario configuration, remain unchanged, and keep `national_total_mwh` null. Only `synthetic.yaml` contains explicit synthetic scenario assumptions and complete synthetic coverage.
 
-Verified 2026-09-09 on Windows: 59 tests passed and Ruff passed; synthetic, `software-developers-2025`, and `norway-2025` inputs all validated and built offline; schema export and `git diff --check` passed. This is local verification only: it does not establish real national Norway scenario findings, deployment, frontend work, or remote CI.
+Verified 2026-09-09 on Windows: 59 tests passed and Ruff passed; synthetic, `software-developers-2025`, and `norway-2025` inputs all validated and built offline; schema export and `git diff --check` passed. This is local verification only: it does not establish real national Norway scenario findings, deployment, or remote CI.
+
+## Milestone 4: Static Dashboard
+
+- [x] Static Vite vanilla TypeScript dashboard under `web/`, with no backend, runtime Python, or upstream fetching
+- [x] Versioned committed artifact reader for Norway 2025 observed baseline and prominently labeled synthetic example
+- [x] Manifest SHA-256 verification and deterministic artifact copy/index refresh; authoritative Python scenario-vector export
+- [x] Four views: Electricity & capacity; Demand & scenarios; Projects & resources; Sources, assumptions & evidence
+- [x] Norway default preserves null national total and scenario, missing occupation calculations, no MW project totals, a non-exhaustive two-site inventory, observed 2025 electricity only, and absent benefits
+- [x] Synthetic-only adjustable scenarios: presets, four validated overrides, compare/reset, versioned URL sharing, validated versioned JSON selection import/export, and CSV downloads
+- [x] Vega-Lite charts with HTML table equivalents, Lucide icons, strict artifact version parsing, and rejection of incompatible artifacts, URLs, and imports
+- [x] Browser parity for 23 exact Python-generated golden vectors plus unknown/null mutations, covering PUE, rebound, hosting, provenance, and null semantics
+
+Verified locally on Windows 2026-09-09: 24 frontend unit/parity tests, 4 Playwright tests, and the production frontend build passed. Playwright checks 375x812 and 1440x1000 viewports, keyboard navigation, no document overflow, nonblank SVG marks, Norway missing states, and synthetic resource values. Manual screenshots at both widths were inspected as readable and nonoverlapping. The lazy-loaded Vega embed chunk is about 850 KB while the main UI bundle is about 40 KB; this is a non-blocking performance follow-up.
 
 ## Not Yet Implemented
 
-- [ ] Web dashboard
 - [ ] Deployment
+- [ ] Pages configuration, dashboard CI integration, remote CI verification, and licensing resolution
 
 ## Next Milestone
 
-Implement Milestone 4 as a static dashboard from versioned artifacts. Preserve source, unit, date, boundary, provenance, uncertainty, and coverage states; do not render invented national Norway scenario figures or conceal null/incomplete results.
+Implement Milestone 5: public release and contributions. Preserve source, unit, date, boundary, provenance, uncertainty, and coverage states; do not render invented national Norway scenario figures or conceal null/incomplete results. No deployment, Pages configuration, CI integration, remote CI verification, commit, push, or licensing resolution has been completed.
 
 See the [implementation plan and session handoff](implementation-plan.md) for the complete remaining roadmap, acceptance gates, model preferences, and a prompt for the next coding session.

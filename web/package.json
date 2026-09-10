@@ -1,0 +1,28 @@
+{
+  "name": "web",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "test": "vitest run src",
+    "test:unit": "vitest run src",
+    "test:e2e": "playwright test",
+    "test:all": "npm run test:unit && npm run test:e2e",
+    "artifacts:refresh": "python ../scripts/refresh_web_artifacts.py"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.63.0",
+    "jsdom": "^29.1.1",
+    "typescript": "~6.0.2",
+    "vite": "^8.2.2",
+    "vitest": "^5.0.0"
+  },
+  "dependencies": {
+    "lucide": "^1.43.0",
+    "vega": "^6.4.0",
+    "vega-embed": "^7.2.0",
+    "vega-lite": "^6.4.3"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "hash_algorithm": "sha256",
+  "input": {
+    "path": "data/examples/synthetic.yaml",
+    "sha256": "ba41619dbf8358f3223fd62bff3386ecc8b1a405aad5f167ce4c282a0bd35fd5"
+  },
+  "model": {
+    "sha256": "995f7a70f97b90c6f18be64a1b5da7936f74b72b74c9ea6602d0b2f54598c166",
+    "version": "1.0"
+  },
+  "offline": true,
+  "outputs": {
+    "input.schema.json": "62919407364a0bda5f7c1d09a407124c625f2c80cbf5c8bc4d0fbd752e828135",
+    "occupation_breakdown.csv": "e2c68d89d676b2c7bfb68116240066bb43d96e9bd10c8a2d5d177bc0cfbc4226",
+    "result.json": "a3e124fd431f41971e8e17f2a6a512bf7b092469a6b5a1b8b9daf56bc388c32e"
+  },
+  "schema": {
+    "sha256": "62919407364a0bda5f7c1d09a407124c625f2c80cbf5c8bc4d0fbd752e828135",
+    "version": "1.0"
+  }
+}

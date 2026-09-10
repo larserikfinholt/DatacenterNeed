@@ -1,0 +1,21 @@
+{
+  "hash_algorithm": "sha256",
+  "input": {
+    "path": "data/norway/norway-2025.yaml",
+    "sha256": "d868a054b52e623c6017e684bdf49c5c289a090e30bd03ab0db29a490b98571b"
+  },
+  "model": {
+    "sha256": "995f7a70f97b90c6f18be64a1b5da7936f74b72b74c9ea6602d0b2f54598c166",
+    "version": "1.0"
+  },
+  "offline": true,
+  "outputs": {
+    "input.schema.json": "62919407364a0bda5f7c1d09a407124c625f2c80cbf5c8bc4d0fbd752e828135",
+    "occupation_breakdown.csv": "53d8f4f85073f0e225a9d5d18349f57e1497426786ca25b6354477f806e1a34b",
+    "result.json": "b9db0a997b138190dcb3130645e33fe12972b0f90e6ccc70c5c5714d54e2ac1f"
+  },
+  "schema": {
+    "sha256": "62919407364a0bda5f7c1d09a407124c625f2c80cbf5c8bc4d0fbd752e828135",
+    "version": "1.0"
+  }
+}
