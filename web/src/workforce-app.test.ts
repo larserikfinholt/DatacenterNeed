@@ -24,6 +24,21 @@ describe('workforce analysis', () => {
     expect(root.querySelector<HTMLSelectElement>('#target-adoption')!.value).toBe('50')
     expect(root.querySelector<HTMLSelectElement>('#adoption-years')!.value).toBe('1')
     expect(root.querySelector('.settings-section')?.textContent).toContain('Developer Reference')
+    expect(root.querySelector('#adoption-title')).toBeNull()
+    expect(root.querySelector('#factor-title')?.textContent).toBe('Yrkesfaktorer')
+    const referenceMethod = root.querySelector<HTMLSelectElement>('#reference-method')!
+    expect(referenceMethod.disabled).toBe(true)
+    expect(referenceMethod.options).toHaveLength(1)
+    expect(referenceMethod.selectedOptions[0].textContent).toBe('Erfaringsbasert · H100 + GLM-5.3')
+    expect(referenceMethod.title).toContain('8 NVIDIA H100 og GLM-5.3-Flash')
+    const methodDetails = root.querySelector('.reference-method-details')!
+    expect(methodDetails.textContent).toContain('8 NVIDIA H100, 65 % GPU-utnyttelse og 20 samtidige utviklere')
+    expect(methodDetails.textContent).toContain('8 × 425 W + 1 000 W = 4 400 W')
+    expect(methodDetails.textContent).toContain('4 400 W ÷ 20 = 220 W')
+    expect(methodDetails.textContent).toContain('ikke verifisert')
+    const quickControls = root.querySelector('.settings-quick-row')!
+    const adoptionNote = quickControls.querySelector('.assumption-note')!
+    expect(quickControls.lastElementChild).toBe(adoptionNote)
     expect(root.querySelectorAll('#occupation-rows tr')).toHaveLength(22)
     expect(root.querySelector<HTMLSelectElement>('#factor-fallback')!.value).toBe('fte-weighted-mean')
     expect(root.textContent).toContain('Estimert AI-effektbehov · ekstrapolert scenario')
@@ -49,14 +64,12 @@ describe('workforce analysis', () => {
     expect(document.activeElement).toBe(target)
     expect(root.querySelector<HTMLSelectElement>('#target-adoption')!.value).toBe('80')
     expect(root.querySelector<HTMLSelectElement>('#factor-level')!.value).toBe('base')
-    change('#reference-profile', 'heavy')
     change('#annual-hours', '1000', 'input')
-    expect(root.querySelector('#calibration-output')?.textContent).toContain('270 kWh')
+    expect(root.querySelector('#calibration-output')?.textContent).toContain('220 kWh')
     root.querySelector<HTMLButtonElement>('#reset-workforce')!.click()
     expect(root.querySelector<HTMLInputElement>('#annual-hours')!.value).toBe('1725')
     expect(root.querySelector<HTMLSelectElement>('#target-adoption')!.value).toBe('50')
     expect(root.querySelector<HTMLSelectElement>('#adoption-years')!.value).toBe('1')
-    expect(root.querySelector<HTMLSelectElement>('#reference-profile')!.value).toBe('baseline')
     expect(root.querySelector<HTMLSelectElement>('#factor-fallback')!.value).toBe('fte-weighted-mean')
   })
   it('updates the extrapolation method and keeps extrapolated occupations explicit', () => {

@@ -69,12 +69,11 @@ export function mountWorkforce(root: HTMLElement) {
   let factorLevel: FactorLevel = 'base'
   let factorFallback: FactorFallback = 'fte-weighted-mean'
   let annualHours = DEFAULT_ANNUAL_HOURS
-  let referenceId = 'baseline'
   let search = ''
   let coverage = 'assessed'
   let sort = 'energy'
   const calculate = () => evaluateWorkforce(occupations, targetAdoption, factorLevel,
-    { watts: getReference(referenceId).watts, annualHours }, factorFallback)
+    { watts: getReference().watts, annualHours }, factorFallback)
 
   root.innerHTML = `
     <a class="skip-link" href="#analysis">Til analysen</a>
@@ -89,26 +88,35 @@ export function mountWorkforce(root: HTMLElement) {
         <figure class="comparison-figure"><figcaption><span>Estimert AI-effektbehov mot datasenterkapasitet</span><small>Samme lineære MW-skala · 2025–2030</small></figcaption><div id="comparison-chart"></div><div class="chart-legend"><span class="legend-ai">Estimert AI-effektbehov</span><span class="legend-existing">Eksisterende</span><span class="legend-committed">Under bygging / forpliktet</span><span class="legend-announced">Annonsert / planlagt, ikke garantert</span></div></figure>
         <p class="capacity-caveat"><strong>Foreløpig kapasitetsbane.</strong> Tallene er scenarioverdier for å teste sammenligningen, ikke en revidert nasjonal prosjektinventering. Kategoriene må erstattes med kildebelagte prosjektdata før konklusjonen kan leses som en prognose.</p>
       </section>
-      <section class="assumptions-section" id="assumptions" aria-labelledby="assumptions-title"><div><p class="eyebrow">Nøkkelforutsetninger</p><h2 id="assumptions-title">Hva sammenligningen sier</h2><p>All inferens knyttet til norsk arbeidsliv antas fysisk kjørt i norske datasentre. Kapasitetsgrafen bruker IT-last i de aktive timene, kalt <em>aktiv IT-last</em>: effektbehovet til IT-utstyret mens det faktisk brukes, uten kjøling, tomgang eller PUE. Årsenergi og årsgjennomsnitt vises separat; ingen av delene er reservert nettkapasitet.</p></div><div class="scope-columns"><div><h3>Inkludert</h3><ul><li>AI-inferens i norsk arbeidsliv</li><li>Yrkesbestemt AI-intensitet</li><li>Adopsjonsrate</li><li>Utviklerens referansearbeidslast</li></ul></div><div><h3>Ikke inkludert / separat modellert</h3><ul><li>Modelltrening og forbruker-AI</li><li>AI-eksport til utenlandske kunder</li><li>Krypto, HPC og annen datasenterlast</li><li>Om annonserte anlegg faktisk bygges</li></ul></div></div></section>
-      <aside class="scenario-readout" aria-labelledby="examples-title"><p class="eyebrow">Forklaring</p><h3 id="examples-title">Hva driver AI-behovet?</h3><div id="estimate-output"></div></aside>
+      <section class="assumptions-section" id="assumptions" aria-label="Forklaringer"><p class="eyebrow">Forklaringer</p><div class="scope-columns"><div><h2>Hva sammenligningen viser</h2><p>Vi estimerer hvor mye <strong>økt bruk av AI i norsk arbeidsliv</strong> kan øke behovet for datasenterkraft.</p><p>Dette sammenlignes med hvor mye datasenterkapasitet som finnes, bygges og planlegges i Norge.</p><p>Dersom AI-behovet fra norsk arbeidsliv bare utgjør en liten del av kapasiteten, tyder det på at <strong>utbyggingen i hovedsak drives av andre behov enn AI-bruk i norsk arbeidsliv</strong>.</p></div><div><h2>Hvordan har vi regnet ut dette?</h2><p>Vi bruker utviklere som referanseyrke, fordi vi antar at dette er blant yrkesgruppene som kan ha høyest og mest kontinuerlig nytte av AI.</p><p>Først estimerer vi hvor mye effekt en aktiv utvikler kan kreve ved omfattende AI-bruk. Deretter skaleres andre yrker relativt til denne referansen basert på yrkestype, arbeidsoppgaver og data fra SSB.</p><p>Til slutt kombineres dette med antall årsverk og forventet AI-adopsjon i norsk arbeidsliv.</p></div><div><h2>Hva er utelatt?</h2><p>Beregningen forsøker ikke å beskrive alt fremtidig datasenterbehov i Norge.</p><ul><li>trening av store AI-modeller</li><li>AI-bruk for utenlandske kunder</li><li>privat bruk av AI</li><li>tradisjonelle skytjenester og IT-drift</li><li>HPC, kryptovaluta og andre datasenterformål</li><li>eventuell overkapasitet, redundans og reservekapasitet</li><li>hvor stor del av annonserte datasentre som faktisk blir bygget</li></ul></div></div></section>
+      <aside class="scenario-readout" aria-labelledby="examples-title"><p class="eyebrow">Eksempelyrker</p><h2 id="examples-title">Hva driver AI-behovet?</h2><div id="estimate-output"></div></aside>
       <section class="settings-section" id="settings" aria-labelledby="settings-title">
         <div class="settings-heading"><div><p class="eyebrow">Scenario og referanse</p><h2 id="settings-title">Innstillinger</h2></div><button type="button" class="icon-button" id="reset-workforce" title="Tilbakestill antakelser" aria-label="Tilbakestill antakelser"><i data-lucide="rotate-ccw"></i></button></div>
         <div class="settings-quick-row">
           <label for="target-adoption">Adopsjon<select id="target-adoption"><option value="20">20 %</option><option value="50" selected>50 %</option><option value="80">80 %</option><option value="100">100 %</option></select></label>
           <label for="adoption-years">Tid til full adopsjon<select id="adoption-years"><option value="1" selected>1 år</option><option value="2">2 år</option><option value="3">3 år</option><option value="5">5 år</option></select></label>
           <label for="factor-level">Yrkesfaktor<select id="factor-level"><option value="low">Lav</option><option value="base" selected>Base</option><option value="high">Høy</option></select></label>
-          <label for="reference-profile">Referanseeffekt<select id="reference-profile"><option value="baseline">Baseline · 220 W</option><option value="low-load">Lav last · 140 W</option><option value="heavy">Høy last · 270 W</option></select></label>
+          <p class="assumption-note">Adopsjonen øker lineært fra 20 % til målet over valgt antall år, og holder seg deretter konstant. Utvikler = 1,0 i alle faktorprofiler.</p>
         </div>
         <div class="settings-grid">
-        <section class="adoption-panel" aria-labelledby="adoption-title">
-          <div class="panel-title"><h3 id="adoption-title">AI-adopsjon</h3></div>
-          <p class="assumption-note">Adopsjonen øker lineært fra 20 % til målet over valgt antall år, og holder seg deretter konstant. Utvikler = 1,0 i alle faktorprofiler.</p>
+        <section class="adoption-panel" aria-labelledby="factor-title">
+          <div class="factor-intro"><p class="eyebrow">Scenarioantakelse</p><h3 id="factor-title">Yrkesfaktorer</h3></div>
           <div class="factor-control"><label for="factor-fallback">Uvurderte yrker</label><select id="factor-fallback"><option value="none">Ikke ekstrapolert (delestimat)</option><option value="fte-weighted-mean" selected>Årsverksvektet snitt av vurderte</option><option value="unweighted-mean">Enkelt snitt av vurderte</option></select><p>Ekstrapolering fyller bare manglende faktorer. Vurderte yrker beholder sin egen faktor.</p></div>
         </section>
         <section class="reference-band" id="reference" aria-labelledby="reference-title">
-          <div><p class="eyebrow">Developer Reference</p><h3 id="reference-title">Hva betyr referansetallet?</h3><ul class="reference-explainer"><li>Effekt per aktiv utvikler ved antatt AI-bruk</li><li>Basert på valgt modell/infrastruktur og antatt samtidighet</li><li>Skaleres deretter mot andre yrker via AI-intensitetsfaktor</li></ul><p class="worked-example">Eksempel: 100 000 årsverk × 0,5 AI-intensitet × 50 % adopsjon × 220 W ≈ 5,5 MW</p></div>
-          <div class="reference-controls"><label for="annual-hours">Aktive timer per årsverk og år</label><input id="annual-hours" type="number" min="1" max="8760" step="1" value="1725"><p>Felles timegrunnlag for referanse og yrker. 1 725 timer er en scenarioantakelse, ikke målt av SSB.</p></div>
+          <div class="reference-intro"><p class="eyebrow">Developer Reference</p><h3 id="reference-title">Referansetall</h3><p>Effekt per aktiv utvikler ved antatt AI-bruk, basert på valgt modell/infrastruktur og antatt samtidighet.</p><p>Referansetallet skaleres mot andre yrker via AI-intensitetsfaktor.</p></div>
+          <div class="reference-controls"><label for="reference-method">Metode for referansetall</label><select id="reference-method" title="Erfaringsbasert beregning med 8 NVIDIA H100 og GLM-5.3-Flash" disabled><option selected>Erfaringsbasert · H100 + GLM-5.3</option></select><label for="annual-hours">Aktive timer per årsverk og år</label><input id="annual-hours" type="number" min="1" max="8760" step="1" value="1725"><p>Felles timegrunnlag for referanse og yrker. 1 725 timer er en scenarioantakelse, ikke målt av SSB.</p></div>
           <div class="calibration-output" id="calibration-output"></div>
+          <div class="reference-method-details" aria-labelledby="reference-method-title">
+            <div><p class="eyebrow">Valgt metode</p><h4 id="reference-method-title">Slik blir 220 W beregnet</h4><p>Baseline for GLM-5.3-Flash antar 8 NVIDIA H100, 65 % GPU-utnyttelse og 20 samtidige utviklere.</p></div>
+            <ol class="reference-method-steps">
+              <li><span>Per GPU</span><strong>100 W + (600 W − 100 W) × 65 % = 425 W</strong><small>Lineær effekt mellom antatt tomgang og belastning.</small></li>
+              <li><span>Hele noden</span><strong>8 × 425 W + 1 000 W = 4 400 W</strong><small>Øvrig IT-effekt i servernoden legges til.</small></li>
+              <li><span>Per utvikler</span><strong>4 400 W ÷ 20 = 220 W</strong><small>Nodeeffekten fordeles på samtidige aktive utviklere.</small></li>
+            </ol>
+            <p class="reference-method-caveat"><strong>Hva modellen bidrar med:</strong> Arbeidslasten er satt til 800 output-token/s samlet og 40 per strøm, tilsvarende 20 samtidige strømmer. Kapasiteten og kompatibiliteten for GLM-5.3-Flash på denne maskinvaren er ikke verifisert. Tallene er erfaringsbaserte scenarioantakelser, ikke målte produksjonsdata.</p>
+          </div>
+          <p class="worked-example">Eksempel: 100 000 årsverk × 0,5 AI-intensitet × 50 % adopsjon × 220 W ≈ 5,5 MW</p>
         </section>
         </div>
       </section>
@@ -144,7 +152,7 @@ export function mountWorkforce(root: HTMLElement) {
 
   function update() {
     const result = calculate()
-    const reference = getReference(referenceId)
+    const reference = getReference()
     const comparison = buildNationalComparison(occupations, currentAdoption, targetAdoption, factorLevel,
       { watts: reference.watts, annualHours }, factorFallback, undefined, adoptionRampYears)
     const first = comparison[0]
@@ -197,10 +205,6 @@ export function mountWorkforce(root: HTMLElement) {
     factorFallback = (event.target as HTMLSelectElement).value as FactorFallback
     update()
   })
-  root.querySelector<HTMLSelectElement>('#reference-profile')!.addEventListener('change', (event) => {
-    referenceId = (event.target as HTMLSelectElement).value
-    update()
-  })
   const hoursInput = root.querySelector<HTMLInputElement>('#annual-hours')!
   hoursInput.addEventListener('input', () => {
     if (hoursInput.value === '' || !hoursInput.validity.valid) return
@@ -209,10 +213,9 @@ export function mountWorkforce(root: HTMLElement) {
   })
   hoursInput.addEventListener('change', () => { hoursInput.value = String(annualHours) })
   root.querySelector('#reset-workforce')!.addEventListener('click', () => {
-    currentAdoption = 20; targetAdoption = 50; adoptionRampYears = 1; factorLevel = 'base'; factorFallback = 'fte-weighted-mean'; annualHours = DEFAULT_ANNUAL_HOURS; referenceId = 'baseline'
+    currentAdoption = 20; targetAdoption = 50; adoptionRampYears = 1; factorLevel = 'base'; factorFallback = 'fte-weighted-mean'; annualHours = DEFAULT_ANNUAL_HOURS
     root.querySelector<HTMLSelectElement>('#factor-level')!.value = factorLevel
     root.querySelector<HTMLSelectElement>('#factor-fallback')!.value = factorFallback
-    root.querySelector<HTMLSelectElement>('#reference-profile')!.value = referenceId
     root.querySelector<HTMLSelectElement>('#target-adoption')!.value = String(targetAdoption)
     root.querySelector<HTMLSelectElement>('#adoption-years')!.value = String(adoptionRampYears)
     hoursInput.value = String(annualHours)
@@ -232,7 +235,7 @@ export function mountWorkforce(root: HTMLElement) {
   })
   root.querySelector('#export-workforce')!.addEventListener('click', () => {
     const result = calculate()
-    const reference = getReference(referenceId)
+    const reference = getReference()
     const csv = csvFormat(result.rows.map((row) => ({
       styrk08_code: row.code, occupation: row.title, annual_fte_proxy_2025: row.fte,
       factor_status: row.factors === null ? 'not_assessed' : 'assumption',
