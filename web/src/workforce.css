@@ -188,7 +188,9 @@ body:has(.workforce-main) { background: #f7f8fa; color: #202529; --muted: #56616
 .sources-section { border-top: 1px solid #a7b3ba; padding: 26px 0; }
 .sources-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 36px; margin-top: 24px; }
 .sources-grid h3 { font-size: 18px; }
-.sources-grid p { font-size: 11px; color: #56616a; }
+.sources-grid p, .sources-grid li { font-size: 11px; line-height: 1.7; color: #56616a; }
+.sources-grid ul { margin: 0; padding-left: 17px; }
+.sources-grid li + li { margin-top: 2px; }
 .sources-grid a { display: block; font-size: 11px; margin: 10px 0; overflow-wrap: anywhere; }
 .sources-grid a svg { width: 13px; height: 13px; vertical-align: middle; }
 .sources-grid details { font-size: 11px; margin-top: 14px; }

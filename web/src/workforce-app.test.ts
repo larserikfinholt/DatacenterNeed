@@ -55,6 +55,22 @@ describe('workforce analysis', () => {
     expect(root.querySelectorAll('.chart-ai-point')).toHaveLength(6)
     expect(root.textContent).toContain('380 kWh')
     expect(root.textContent).toContain('Foreløpig kapasitetsbane')
+    expect(root.querySelector('nav a[href="#assumptions"]')?.textContent).toBe('Forklaringer')
+    expect(Array.from(root.querySelectorAll('nav a')).map((link) => link.textContent)).toEqual([
+      'Sammenligning',
+      'Forklaringer',
+      'Innstillinger',
+      'Yrker',
+    ])
+    expect(root.querySelector('#assumptions')?.textContent).toContain('Hva betyr dette?')
+    expect(Array.from(root.querySelectorAll('#assumptions h2')).map((heading) => heading.textContent)).toEqual([
+      'Hva sammenligningen viser',
+      'Hva betyr dette?',
+      'Hvordan har vi regnet ut dette?',
+    ])
+    expect(root.querySelector('#assumptions')?.textContent).not.toContain('Hva er utelatt?')
+    expect(root.querySelector('.sources-grid > div:last-child')?.textContent).toContain('Hva er utelatt?')
+    expect(root.querySelector('#assumptions')?.textContent).toContain('20 % av regnekapasiteten')
   })
   it('offers a local M3 Ultra reference for one developer', () => {
     change('#reference-method', 'mac-m3-ultra')
