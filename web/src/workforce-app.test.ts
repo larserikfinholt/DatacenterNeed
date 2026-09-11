@@ -27,10 +27,9 @@ describe('workforce analysis', () => {
     expect(root.querySelector('#adoption-title')).toBeNull()
     expect(root.querySelector('#factor-title')?.textContent).toBe('Yrkesfaktorer')
     const referenceMethod = root.querySelector<HTMLSelectElement>('#reference-method')!
-    expect(referenceMethod.disabled).toBe(true)
-    expect(referenceMethod.options).toHaveLength(1)
-    expect(referenceMethod.selectedOptions[0].textContent).toBe('Erfaringsbasert · H100 + GLM-5.3')
-    expect(referenceMethod.title).toContain('8 NVIDIA H100 og GLM-5.3-Flash')
+    expect(referenceMethod.disabled).toBe(false)
+    expect(referenceMethod.options).toHaveLength(2)
+    expect(referenceMethod.selectedOptions[0].textContent).toBe('Delt server · H100 + GLM-5.3')
     const methodDetails = root.querySelector('.reference-method-details')!
     expect(methodDetails.textContent).toContain('8 NVIDIA H100, 65 % GPU-utnyttelse og 20 samtidige utviklere')
     expect(methodDetails.textContent).toContain('8 × 425 W + 1 000 W = 4 400 W')
@@ -56,6 +55,18 @@ describe('workforce analysis', () => {
     expect(root.querySelectorAll('.chart-ai-point')).toHaveLength(6)
     expect(root.textContent).toContain('380 kWh')
     expect(root.textContent).toContain('Foreløpig kapasitetsbane')
+  })
+  it('offers a local M3 Ultra reference for one developer', () => {
+    change('#reference-method', 'mac-m3-ultra')
+    expect(root.querySelector('[data-metric="mw"]')!.textContent).toBe('82 MW')
+    expect(root.querySelector('#calibration-output')!.textContent).toContain('466 kWh')
+    const details = root.querySelector('#reference-method-details')!
+    expect(details.textContent).toContain('Qwen3.5-27B · 4-bit MLX · 16,1 GB')
+    expect(details.textContent).toContain('270 W × 1 maskin ÷ 1 utvikler = 270 W')
+    expect(details.textContent).toContain('Lokal strøm er heller ikke datasenterlast')
+    root.querySelector<HTMLButtonElement>('#reset-workforce')!.click()
+    expect(root.querySelector<HTMLSelectElement>('#reference-method')!.value).toBe('h100-glm')
+    expect(root.querySelector('[data-metric="mw"]')!.textContent).toBe('67 MW')
   })
   it('updates controls without losing focus and resets all assumptions', () => {
     const target = root.querySelector<HTMLSelectElement>('#target-adoption')!

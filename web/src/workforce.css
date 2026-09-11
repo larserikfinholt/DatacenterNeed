@@ -203,7 +203,9 @@ body:has(.workforce-main) { background: #f7f8fa; color: #202529; --muted: #56616
   .analysis-grid { gap: 22px; grid-template-columns: 280px minmax(0, 1fr); }
   .adoption-panel { padding-right: 20px; }
   .primary-metrics strong { font-size: 38px; }
-  .reference-band { gap: 20px; }
+  .reference-band { grid-template-columns: 1fr; gap: 20px; }
+  .reference-method-steps { grid-template-columns: 1fr; gap: 12px; }
+  .reference-method-steps li, .reference-method-steps li:first-child, .reference-method-steps li:last-child { padding: 12px 0 0; border-top: 1px solid #d5dce0; border-left: 0; }
   .occupation-toolbar { grid-template-columns: 1fr 190px 190px; }
 }
 @media (max-width: 720px) {
@@ -230,7 +232,8 @@ body:has(.workforce-main) { background: #f7f8fa; color: #202529; --muted: #56616
   .settings-grid, .assumptions-section { grid-template-columns: 1fr; gap: 22px; }
   .settings-grid .reference-band { padding: 22px 0 0; border-top: 1px solid #d5dce0; border-left: 0; }
   .adoption-controls { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  .scope-columns { gap: 20px; }
+  .scope-columns { grid-template-columns: 1fr; gap: 0; }
+  .scope-columns > div + div { border-top: 1px solid #d5dce0; padding-top: 20px; }
   .analysis-heading { align-items: flex-start; flex-direction: column; gap: 10px; }
   .analysis-grid { display: flex; flex-direction: column; gap: 26px; }
   .estimate-panel { order: -1; }

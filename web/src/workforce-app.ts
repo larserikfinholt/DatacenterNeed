@@ -10,6 +10,17 @@ import { aiShareOfCommitted, buildNationalComparison, type NationalComparisonPoi
 import { triggerTextDownload } from './dashboard'
 
 const labels = { low: 'Lav', base: 'Base', high: 'Høy' }
+type ReferenceMethod = 'h100-glm' | 'mac-m3-ultra'
+const MAC_M3_ULTRA_REFERENCE = {
+  id: 'mac-m3-ultra', watts: 270, referenceId: 'mac-studio-m3-ultra-local-scenario',
+  traceId: 'ui-assumption-270w', capacityStatus: 'scenario',
+  capacityReason: 'Qwen3.5-27B i 4-bit MLX-format er 16,1 GB og får plass i 96 GB unified memory.',
+  evidenceGaps: [
+    '270 W er en scenarioantakelse for aktiv effekt i hele maskinen, ikke en måling fra Apple.',
+    'Faktisk effekt, tokenhastighet og opplevd kvalitet avhenger av konfigurasjon, kontekstlengde og arbeidsflyt.',
+    'Lokal strøm er sluttbrukerforbruk og bør ikke tolkes som norsk datasenterlast.',
+  ],
+}
 const format = (value: number | null, digits = 1) => value === null ? 'Ukjent' :
   new Intl.NumberFormat('nb-NO', { maximumFractionDigits: digits }).format(value)
 // Aggressive dashboard rounding: whole numbers from 10 and up, 1 decimal below 10, 2 decimals below 1.
@@ -69,11 +80,14 @@ export function mountWorkforce(root: HTMLElement) {
   let factorLevel: FactorLevel = 'base'
   let factorFallback: FactorFallback = 'fte-weighted-mean'
   let annualHours = DEFAULT_ANNUAL_HOURS
+  let referenceMethod: ReferenceMethod = 'h100-glm'
   let search = ''
   let coverage = 'assessed'
   let sort = 'energy'
+  const selectedReference = () => referenceMethod === 'mac-m3-ultra'
+    ? MAC_M3_ULTRA_REFERENCE : getReference()
   const calculate = () => evaluateWorkforce(occupations, targetAdoption, factorLevel,
-    { watts: getReference().watts, annualHours }, factorFallback)
+    { watts: selectedReference().watts, annualHours }, factorFallback)
 
   root.innerHTML = `
     <a class="skip-link" href="#analysis">Til analysen</a>
@@ -105,18 +119,10 @@ export function mountWorkforce(root: HTMLElement) {
         </section>
         <section class="reference-band" id="reference" aria-labelledby="reference-title">
           <div class="reference-intro"><p class="eyebrow">Developer Reference</p><h3 id="reference-title">Referansetall</h3><p>Effekt per aktiv utvikler ved antatt AI-bruk, basert på valgt modell/infrastruktur og antatt samtidighet.</p><p>Referansetallet skaleres mot andre yrker via AI-intensitetsfaktor.</p></div>
-          <div class="reference-controls"><label for="reference-method">Metode for referansetall</label><select id="reference-method" title="Erfaringsbasert beregning med 8 NVIDIA H100 og GLM-5.3-Flash" disabled><option selected>Erfaringsbasert · H100 + GLM-5.3</option></select><label for="annual-hours">Aktive timer per årsverk og år</label><input id="annual-hours" type="number" min="1" max="8760" step="1" value="1725"><p>Felles timegrunnlag for referanse og yrker. 1 725 timer er en scenarioantakelse, ikke målt av SSB.</p></div>
+          <div class="reference-controls"><label for="reference-method">Metode for referansetall</label><select id="reference-method"><option value="h100-glm" selected>Delt server · H100 + GLM-5.3</option><option value="mac-m3-ultra">Lokal Mac · M3 Ultra + Qwen3.5-27B</option></select><label for="annual-hours">Aktive timer per årsverk og år</label><input id="annual-hours" type="number" min="1" max="8760" step="1" value="1725"><p>Felles timegrunnlag for referanse og yrker. 1 725 timer er en scenarioantakelse, ikke målt av SSB.</p></div>
           <div class="calibration-output" id="calibration-output"></div>
-          <div class="reference-method-details" aria-labelledby="reference-method-title">
-            <div><p class="eyebrow">Valgt metode</p><h4 id="reference-method-title">Slik blir 220 W beregnet</h4><p>Baseline for GLM-5.3-Flash antar 8 NVIDIA H100, 65 % GPU-utnyttelse og 20 samtidige utviklere.</p></div>
-            <ol class="reference-method-steps">
-              <li><span>Per GPU</span><strong>100 W + (600 W − 100 W) × 65 % = 425 W</strong><small>Lineær effekt mellom antatt tomgang og belastning.</small></li>
-              <li><span>Hele noden</span><strong>8 × 425 W + 1 000 W = 4 400 W</strong><small>Øvrig IT-effekt i servernoden legges til.</small></li>
-              <li><span>Per utvikler</span><strong>4 400 W ÷ 20 = 220 W</strong><small>Nodeeffekten fordeles på samtidige aktive utviklere.</small></li>
-            </ol>
-            <p class="reference-method-caveat"><strong>Hva modellen bidrar med:</strong> Arbeidslasten er satt til 800 output-token/s samlet og 40 per strøm, tilsvarende 20 samtidige strømmer. Kapasiteten og kompatibiliteten for GLM-5.3-Flash på denne maskinvaren er ikke verifisert. Tallene er erfaringsbaserte scenarioantakelser, ikke målte produksjonsdata.</p>
-          </div>
-          <p class="worked-example">Eksempel: 100 000 årsverk × 0,5 AI-intensitet × 50 % adopsjon × 220 W ≈ 5,5 MW</p>
+          <div class="reference-method-details" id="reference-method-details" aria-labelledby="reference-method-title"></div>
+          <p class="worked-example" id="reference-worked-example"></p>
         </section>
         </div>
       </section>
@@ -152,7 +158,7 @@ export function mountWorkforce(root: HTMLElement) {
 
   function update() {
     const result = calculate()
-    const reference = getReference()
+    const reference = selectedReference()
     const comparison = buildNationalComparison(occupations, currentAdoption, targetAdoption, factorLevel,
       { watts: reference.watts, annualHours }, factorFallback, undefined, adoptionRampYears)
     const first = comparison[0]
@@ -183,7 +189,24 @@ export function mountWorkforce(root: HTMLElement) {
     const fteCoveragePercent = knownFte > 0 ? assessedFte / knownFte * 100 : null
     root.querySelector('#estimate-output')!.innerHTML = `<table class="scenario-examples"><thead><tr><th scope="col">Yrke</th><th scope="col">Årsverk</th><th scope="col">AI-intensitet</th><th scope="col">Estimert effekt</th><th scope="col">Energi</th></tr></thead><tbody>${exampleRows.map(({ label, detail, row }) => `<tr><th scope="row">${label}<small>${detail}</small></th><td>${format(row?.fte ?? null, 0)}</td><td>${row?.factor === null || row?.factor === undefined ? 'Ukjent' : format(row.factor, 2)}</td>${metricCells(row?.activeMw ?? null, row?.gwh ?? null)}</tr>`).join('')}<tr><th scope="row">Andre yrker<small>${extrapolated.length ? `${extrapolated.length} ekstrapolerte yrker` : 'Ikke ekstrapolert'}</small></th><td>–</td><td>–</td>${metricCells(extrapolatedMw, extrapolatedGwh)}</tr></tbody><tfoot><tr><th scope="row">Totalt<small>Alle beregnede yrker</small></th><td>–</td><td>–</td>${metricCells(result.activeMw, result.gwh)}</tr></tfoot></table><p class="scenario-examples-note">Totalen omfatter ${calculatedCodes} av ${occupations.length} yrkeskoder${fteCoveragePercent === null ? '' : ` (${format(fteCoveragePercent, 0)} % av kjente årsverk)`}. ${result.missingFteCodes} mangler årsverksgrunnlag.</p>`
     root.querySelector('#calibration-output')!.innerHTML = `<span>Referansearbeidslast</span><strong>${formatRounded(reference.watts)} <small>W</small></strong><p>${format(annualHours, 0)} aktive timer/år</p><p>${formatRounded(reference.watts)} W × ${format(annualHours, 0)} aktive timer = <strong>${formatRounded(result.annualKwhPerFte)} kWh</strong> per utviklerårsverk og år</p><span class="reference-status">Ingen PUE eller tomgang lagt til</span>`
+    root.querySelector('#reference-method-details')!.innerHTML = referenceMethod === 'mac-m3-ultra' ? `
+      <div><p class="eyebrow">Valgt metode</p><h4 id="reference-method-title">Slik blir 270 W beregnet</h4><p>Én Mac Studio med M3 Ultra er dedikert til lokal inferens for én aktiv utvikler.</p></div>
+      <ol class="reference-method-steps">
+        <li><span>Maskin</span><strong>96 GB unified memory · 819 GB/s</strong><small>Apple oppgir støtte for opptil 256 GB og 480 W maksimal kontinuerlig effekt.</small></li>
+        <li><span>Lokal modell</span><strong>Qwen3.5-27B · 4-bit MLX · 16,1 GB</strong><small>Modellvektene får god plass, med minne igjen til kontekst, KV-cache og utviklerverktøy.</small></li>
+        <li><span>Per utvikler</span><strong>270 W × 1 maskin ÷ 1 utvikler = 270 W</strong><small>Hele den aktive maskineffekten tilordnes én samtidig bruker.</small></li>
+      </ol>
+      <p class="reference-method-caveat"><strong>Hvorfor dette er en god modell for én utvikler:</strong> Qwen3.5-27B har 262 144 tokens innebygd kontekst og er trent for blant annet koding og verktøybruk. Lokalt kan den gi privat kodechat, generering og feilretting uten delt GPU-kø. Dette dokumenterer egnethet, ikke målt hastighet eller kvalitet på M3 Ultra. 270 W er en belastningsantakelse; Apple oppgir 480 W som maskinens maksimum. Lokal strøm er heller ikke datasenterlast. <a href="https://support.apple.com/en-us/122211" target="_blank" rel="noreferrer">Apple-spesifikasjon</a> · <a href="https://huggingface.co/Qwen/Qwen3.5-27B" target="_blank" rel="noreferrer">Qwen-modellkort</a> · <a href="https://huggingface.co/mlx-community/Qwen3.5-27B-4bit" target="_blank" rel="noreferrer">MLX-utgave</a></p>` : `
+      <div><p class="eyebrow">Valgt metode</p><h4 id="reference-method-title">Slik blir 220 W beregnet</h4><p>Baseline for GLM-5.3-Flash antar 8 NVIDIA H100, 65 % GPU-utnyttelse og 20 samtidige utviklere.</p></div>
+      <ol class="reference-method-steps">
+        <li><span>Per GPU</span><strong>100 W + (600 W − 100 W) × 65 % = 425 W</strong><small>Lineær effekt mellom antatt tomgang og belastning.</small></li>
+        <li><span>Hele noden</span><strong>8 × 425 W + 1 000 W = 4 400 W</strong><small>Øvrig IT-effekt i servernoden legges til.</small></li>
+        <li><span>Per utvikler</span><strong>4 400 W ÷ 20 = 220 W</strong><small>Nodeeffekten fordeles på samtidige aktive utviklere.</small></li>
+      </ol>
+      <p class="reference-method-caveat"><strong>Hva modellen bidrar med:</strong> Arbeidslasten er satt til 800 output-token/s samlet og 40 per strøm, tilsvarende 20 samtidige strømmer. Kapasiteten og kompatibiliteten for GLM-5.3-Flash på denne maskinvaren er ikke verifisert. Tallene er erfaringsbaserte scenarioantakelser, ikke målte produksjonsdata.</p>`
+    root.querySelector('#reference-worked-example')!.textContent = `Eksempel: 100 000 årsverk × 0,5 AI-intensitet × 50 % adopsjon × ${formatRounded(reference.watts)} W ≈ ${formatRounded(100000 * 0.5 * 0.5 * reference.watts / 1e6)} MW`
     root.querySelector('#reference-evidence')!.innerHTML = `<p>${escape(reference.referenceId)} · ${escape(reference.traceId)}</p><p>${escape(reference.capacityReason ?? '')}</p>${reference.evidenceGaps.map((gap) => `<p>${escape(gap)}</p>`).join('')}`
+    root.querySelector<HTMLSelectElement>('#reference-method')!.value = referenceMethod
     root.querySelector<HTMLSelectElement>('#target-adoption')!.value = String(targetAdoption)
     root.querySelector<HTMLSelectElement>('#adoption-years')!.value = String(adoptionRampYears)
     updateTable()
@@ -205,6 +228,10 @@ export function mountWorkforce(root: HTMLElement) {
     factorFallback = (event.target as HTMLSelectElement).value as FactorFallback
     update()
   })
+  root.querySelector<HTMLSelectElement>('#reference-method')!.addEventListener('change', (event) => {
+    referenceMethod = (event.target as HTMLSelectElement).value as ReferenceMethod
+    update()
+  })
   const hoursInput = root.querySelector<HTMLInputElement>('#annual-hours')!
   hoursInput.addEventListener('input', () => {
     if (hoursInput.value === '' || !hoursInput.validity.valid) return
@@ -213,11 +240,12 @@ export function mountWorkforce(root: HTMLElement) {
   })
   hoursInput.addEventListener('change', () => { hoursInput.value = String(annualHours) })
   root.querySelector('#reset-workforce')!.addEventListener('click', () => {
-    currentAdoption = 20; targetAdoption = 50; adoptionRampYears = 1; factorLevel = 'base'; factorFallback = 'fte-weighted-mean'; annualHours = DEFAULT_ANNUAL_HOURS
+    currentAdoption = 20; targetAdoption = 50; adoptionRampYears = 1; factorLevel = 'base'; factorFallback = 'fte-weighted-mean'; annualHours = DEFAULT_ANNUAL_HOURS; referenceMethod = 'h100-glm'
     root.querySelector<HTMLSelectElement>('#factor-level')!.value = factorLevel
     root.querySelector<HTMLSelectElement>('#factor-fallback')!.value = factorFallback
     root.querySelector<HTMLSelectElement>('#target-adoption')!.value = String(targetAdoption)
     root.querySelector<HTMLSelectElement>('#adoption-years')!.value = String(adoptionRampYears)
+    root.querySelector<HTMLSelectElement>('#reference-method')!.value = referenceMethod
     hoursInput.value = String(annualHours)
     update()
   })
@@ -235,7 +263,7 @@ export function mountWorkforce(root: HTMLElement) {
   })
   root.querySelector('#export-workforce')!.addEventListener('click', () => {
     const result = calculate()
-    const reference = getReference()
+    const reference = selectedReference()
     const csv = csvFormat(result.rows.map((row) => ({
       styrk08_code: row.code, occupation: row.title, annual_fte_proxy_2025: row.fte,
       factor_status: row.factors === null ? 'not_assessed' : 'assumption',
