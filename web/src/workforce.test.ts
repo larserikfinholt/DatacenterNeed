@@ -39,6 +39,17 @@ describe('workforce energy scaling', () => {
       .toBe(evaluateWorkforce(rows, 20, 'base', calibration).gwh! * 2)
     expect(evaluateWorkforce(rows, 40, 'high', calibration).equivalents).toBe(32)
   })
+  it('extrapolates unassessed occupations only when explicitly selected', () => {
+    const weighted = evaluateWorkforce(occupations, 50, 'base', calibration, 'fte-weighted-mean')
+    const unweighted = evaluateWorkforce(occupations, 50, 'base', calibration, 'unweighted-mean')
+    expect(weighted.fallbackFactor).toBeCloseTo(0.245463)
+    expect(weighted.extrapolatedCodes).toBe(385)
+    expect(weighted.coveragePercent).toBeCloseTo(30.5446)
+    expect(weighted.gwh).toBeCloseTo(114.8127, 4)
+    expect(weighted.activeMw).toBeCloseTo(66.5581, 4)
+    expect(unweighted.fallbackFactor).toBeCloseTo(0.368182)
+    expect(unweighted.gwh).toBeCloseTo(154.6805, 4)
+  })
   it('keeps missing values unknown, including at zero adoption', () => {
     const missingFactor = { ...developer, code: '0000', factors: null }
     const missingFte = { ...developer, code: '0110', fte: null }
