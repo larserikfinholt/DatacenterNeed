@@ -71,6 +71,10 @@ describe('workforce analysis', () => {
     expect(root.querySelector('#assumptions')?.textContent).not.toContain('Hva er utelatt?')
     expect(root.querySelector('.sources-grid > div:last-child')?.textContent).toContain('Hva er utelatt?')
     expect(root.querySelector('#assumptions')?.textContent).toContain('20 % av regnekapasiteten')
+    expect(root.querySelector('.workforce-header')?.textContent).toContain('estimat generert september 2026')
+    expect(root.querySelector('.workforce-footer')?.textContent).toContain('Estimat generert september 2026')
+    expect(root.querySelector('.workforce-footer a')).toBeNull()
+    expect(root.textContent).not.toContain('Referansens evidensgap')
   })
   it('offers a local M3 Ultra reference for one developer', () => {
     change('#reference-method', 'mac-m3-ultra')

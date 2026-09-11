@@ -87,6 +87,7 @@ body:has(.workforce-main) { background: #f7f8fa; color: #202529; --muted: #56616
 .control-label { display: block; }
 .scenario-readout { margin: 28px 0 0; padding: 24px 0 28px; border-top: 1px solid #a7b3ba; border-bottom: 1px solid #a7b3ba; }
 .scenario-readout h3 { margin-bottom: 12px; }
+.scenario-table-wrap { max-width: 100%; overflow-x: auto; }
 .scenario-examples { width: 100%; border-collapse: collapse; background: #fff; font-variant-numeric: tabular-nums; }
 .scenario-examples th, .scenario-examples td { padding: 10px 12px; border-bottom: 1px solid #d5dce0; text-align: right; }
 .scenario-examples th:first-child { text-align: left; }
