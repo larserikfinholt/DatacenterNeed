@@ -1,3 +1,15 @@
+# Deprecated: DatacenterNeed
+
+> [!WARNING]
+> This repository is deprecated and has been superseded by [datasenterbehov](https://github.com/larserikfinholt/datasenterbehov).
+> Please use the new repository for development, issues, and contributions.
+>
+> **Live site:** https://larserikfinholt.github.io/datasenterbehov/
+
+The original documentation below is retained for historical reference.
+
+---
+
 # Project: Measuring the Real Societal Need for Data Centres
 
 > **Important:** The Norway 2025 dataset now covers nine nonoverlapping broad SSB occupation groups (2,830,506 employees) and separately exposes 8,530 employees with unspecified or unidentifiable occupations. Annual hours and task profiles remain unknown, so it produces no national AI-energy estimate. It also records observed 2025 electricity production and net consumption plus a deliberately incomplete two-site project inventory with no aggregable MW. The static dashboard preserves these limits: `national_total_mwh` and Norway scenarios remain `null`.
